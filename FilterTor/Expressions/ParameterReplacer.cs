@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace FilterTor.Expressions
+namespace GridEngineCore.Expressions
 {
     public class ParameterReplacer : ExpressionVisitor
     {

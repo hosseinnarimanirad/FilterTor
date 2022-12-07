@@ -1,8 +1,8 @@
-﻿namespace FilterTor.Targets;
+﻿namespace GridEngineCore.Targets;
 
-using FilterTor.Common;
-using FilterTor.Common.Converters;
-using FilterTor.Helpers;
+using GridEngineCore.Common;
+using GridEngineCore.Common.Converters;
+using GridEngineCore.Helpers;
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;

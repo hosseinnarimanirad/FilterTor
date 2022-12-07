@@ -1,8 +1,8 @@
-﻿namespace FilterTor.Conditions;
+﻿namespace GridEngineCore.Conditions;
 
-using FilterTor.Common;
-using FilterTor.Common.Converters;
-using FilterTor.Helpers;
+using GridEngineCore.Common;
+using GridEngineCore.Common.Converters;
+using GridEngineCore.Helpers;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 

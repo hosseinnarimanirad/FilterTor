@@ -1,10 +1,10 @@
-﻿namespace FilterTor.Common.Converters;
+﻿namespace GridEngineCore.Common.Converters;
 
 using System.Text.Json.Serialization;
 using System;
 using System.Text.Json; 
-using FilterTor.Conditions;
-using FilterTor.Helpers;
+using GridEngineCore.Conditions;
+using GridEngineCore.Helpers;
 
 public class ConditionJsonConverter : JsonConverter<JsonConditionBase>
 {

@@ -1,4 +1,4 @@
-﻿using FilterTor.Extensions;
+﻿using GridEngineCore.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace FilterTor.Json
+namespace GridEngineCore.Json
 {
     // 1401.05.12
     // https://www.michaelrose.dev/posts/exploring-system-text-json/

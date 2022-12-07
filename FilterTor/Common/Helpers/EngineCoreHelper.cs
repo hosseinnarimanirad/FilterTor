@@ -1,11 +1,11 @@
-﻿namespace FilterTor.Helpers;
+﻿namespace GridEngineCore.Helpers;
 
-using FilterTor.Models;
+using GridEngineCore.Models;
 using System.Text.Json.Nodes;
 using System.Text.Json; 
-using FilterTor.Conditions;
-using FilterTor.Targets;
-using FilterTor.Extensions;
+using GridEngineCore.Conditions;
+using GridEngineCore.Targets;
+using GridEngineCore.Extensions;
 
 public static class EngineCoreHelper
 {

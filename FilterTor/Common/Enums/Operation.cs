@@ -1,7 +1,7 @@
-﻿namespace FilterTor;
+﻿namespace GridEngineCore;
 
-using FilterTor.Attributes;
-using FilterTor.Common.Converters;
+using GridEngineCore.Attributes;
+using GridEngineCore.Common.Converters;
 using System.ComponentModel;
 using System.Text.Json.Serialization;
 

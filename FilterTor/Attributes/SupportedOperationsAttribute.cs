@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 
-namespace FilterTor.Attributes
+namespace GridEngineCore.Attributes
 {
     internal class SupportedOperationsAttribute : Attribute
     {

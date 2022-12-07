@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Text;
 using System.Threading;
 
-namespace FilterTor.Extensions
+namespace GridEngineCore.Extensions
 {
     public static class StringExtensions
     {

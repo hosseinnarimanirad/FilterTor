@@ -1,6 +1,6 @@
-﻿namespace FilterTor.Models;
+﻿namespace GridEngineCore.Models;
  
-using FilterTor.Extensions;  
+using GridEngineCore.Extensions;  
 using System;
 using System.Collections.Generic;
 using System.Text;

@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace FilterTor.Attributes
+namespace GridEngineCore.Attributes
 {
     internal class NumberOfValuesAttribute : Attribute
     {

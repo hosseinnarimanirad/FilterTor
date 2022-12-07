@@ -4,7 +4,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace FilterTor.Common
+namespace GridEngineCore.Common
 {
     public interface IJsonEntity
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FilterTor.Extensions
+namespace GridEngineCore.Extensions
 {
     public static class DateTimeExtensions
     {
