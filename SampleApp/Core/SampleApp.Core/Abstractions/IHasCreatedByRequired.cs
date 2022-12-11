@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 public interface IHasCreatedByRequired
 {
-    string? CreatedByFullName { get; }
+    string CreatedByFullName { get; }
 
-    int? CreatedById { get; }
+    int CreatedById { get; }
 }

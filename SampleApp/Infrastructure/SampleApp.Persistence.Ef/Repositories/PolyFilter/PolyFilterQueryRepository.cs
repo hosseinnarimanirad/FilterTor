@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 public class PolyFilterQueryRepository : EfQueryRepository<int, PolyFilter>, IPolyFilterQueryRepository
 {
-    public PolyFilterQueryRepository(GridContext dbContext) : base(dbContext)
+    public PolyFilterQueryRepository(SampleAppContext dbContext) : base(dbContext)
     {
     }
      

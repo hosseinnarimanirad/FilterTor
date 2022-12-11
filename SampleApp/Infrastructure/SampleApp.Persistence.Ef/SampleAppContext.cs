@@ -7,29 +7,29 @@ using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 
-public class GridContext : DbContext
+public class SampleAppContext : DbContext
 {
     // just used in migration
-    string connection = "Server=.\\SQLEXPRESS;Database=GridDb;Trusted_Connection=True;";
-     
+    string connection = "Server=.\\SQLEXPRESS;Database=FilterTorSample;Trusted_Connection=True;";
+
     public DbSet<PolyFilter> PolyFilters { get; set; }
-       
+
     public DbSet<Invoice> Invoices { get; set; }
 
     public DbSet<InvoiceDetail> InvoiceDetails { get; set; }
-     
 
-    public GridContext()
+
+    public SampleAppContext() 
     {
 
     }
 
-    public GridContext(string connectionString) : base(GetOptions(connectionString))
+    public SampleAppContext(string connectionString) : base(GetOptions(connectionString))
     {
         connection = connectionString;
     }
 
-    public GridContext(DbContextOptions<GridContext> options) : base(options)
+    public SampleAppContext(DbContextOptions<SampleAppContext> options) : base(options)
     {
     }
 

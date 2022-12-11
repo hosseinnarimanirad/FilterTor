@@ -1,4 +1,4 @@
-﻿namespace SampleApp.Core;
+﻿namespace SampleApp.Application;
 
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public interface IHasKey<T> where T : struct
+
+public interface ISingleton
 {
-    public T Id { get; }
 }

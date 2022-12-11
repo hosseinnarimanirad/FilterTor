@@ -15,8 +15,6 @@ public sealed class PolyFilterConfig : IEntityTypeConfiguration<PolyFilter>
 
         builder.HasKey(x => x.Id);
 
-        builder.Property(e => e.ConditionJson);
-
         builder.Property(e => e.Title)
                 .IsRequired()
                 .HasMaxLength(Constants.MaxTitleLength)

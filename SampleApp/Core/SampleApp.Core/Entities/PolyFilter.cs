@@ -19,15 +19,10 @@ public class PolyFilter : IHasKey<int>, IHasCreatedByRequired, IHasCreateTimeReq
 
     public string CreatedByFullName { get; private set; }
 
-    public int? CreatedById { get; private set; }
+    public int CreatedById { get; private set; }
 
-    public DateTime? CreateTime { get; private set; }
-
-
-    public bool IsFavorite { get; private set; }
-
-    public bool IsPublic { get; private set; }
-
+    public DateTime CreateTime { get; private set; }
+     
     public string ConditionJson { get; private set; }
      
 
@@ -47,7 +42,7 @@ public class PolyFilter : IHasKey<int>, IHasCreatedByRequired, IHasCreateTimeReq
     public static PolyFilter Create(
         JsonConditionBase condition,
         string createdByFullName,
-        int? createdById,
+        int createdById,
         bool isFavorite,
         bool isPublic,
         string note,
@@ -62,20 +57,8 @@ public class PolyFilter : IHasKey<int>, IHasCreatedByRequired, IHasCreateTimeReq
             ConditionJson = condition.Serialize(null),
             CreatedByFullName = createdByFullName,
             CreatedById = createdById,
-            IsFavorite = isFavorite,
-            IsPublic = isPublic,
             Note = note,
             Title = title
         };
-    }
-
-    public void ToggleIsFavorite()
-    {
-        this.IsFavorite = !this.IsFavorite;
-    }
-
-    public void ToggleIsPublic()
-    {
-        this.IsPublic = !this.IsPublic;
     }
 }

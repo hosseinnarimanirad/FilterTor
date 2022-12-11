@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 public class InvoiceDetailCommandRepository : EfCommandRepository<long, InvoiceDetail>, IInvoiceDetailCommandRepository
 {
-    public InvoiceDetailCommandRepository(GridContext dbContext) : base(dbContext)
+    public InvoiceDetailCommandRepository(SampleAppContext dbContext) : base(dbContext)
     {
     }
 }

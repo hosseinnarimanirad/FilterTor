@@ -17,11 +17,11 @@ public abstract class EfCommandRepository<TKey, TEntity> : IEfCommandRepository<
     where TEntity : class, IHasKey<TKey>
     where TKey : struct
 {
-    protected readonly GridContext _context;
+    protected readonly SampleAppContext _context;
 
     private readonly DbSet<TEntity> _dbSet;
 
-    protected EfCommandRepository(GridContext dbContext)
+    protected EfCommandRepository(SampleAppContext dbContext)
     {
         _context = dbContext;
 

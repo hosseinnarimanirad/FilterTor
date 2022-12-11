@@ -18,7 +18,7 @@ public class AddPolyFilterCommand : IRequest<AddPolyFilterResponse>, IHasConditi
 
     public string CreatedByFullName { get;   set; }
 
-    public int? CreatedById { get;   set; }
+    public int CreatedById { get;   set; }
 
     public bool IsFavorite { get;   set; }
 

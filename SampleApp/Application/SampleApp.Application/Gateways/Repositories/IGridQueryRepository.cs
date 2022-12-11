@@ -8,7 +8,7 @@ using SampleApp.Core.Entities;
 using System.Linq.Expressions;
 
 
-public interface IGridQueryRepository<TKey, TEntity> : IQueryGenerator<TEntity>
+public interface IGridQueryRepository<TKey, TEntity> : IScoped, IQueryGenerator<TEntity>
     where TEntity : IHasKey<TKey>
     where TKey : struct
 {

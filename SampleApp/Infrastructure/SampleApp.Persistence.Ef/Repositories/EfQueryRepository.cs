@@ -15,11 +15,11 @@ public abstract class EfQueryRepository<TKey, TEntity> : IEfQueryRepository<TKey
     where TEntity : class, IHasKey<TKey>
     where TKey : struct
 {
-    protected readonly GridContext _context;
+    protected readonly SampleAppContext _context;
 
     protected IQueryable<TEntity> Entities => _context.Set<TEntity>().AsNoTracking();
 
-    protected EfQueryRepository(GridContext dbContext)
+    protected EfQueryRepository(SampleAppContext dbContext)
     {
         _context = dbContext;
     }

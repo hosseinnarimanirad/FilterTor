@@ -24,12 +24,12 @@ public abstract class EfGridQueryRepository<TKey, TEntity> : EfQueryRepository<T
     protected readonly ISortResolver<TEntity>? _sortResolver;
     protected readonly IEntityResolver<TEntity>? _entityResolver;
 
-    protected EfGridQueryRepository(GridContext dbContext) : base(dbContext)
+    protected EfGridQueryRepository(SampleAppContext dbContext) : base(dbContext)
     {
 
     }
 
-    protected EfGridQueryRepository(GridContext dbContext,
+    protected EfGridQueryRepository(SampleAppContext dbContext,
                                     ISortResolver<TEntity> sortResolver,
                                     IEntityResolver<TEntity> entityResolver) : base(dbContext)
     {

@@ -40,7 +40,7 @@ public static class MigrationExtensions
         // CREATED BY 
         if (typeof(IHasCreatedByRequired).IsAssignableFrom(entity.ClrType))
         {
-            GetProperty<int?>(modelBuilder, entity, nameof(IHasCreatedByRequired.CreatedById))
+            GetProperty<int>(modelBuilder, entity, nameof(IHasCreatedByRequired.CreatedById))
                 .IsRequired(required: true);
 
             GetProperty<string>(modelBuilder, entity, nameof(IHasCreatedByRequired.CreatedByFullName))
@@ -68,7 +68,7 @@ public static class MigrationExtensions
 
         if (typeof(IHasCreateTimeRequired).IsAssignableFrom(entity.ClrType))
         {
-            GetProperty<DateTime?>(modelBuilder, entity, nameof(IHasCreateTimeRequired.CreateTime))
+            GetProperty<DateTime>(modelBuilder, entity, nameof(IHasCreateTimeRequired.CreateTime))
                         .HasColumnType("datetime2(2)")
                         .HasDefaultValueSql("GETDATE()")
                         .IsRequired();

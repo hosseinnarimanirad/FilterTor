@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using SampleApp.Application.Gateways;
 using SampleApp.Application.Gateways.Repositories;
 using SampleApp.Core;
-using Sieve.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +13,8 @@ using System.Threading.Tasks;
 
 public class UnitOfWork : IUnitOfWork
 {
-    private readonly GridContext _context;
+    private readonly SampleAppContext _context;
 
-    private readonly SieveProcessor _sieveProcessor;
     private bool _disposed;
 
     public IPolyFilterCommandRepository PolyFilters { get; private set; }
@@ -26,11 +24,9 @@ public class UnitOfWork : IUnitOfWork
     public IInvoiceDetailCommandRepository InvoiceDetails { get; private set; }
 
 
-    public UnitOfWork(GridContext context, SieveProcessor sieveProcessor)
+    public UnitOfWork(SampleAppContext context)
     {
         _context = context;
-
-        _sieveProcessor = sieveProcessor;
 
         this.PolyFilters = new PolyFilterCommandRepository(context);
 

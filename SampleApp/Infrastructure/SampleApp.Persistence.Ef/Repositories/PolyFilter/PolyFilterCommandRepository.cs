@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 public class PolyFilterCommandRepository : EfCommandRepository<int, PolyFilter>, IPolyFilterCommandRepository
 {
-    public PolyFilterCommandRepository(GridContext dbContext) : base(dbContext)
+    public PolyFilterCommandRepository(SampleAppContext dbContext) : base(dbContext)
     {
     }
 }

@@ -4,7 +4,7 @@ using SampleApp.Core;
 using SampleApp.Core.Entities;
 using System.Linq.Expressions;
 
-public interface IEfCommandRepository<TKey, TEntity> 
+public interface IEfCommandRepository<TKey, TEntity> : IScoped
     where TEntity : IHasKey<TKey>
     where TKey : struct
 {

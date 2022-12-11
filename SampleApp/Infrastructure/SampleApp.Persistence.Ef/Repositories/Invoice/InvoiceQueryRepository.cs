@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 public class InvoiceQueryRepository : EfGridQueryRepository<long, Invoice>, IInvoiceQueryRepository
 {
-    public InvoiceQueryRepository(GridContext dbContext) : base(dbContext)
+    public InvoiceQueryRepository(SampleAppContext dbContext) : base(dbContext)
     {
     }
 }
