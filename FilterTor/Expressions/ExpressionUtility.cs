@@ -82,7 +82,7 @@ namespace GridEngineCore.Expressions
 
             switch (operation)
             {
-                case Operation.EqualTo:
+                case Operation.EqualsTo:
                     expression = Expression.Equal(fieldExtractor.Body, Expression.Constant(converter(value), typeof(TProp)));
                     break;
 
@@ -201,7 +201,7 @@ namespace GridEngineCore.Expressions
 
             switch (operation)
             {
-                case Operation.EqualTo:
+                case Operation.EqualsTo:
                     expression = Expression.Equal(fieldExtractor.Body, targetExpression);
                     break;
 
@@ -297,7 +297,7 @@ namespace GridEngineCore.Expressions
 
             switch (operation)
             {
-                case Operation.EqualTo:
+                case Operation.EqualsTo:
                     return t => fieldExtractor(t)?.CompareTo(converter(value)) == 0;
 
                 case Operation.Contains:

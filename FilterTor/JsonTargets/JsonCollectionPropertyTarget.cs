@@ -3,9 +3,9 @@
 
 public class JsonCollectionPropertyTarget : JsonTargetBase
 {
-    public string Entity { get; set; }
+    public required string Entity { get; set; }
 
-    public string Collection { get; set; }
+    public required string Collection { get; set; }
 
     public JsonCollectionPropertyTarget(string entity, string collection)
     {

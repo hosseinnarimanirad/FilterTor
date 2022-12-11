@@ -10,7 +10,7 @@ using System.Text.Json.Serialization;
 [JsonConverter(typeof(TargetJsonConverter))]
 public class JsonTargetBase : IJsonEntity
 {
-    public TargetType TargetType { get; set; }
+    public required TargetType TargetType { get; set; }
 
     public virtual string Serialize(JsonSerializerOptions? options)
     {

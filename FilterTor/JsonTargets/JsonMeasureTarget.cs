@@ -3,12 +3,14 @@
 
 public class JsonMeasureTarget : JsonTargetBase
 {
-    public string Entity { get; set; }
+    public required string Entity { get; set; }
 
-    public string Measure { get; set; }
+    public required string Measure { get; set; }
 
     public JsonMeasureTarget(string entity, string measure)
     {
+        this.TargetType = TargetType.Measure;
+
         Entity = entity;
 
         Measure = measure;

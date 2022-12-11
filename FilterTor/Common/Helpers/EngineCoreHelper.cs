@@ -52,7 +52,7 @@ public static class EngineCoreHelper
             case OperationControlType.SingleEnum:
                 return new List<string>()
                 {
-                    Operation.EqualTo.GetName(),
+                    Operation.EqualsTo.GetName(),
                     Operation.NotEqualTo.GetName(),
                 };
 
@@ -66,7 +66,7 @@ public static class EngineCoreHelper
             case OperationControlType.Numeric:
                 return new List<string>()
                 {
-                    Operation.EqualTo.GetName(),
+                    Operation.EqualsTo.GetName(),
                     Operation.GreaterThan.GetName(),
                     Operation.GreaterThanOrEqualTo.GetName(),
                     Operation.LessThan.GetName(),
@@ -80,17 +80,17 @@ public static class EngineCoreHelper
             case OperationControlType.AutoComplete:
                 return new List<string>()
                 {
-                    Operation.EqualTo.GetName(),
+                    Operation.EqualsTo.GetName(),
                     Operation.NotEqualTo.GetName()
                 };
 
             case OperationControlType.Checkbox:
-                return new List<string>() { Operation.EqualTo.GetName() };
+                return new List<string>() { Operation.EqualsTo.GetName() };
 
             case OperationControlType.DateTime:
                 return new List<string>()
                 {
-                    Operation.EqualTo.GetName(),
+                    Operation.EqualsTo.GetName(),
                     Operation.GreaterThan.GetName(),
                     Operation.GreaterThanOrEqualTo.GetName(),
                     Operation.LessThan.GetName(),
@@ -101,7 +101,7 @@ public static class EngineCoreHelper
             case OperationControlType.Textbox:
                 return new List<string>()
                 {
-                    Operation.EqualTo.GetName(),
+                    Operation.EqualsTo.GetName(),
 
                     Operation.StartsWith.GetName(),
                     Operation.EndsWith.GetName(),

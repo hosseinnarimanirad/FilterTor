@@ -3,9 +3,9 @@
 
 public class JsonRangeTarget : JsonTargetBase
 {
-    public string MinValue { get; set; }
+    public required string MinValue { get; set; }
 
-    public string MaxValue { get; set; }
+    public required string MaxValue { get; set; }
 
     public JsonRangeTarget(string minValue, string maxValue)
     {

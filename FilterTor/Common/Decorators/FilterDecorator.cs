@@ -1,5 +1,6 @@
 ﻿namespace GridEngineCore.Decorators;
 
+using GridEngineCore.Common.Entities;
 using GridEngineCore.Conditions;
 using GridEngineCore.Models;
 using System;
@@ -13,15 +14,15 @@ public class FilterDecorator<T> : IQueryGenerator<T>
 {
     private readonly JsonConditionBase _condition;
 
-    private readonly IFilterResolver<T> _filterResolver;
+    private readonly IEntityResolver<T> _entityResolver;
 
     private readonly IQueryGenerator<T> _queryGenerator;
 
-    public FilterDecorator(IQueryGenerator<T> queryGenerator, JsonConditionBase condition, IFilterResolver<T> filterResolver)
+    public FilterDecorator(IQueryGenerator<T> queryGenerator, JsonConditionBase condition, IEntityResolver<T> entityResolver)
     {
         this._condition = condition;
 
-        this._filterResolver = filterResolver;
+        this._entityResolver = entityResolver;
 
         this._queryGenerator = queryGenerator;
     }
@@ -30,7 +31,7 @@ public class FilterDecorator<T> : IQueryGenerator<T>
     {
         IQueryable<T> iqueryable = _queryGenerator.Query(list);
 
-        var predicate = _filterResolver.GetPredicate(_condition);
+        var predicate = _entityResolver.GetPredicate(_condition);
 
         if (predicate is not null)
         {

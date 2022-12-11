@@ -25,7 +25,7 @@ public static class EnumHelper
     {
         try
         {
-            if(enumValue == null) return string.Empty;
+            if (enumValue == null) return string.Empty;
 
             return enumValue.GetType()
               .GetMember(enumValue.ToString())
@@ -69,14 +69,18 @@ public static class EnumHelper
         return (T)Enum.Parse(typeof(T), value);
     }
 
+    public static T ParseIgnoreCase<T>(string value) where T : struct
+    {
+        return (T)Enum.Parse<T>(value, ignoreCase: true);
+    }
 
     public static List<EnumInfo> Parse<T>() where T : struct, IConvertible
     {
         //var type = typeof(T);
         //return EnumHelper.GetEnums<T>().Select(e => new EnumInfo((int)(object)e, Enum.GetName(type, e), GetDescription(e))).ToList();
 
-        Predicate<T> nullPredicate = null; 
-        return Parse<T>(nullPredicate); 
+        Predicate<T> nullPredicate = null;
+        return Parse<T>(nullPredicate);
     }
 
     public static List<EnumInfo> Parse<T>(Predicate<T> predicate) where T : struct, IConvertible

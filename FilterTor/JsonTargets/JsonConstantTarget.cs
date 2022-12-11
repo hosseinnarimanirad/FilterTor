@@ -3,7 +3,7 @@
 
 public class JsonConstantTarget : JsonTargetBase
 {
-    public string Value { get; set; }
+    public required string Value { get; set; }
 
     public JsonConstantTarget(string value)
     {

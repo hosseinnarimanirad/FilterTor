@@ -16,7 +16,7 @@ public enum Operation
     /// </summary>
     /// <remarks>Accepts one value.</remarks>
     [NumberOfValues(1), Description("مساوی")]
-    EqualTo = 1,
+    EqualsTo = 1,
 
     /// <summary>
     /// Targets an object in which the property's value contains part of the provided value.

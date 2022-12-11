@@ -15,6 +15,10 @@ public class SortModel
     public required string Entity { get; set; }
 
     public required string Property { get; set; }
+    
+    // 1401.09.16
+    // sorting based on measure is not supported
+    //public required string Measure { get; set; }
 
     public ListSortDirection SortDirection { get; set; }
      

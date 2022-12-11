@@ -3,7 +3,7 @@
 
 public class JsonArrayTarget : JsonTargetBase
 {
-    public List<string> Values { get; set; }
+    public required List<string> Values { get; set; }
 
     public JsonArrayTarget(List<string> values)
     {
