@@ -1,6 +1,6 @@
-﻿namespace GridEngineCore.Common.Converters;
+﻿namespace FilterTor.Common.Converters;
  
-using GridEngineCore.Helpers;
+using FilterTor.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Text.Json;
 using System.Threading.Tasks;
-using GridEngineCore.Targets;
+using FilterTor.Targets;
 
 public class TargetJsonConverter : JsonConverter<JsonTargetBase>
 {
@@ -19,7 +19,7 @@ public class TargetJsonConverter : JsonConverter<JsonTargetBase>
 
     public override JsonTargetBase? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-        return EngineCoreHelper.ParseTarget(ref reader, options);
+        return FilterTorHelper.ParseTarget(ref reader, options);
     }
 
     public override void Write(Utf8JsonWriter writer, JsonTargetBase value, JsonSerializerOptions options)
@@ -30,6 +30,6 @@ public class TargetJsonConverter : JsonConverter<JsonTargetBase>
             return;
         }
 
-        writer.WriteRawValue(value.Serialize(options ?? EngineCoreHelper.DefaultJsonSerializerOptions));
+        writer.WriteRawValue(value.Serialize(options ?? FilterTorHelper.DefaultJsonSerializerOptions));
     }
 }

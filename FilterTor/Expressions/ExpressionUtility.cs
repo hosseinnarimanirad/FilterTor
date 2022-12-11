@@ -1,5 +1,5 @@
-﻿using GridEngineCore.Helpers;
-using GridEngineCore.Targets; 
+﻿using FilterTor.Helpers;
+using FilterTor.Targets; 
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace GridEngineCore.Expressions
+namespace FilterTor.Expressions
 {
     public static class ExpressionUtility
     {

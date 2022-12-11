@@ -1,6 +1,6 @@
-﻿namespace GridEngineCore.Models;
+﻿namespace FilterTor.Models;
 
-using GridEngineCore.Conditions;
+using FilterTor.Conditions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,8 @@ using System.Threading.Tasks;
 
 public class ListModel
 { 
-    public required string GridKey { get; set; }
+    // entity type
+    public required string Entity { get; set; }
 
     public PagingModel? Paging { get; set; }
      

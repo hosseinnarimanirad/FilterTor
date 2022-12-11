@@ -1,9 +1,9 @@
-﻿namespace GridEngineCore.Decorators;
+﻿namespace FilterTor.Decorators;
 
 using System;
-using GridEngineCore.Models;
+using FilterTor.Models;
 using System.Linq.Expressions;
-using GridEngineCore.Conditions;
+using FilterTor.Conditions;
 
 public interface IConditionResolver<T>
 {

@@ -1,10 +1,10 @@
-﻿namespace GridEngineCore.Common.Converters;
+﻿namespace FilterTor.Common.Converters;
 
 using System.Text.Json.Serialization;
 using System;
 using System.Text.Json; 
-using GridEngineCore.Conditions;
-using GridEngineCore.Helpers;
+using FilterTor.Conditions;
+using FilterTor.Helpers;
 
 public class ConditionJsonConverter : JsonConverter<JsonConditionBase>
 {
@@ -16,7 +16,7 @@ public class ConditionJsonConverter : JsonConverter<JsonConditionBase>
 
     public override JsonConditionBase? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-        return EngineCoreHelper.ParseCondition(ref reader, options);
+        return FilterTorHelper.ParseCondition(ref reader, options);
     }
 
     // https://makolyte.com/system-text-json-how-to-customize-serialization-with-jsonconverter/

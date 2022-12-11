@@ -1,4 +1,4 @@
-﻿namespace GridEngineCore.Models;
+﻿namespace FilterTor.Models;
 
 using System;
 using System.Collections.Generic;

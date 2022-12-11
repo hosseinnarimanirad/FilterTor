@@ -1,4 +1,4 @@
-﻿namespace GridEngineCore.Targets;
+﻿namespace FilterTor.Targets;
 
 
 public class JsonArrayTarget : JsonTargetBase

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace GridEngineCore.Extensions
+namespace FilterTor.Extensions
 {
     public static class IEnumerableExtensions
     {

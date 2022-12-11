@@ -1,16 +1,14 @@
-﻿//namespace GridEngineCore.Common.Decorators;
-
-//using GridEngine.Factory;
-//using GridEngine;
-//using GridEngineCore.Conditions;
-//using GridEngineCore.Decorators;
+﻿//namespace FilterTor.Common.Decorators;
+ 
+//using FilterTor.Conditions;
+//using FilterTor.Decorators;
 //using System;
 //using System.Collections.Generic;
 //using System.Linq;
 //using System.Linq.Expressions;
 //using System.Text;
 //using System.Threading.Tasks;
-//using GridEngineCore.Common.Entities;
+//using FilterTor.Common.Entities;
 //using System.ComponentModel.DataAnnotations;
 
 //public class FilterResolver<T> : IFilterResolver<T> where T : class

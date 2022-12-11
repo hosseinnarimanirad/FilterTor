@@ -1,13 +1,13 @@
-﻿namespace GridEngineCore.Helpers;
+﻿namespace FilterTor.Helpers;
 
-using GridEngineCore.Models;
+using FilterTor.Models;
 using System.Text.Json.Nodes;
 using System.Text.Json; 
-using GridEngineCore.Conditions;
-using GridEngineCore.Targets;
-using GridEngineCore.Extensions;
+using FilterTor.Conditions;
+using FilterTor.Targets;
+using FilterTor.Extensions;
 
-public static class EngineCoreHelper
+public static class FilterTorHelper
 {
     private readonly static JsonNodeOptions _nodeOptions = new JsonNodeOptions() { PropertyNameCaseInsensitive = true };
 
@@ -203,7 +203,7 @@ public static class EngineCoreHelper
                 return JsonSerializer.Deserialize<JsonListCondition>(node, options);
 
             default:
-                throw new NotImplementedException("EngineCoreHelper > ParseCondition");
+                throw new NotImplementedException("FilterTorHelper > ParseCondition");
         }
     }
 
@@ -277,7 +277,7 @@ public static class EngineCoreHelper
                 return JsonSerializer.Deserialize<JsonMeasureTarget>(node.ToJsonString(), options);
 
             default:
-                throw new NotImplementedException("EngineCoreHelper > ParseTarget");
+                throw new NotImplementedException("FilterTorHelper > ParseTarget");
         }
     }
 

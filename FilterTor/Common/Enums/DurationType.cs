@@ -1,6 +1,6 @@
-﻿namespace GridEngineCore;
+﻿namespace FilterTor;
 
-using GridEngineCore.Common.Converters;
+using FilterTor.Common.Converters;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;

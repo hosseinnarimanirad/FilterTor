@@ -1,7 +1,7 @@
-﻿namespace GridEngineCore.Common.Entities;
+﻿namespace FilterTor.Common.Entities;
 
-using GridEngineCore.Conditions;
-using GridEngineCore.Targets;
+using FilterTor.Conditions;
+using FilterTor.Targets;
 using System;
 using System.Collections.Generic;
 using System.Linq;

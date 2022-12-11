@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Mapster" Version="7.3.0" />
+    <PackageReference Include="FluentValidation" Version="11.2.2" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
+    <PackageReference Include="SabaTamin.Kernel" Version="1.1.1" />
+    <PackageReference Include="SabaTamin.ErrorHandler" Version="1.1.15" />
+    <PackageReference Include="MediatR" Version="11.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Common\Behaviours\" />
+    <Folder Include="Common\Exceptions\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\FilterTor\FilterTor.csproj" />
+    <ProjectReference Include="..\..\Core\SampleApp.Core.FilterTor\SampleApp.Core.FilterTor.csproj" />
+    <ProjectReference Include="..\..\Core\SampleApp.Core\SampleApp.Core.csproj" />
+  </ItemGroup>
+
+</Project>

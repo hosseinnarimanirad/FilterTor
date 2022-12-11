@@ -1,8 +1,8 @@
-﻿namespace GridEngineCore.Targets;
+﻿namespace FilterTor.Targets;
 
-using GridEngineCore.Common;
-using GridEngineCore.Common.Converters;
-using GridEngineCore.Helpers;
+using FilterTor.Common;
+using FilterTor.Common.Converters;
+using FilterTor.Helpers;
 using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -17,7 +17,7 @@ public class JsonTargetBase : IJsonEntity
         if (!Validate())
             throw new NotImplementedException("JsonTargetBase > Serialize");
 
-        return JsonSerializer.Serialize(this, GetType(), options ?? EngineCoreHelper.DefaultJsonSerializerOptions);
+        return JsonSerializer.Serialize(this, GetType(), options ?? FilterTorHelper.DefaultJsonSerializerOptions);
     }
 
     public virtual bool Validate()

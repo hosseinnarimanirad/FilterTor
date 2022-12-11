@@ -1,8 +1,8 @@
-﻿namespace GridEngineCore.Conditions;
+﻿namespace FilterTor.Conditions;
 
-using GridEngineCore.Common;
-using GridEngineCore.Common.Converters;
-using GridEngineCore.Helpers;
+using FilterTor.Common;
+using FilterTor.Common.Converters;
+using FilterTor.Helpers;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -19,7 +19,7 @@ public class JsonConditionBase : IJsonEntity
             throw new NotImplementedException("JsonConditionBase > Serialize");
         }
 
-        return JsonSerializer.Serialize(this, GetType(), options ?? EngineCoreHelper.DefaultJsonSerializerOptions);
+        return JsonSerializer.Serialize(this, GetType(), options ?? FilterTorHelper.DefaultJsonSerializerOptions);
     }
 
     public virtual bool Validate()
@@ -33,7 +33,7 @@ public class JsonConditionBase : IJsonEntity
         if (string.IsNullOrWhiteSpace(jsonCondition))
             return null;
 
-        return EngineCoreHelper.ParseCondition(jsonCondition, options);
+        return FilterTorHelper.ParseCondition(jsonCondition, options);
     }
 
     protected JsonConditionBase GetConditionForResult(Func<JsonLeafCondition, bool> predicate)

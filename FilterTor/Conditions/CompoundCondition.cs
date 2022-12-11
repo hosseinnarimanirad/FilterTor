@@ -1,9 +1,8 @@
-﻿namespace GridEngine;
+﻿namespace FilterTor;
 
-
-using GridEngineCore;
-using GridEngineCore.Expressions;
-using GridEngineCore.Extensions;
+ 
+using FilterTor.Expressions;
+using FilterTor.Extensions;
 using System.Linq.Expressions;
 
 // COMPOSITE DESIGN PATTERN:

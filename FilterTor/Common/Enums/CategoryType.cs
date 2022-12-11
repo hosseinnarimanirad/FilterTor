@@ -1,10 +1,10 @@
-﻿namespace GridEngineCore;
+﻿namespace FilterTor;
 
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using System.Text.Json.Serialization;
-using GridEngineCore.Common.Converters;
+using FilterTor.Common.Converters;
 
 
 [JsonConverter(typeof(JsonStringEnumCamelCaseConverter))]

@@ -1,4 +1,4 @@
-﻿namespace GridEngineCore.Common.Converters;
+﻿namespace FilterTor.Common.Converters;
 
 using System.Collections.Generic;
 using System.Linq;

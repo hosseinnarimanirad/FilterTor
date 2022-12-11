@@ -1,6 +1,6 @@
-﻿namespace GridEngineCore.Conditions;
+﻿namespace FilterTor.Conditions;
 
-using GridEngineCore.Helpers;
+using FilterTor.Helpers;
 using System.Text.Json.Serialization;
 
 

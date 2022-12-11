@@ -1,13 +1,10 @@
-﻿using GridEngineCore; 
+﻿namespace FilterTor;
 
-namespace GridEngine
+// COMPOSITE DESIGN PATTERN:
+// Component
+public interface ICondition
 {
-    // COMPOSITE DESIGN PATTERN:
-    // Component
-    public interface ICondition
-    {
-        CategoryType Category { get; }
+    CategoryType Category { get; }
 
-        bool IsPassed(IConditionParameter parameter);         
-    }
+    bool IsPassed(IConditionParameter parameter);         
 }

@@ -1,6 +1,6 @@
-﻿namespace GridEngineCore.Decorators;
+﻿namespace FilterTor.Decorators;
 
-using GridEngineCore.Models;
+using FilterTor.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,4 +1,4 @@
-﻿namespace GridEngineCore.Decorators;
+﻿namespace FilterTor.Decorators;
 
 using System;
 using System.Collections.Generic;
