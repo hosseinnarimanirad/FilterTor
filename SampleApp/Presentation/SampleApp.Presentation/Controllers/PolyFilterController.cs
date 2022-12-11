@@ -13,8 +13,9 @@ using System.Threading.Tasks;
 /// سرویس‌های شرط چندگانه
 /// </summary>
 [ApiController]
-[Route("/api/grid/v{version:apiVersion}/[controller]")]
-[ApiVersion("1.0")]
+//[Route("/api/grid/v{version:apiVersion}/[controller]")]
+//[ApiVersion("1.0")]
+[Route("/api/grid/v1.0/[controller]")]
 public class PolyFilterController : ControllerBase
 {
     private readonly IMediator _mediator;

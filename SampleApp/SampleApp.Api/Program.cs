@@ -10,10 +10,14 @@ using System.Reflection;
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Serilog;
+using Serilog.Sinks.SystemConsole.Themes;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Host.UseCustomSerilog();
 
 builder.Services.ScanInjections();
 
@@ -100,7 +104,7 @@ try
         var services = scope.ServiceProvider;
 
         var appDbContext = services.GetService<SampleAppContext>();
-        
+
         logger.Information("Migrating Database...");
 
         if (appDbContext is null)
