@@ -1,9 +1,7 @@
-﻿namespace SampleApp.Core.FilterTor;
+﻿namespace SampleApp.FilterTorEx;
 
-using global::FilterTor.Common.Converters;
-using System.Collections.Generic;
+using FilterTor.Common.Converters;
 using System.ComponentModel;
-using System.Text;
 using System.Text.Json.Serialization;
 
 
@@ -13,14 +11,14 @@ public enum EntityType
     [Description("ترکیبی")]
     Compound = 1,
 
-    [Description("صندوق")]
-    Fund = 2,
-
     [Description("فاکتور")]
-    Invoice = 3,
+    Invoice = 2,
 
     [Description("اقلام فاکتور")]
-    InvoiceDetail = 4,
+    InvoiceDetail = 3,
+
+    [Description("مشتری")]
+    Customer = 4
 
     //[Description("اوراق")]
     //Bond = 2,

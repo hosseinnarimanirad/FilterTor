@@ -4,14 +4,14 @@ using FilterTor;
 using FilterTor.Conditions;
 using FilterTor.Helpers;  
 using FilterTor.Targets;
-using Newtonsoft.Json.Linq;
-using SampleApp.Core.FilterTor;
+using Newtonsoft.Json.Linq; 
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using SampleApp.Core.FilterTor.Entities;
+using System.Threading.Tasks; 
+using SampleApp.FilterTorEx;
+using SampleApp.FilterTorEx.Entities;
 
 public class JsonCondition_Validation
 {
@@ -29,7 +29,7 @@ public class JsonCondition_Validation
             ""operation"":""equalsTo"",
             ""target"": {
                 ""targetType"":""constant"",
-                ""value"" : ""false"" 
+                ""value"" : ""true"" 
                 }
         }";
 
@@ -61,8 +61,8 @@ public class JsonCondition_Validation
             ""operation"":""between"",
             ""target"": {
                 ""targetType"":""range"",
-                ""minValue"" : ""9/9/2016"",
-                ""maxValue"" : ""9/9/2018"" 
+                ""minValue"" : ""1/1/2021"",
+                ""maxValue"" : ""1/5/2022"" 
                 }
         }";
 
@@ -76,8 +76,8 @@ public class JsonCondition_Validation
         Assert.Equal(Operation.Between, condition!.Operation);
 
         Assert.Equal(TargetType.Range, condition!.Target?.TargetType);
-        Assert.Equal(new DateTime(2016, 9, 9), DateTime.Parse((condition.Target as JsonRangeTarget)!.MinValue));
-        Assert.Equal(new DateTime(2018, 9, 9), DateTime.Parse((condition.Target as JsonRangeTarget)!.MaxValue));
+        Assert.Equal(new DateTime(2021, 1, 1), DateTime.Parse((condition.Target as JsonRangeTarget)!.MinValue));
+        Assert.Equal(new DateTime(2022, 5, 1), DateTime.Parse((condition.Target as JsonRangeTarget)!.MaxValue));
     }
 
 

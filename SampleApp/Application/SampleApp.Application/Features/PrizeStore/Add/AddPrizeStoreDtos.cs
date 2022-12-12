@@ -12,14 +12,13 @@ using SampleApp.Application.Dto;
 
 public class AddPrizeStoreCommand : IRequest<AddPrizeStoreResponse>, IHasCustomerCondition, IHasInvoiceCondition
 {
-    public DateTime StartDate { get; private set; }
+    public DateTime StartDate { get; set; }
 
-    public DateTime EndDate { get; private set; }
-     
+    public DateTime EndDate { get; set; }
+
     public JsonConditionBase? CustomerCondition { get; set; }
 
     public JsonConditionBase? InvoiceCondition { get; set; }
-
 }
 
 public class AddPrizeStoreResponse

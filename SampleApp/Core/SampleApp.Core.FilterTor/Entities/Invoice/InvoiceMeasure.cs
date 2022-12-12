@@ -1,4 +1,4 @@
-﻿namespace SampleApp.Core.FilterTor.Entities;
+﻿namespace SampleApp.FilterTorEx.Entities;
  
 using System.ComponentModel; 
 

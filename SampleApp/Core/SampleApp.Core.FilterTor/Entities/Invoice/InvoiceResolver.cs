@@ -1,13 +1,12 @@
-﻿namespace SampleApp.Core.FilterTor.Entities;
+﻿namespace SampleApp.FilterTorEx.Entities;
 
-using global::FilterTor;
-using global::FilterTor.Common.Entities;
-using global::FilterTor.Expressions;
-using global::FilterTor.Helpers;
-using global::FilterTor.Models;
-using global::FilterTor.Targets;
+using FilterTor;
+using FilterTor.Common.Entities;
+using FilterTor.Expressions;
+using FilterTor.Helpers;
+using FilterTor.Models;
+using FilterTor.Targets;
 using SampleApp.Core.Entities;
-using System.ComponentModel;
 using System.Linq.Expressions;
 
 public class InvoiceResolver : EntityResolver<Invoice>

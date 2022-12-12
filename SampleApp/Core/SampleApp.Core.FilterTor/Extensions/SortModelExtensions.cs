@@ -1,11 +1,7 @@
-﻿namespace SampleApp.Core.FilterTor;
+﻿namespace SampleApp.FilterTorEx;
 
-using global::FilterTor.Models;
+using FilterTor.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 public static class SortModelExtensions
 {

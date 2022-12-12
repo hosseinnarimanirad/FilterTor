@@ -26,6 +26,11 @@ public sealed class InvoiceConfig : IEntityTypeConfiguration<Invoice>
         builder.Property(e => e.InvoiceType)
             .HasConversion(new EnumToStringConverter<InvoiceType>());
 
+        builder.HasOne(e => e.Customer)
+            .WithMany()
+            .HasForeignKey(e => e.CustomerId)
+            .OnDelete(DeleteBehavior.Restrict);
+
         builder.HasData(
             new Invoice("100100", new DateTime(2022, 12, 9), false, 50000m, customerId: 100000, invoiceType: InvoiceType.FMCG) { Id = 100 },
             new Invoice("100101", new DateTime(2022, 11, 8), true, 40000m, customerId: 100001, invoiceType: InvoiceType.Medical) { Id = 101 },

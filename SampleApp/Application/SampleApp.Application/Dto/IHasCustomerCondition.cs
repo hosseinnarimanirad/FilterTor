@@ -9,5 +9,5 @@ using System.Threading.Tasks;
 
 public interface IHasCustomerCondition
 {
-    JsonConditionBase CustomerCondition { get; }
+    JsonConditionBase? CustomerCondition { get; }
 }

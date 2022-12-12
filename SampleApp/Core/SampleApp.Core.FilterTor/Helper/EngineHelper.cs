@@ -1,12 +1,9 @@
-﻿using FilterTor.Models; 
-using System;
-using System.Collections.Generic; 
+﻿namespace SampleApp.FilterTorEx;
 
+using FilterTor.Models;
+using System;
+using System.Collections.Generic;
 using FilterTor.Helpers;
-using SampleApp.Core.FilterTor;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 public static class EngineHelper
 {

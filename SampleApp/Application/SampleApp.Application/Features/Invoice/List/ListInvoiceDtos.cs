@@ -13,7 +13,7 @@ using SampleApp.Application.Features;
 using FilterTor.Common.Converters;
 using FilterTor.Conditions;
 using FilterTor.Models;
-using SampleApp.Core.FilterTor;
+using SampleApp.FilterTorEx;
 
 public class ListInvoiceQuery : IRequest<ListInvoiceResponse>
 {

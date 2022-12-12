@@ -25,11 +25,12 @@ public class Invoice : IHasKey<long>, IHasCreateTimeRequired
 
     public long CustomerId { get; private set; }
 
+    public Customer Customer { get; private set; }
+
     public InvoiceType InvoiceType { get; private set; }
 
     private readonly List<InvoiceDetail> _invoiceDetails = new List<InvoiceDetail>();
     public IEnumerable<InvoiceDetail> InvoiceDetails => _invoiceDetails.AsReadOnly();
-
 
     [SetsRequiredMembers]
     public Invoice(string invoiceNumber, DateTime invoiceDate, bool isSettled, decimal totalAmount, long customerId, InvoiceType invoiceType)

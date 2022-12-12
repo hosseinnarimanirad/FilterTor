@@ -1,9 +1,8 @@
-﻿namespace SampleApp.Core.FilterTor.Entities;
+﻿namespace SampleApp.FilterTorEx.Entities;
 
-using global::FilterTor.Decorators;
-using global::FilterTor.Models;
+using FilterTor.Decorators;
+using FilterTor.Models;
 using SampleApp.Core.Entities;
-using System.ComponentModel;
 using System.Linq.Expressions;
 
 public class InvoiceSortResolver : ISortResolver<Invoice>

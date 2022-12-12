@@ -23,7 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\FilterTor\FilterTor.csproj" />
-    <ProjectReference Include="..\..\SampleApp\Core\SampleApp.Core.FilterTor\SampleApp.Core.FilterTor.csproj" />
+    <ProjectReference Include="..\..\SampleApp\Core\SampleApp.Core.FilterTor\SampleApp.FilterTorEx.csproj" />
   </ItemGroup>
 
 </Project>
