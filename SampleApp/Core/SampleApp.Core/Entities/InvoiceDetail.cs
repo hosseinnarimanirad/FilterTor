@@ -3,13 +3,15 @@
 using SampleApp.Core.Abstractions;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 public class InvoiceDetail : IHasKey<long>
 {
-    public long Id { get; private set; }
+    // possibly encapsulation violation
+    public required long Id { get; init; }
 
     public long InvoiceId { get; private set; }
 
@@ -25,9 +27,9 @@ public class InvoiceDetail : IHasKey<long>
 
     public bool IsPrize { get; private set; }
 
-    public InvoiceDetail(long id, long invoiceId, long productId, int count, decimal unitPrice, decimal discount, bool isPrize)
+    [SetsRequiredMembers]
+    public InvoiceDetail(long invoiceId, long productId, int count, decimal unitPrice, decimal discount, bool isPrize)
     {
-        this.Id = id;
         this.InvoiceId = invoiceId;
         this.ProductId = productId;
         this.Count = count;

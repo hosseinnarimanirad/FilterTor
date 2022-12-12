@@ -13,6 +13,7 @@ using Mapster;
 using SampleApp.Application.Gateways.Repositories;
 using FilterTor.Models;
 using FilterTor.Helpers;
+using FilterTor.Conditions;
 
 public sealed class ListInvoiceHandler : IRequestHandler<ListInvoiceQuery, ListInvoiceResponse>
 {
@@ -27,9 +28,7 @@ public sealed class ListInvoiceHandler : IRequestHandler<ListInvoiceQuery, ListI
     {
         var sorts = request.Sorts?.Select(s => s.Adapt<SortModel>(sm => { sm.Entity = request.GridKey.ToString(); })!)?.ToList();
 
-        var jsonCondition = FilterTorHelper.Merge(request.InlineFilter, request.PolyFilter);
-
-        var items = await _repo.Filter(jsonCondition, sorts, request.Paging);
+        var items = await _repo.Filter(request.Filter, sorts, request.Paging);
 
         return new ListInvoiceResponse() { Items = items.Select(i => i.Adapt<ListInvoiceResponseItem>()).ToList() };
     }

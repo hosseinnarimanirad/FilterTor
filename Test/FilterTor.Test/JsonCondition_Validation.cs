@@ -33,9 +33,7 @@ public class JsonCondition_Validation
                 }
         }";
 
-        var condition = JsonConditionBase.Deserialize(
-            conditionJson,
-            FilterTorHelper.DefaultJsonSerializerOptions) as JsonPropertyCondition;
+        var condition = JsonConditionBase.Deserialize(conditionJson) as JsonPropertyCondition;
 
         Assert.NotNull(condition);
 
@@ -68,9 +66,7 @@ public class JsonCondition_Validation
                 }
         }";
 
-        var condition = JsonConditionBase.Deserialize(
-            conditionJson,
-            FilterTorHelper.DefaultJsonSerializerOptions) as JsonPropertyCondition;
+        var condition = JsonConditionBase.Deserialize(conditionJson) as JsonPropertyCondition;
 
         Assert.NotNull(condition);
 
@@ -103,9 +99,7 @@ public class JsonCondition_Validation
                 }
         }";
 
-        var condition = JsonConditionBase.Deserialize(
-            conditionJson,
-            FilterTorHelper.DefaultJsonSerializerOptions) as JsonPropertyCondition;
+        var condition = JsonConditionBase.Deserialize(conditionJson) as JsonPropertyCondition;
 
         Assert.NotNull(condition);
 
@@ -134,13 +128,11 @@ public class JsonCondition_Validation
             ""target"": {
                 ""targetType"":""property"",
                 ""entity"":""invoice"",
-                ""Property"":""discount""
+                ""Property"":""totalAmount""
                 }
         }";
 
-        var condition = JsonConditionBase.Deserialize(
-            conditionJson,
-            FilterTorHelper.DefaultJsonSerializerOptions) as JsonPropertyCondition;
+        var condition = JsonConditionBase.Deserialize(conditionJson) as JsonPropertyCondition;
 
         Assert.NotNull(condition);
 
@@ -155,7 +147,7 @@ public class JsonCondition_Validation
 
         Assert.Equal(TargetType.Property, condition!.Target?.TargetType);
         Assert.Equal(EntityType.Invoice, Enum.Parse<EntityType>(target.Entity, ignoreCase: true));
-        Assert.Equal(InvoiceProperty.Discount, Enum.Parse<InvoiceProperty>(target!.Property, ignoreCase: true));
+        Assert.Equal(InvoiceProperty.TotalAmount, Enum.Parse<InvoiceProperty>(target!.Property, ignoreCase: true));
     }
 
 
@@ -178,9 +170,7 @@ public class JsonCondition_Validation
                 }
         }";
 
-        var condition = JsonConditionBase.Deserialize(
-            conditionJson,
-            FilterTorHelper.DefaultJsonSerializerOptions) as JsonPropertyCondition;
+        var condition = JsonConditionBase.Deserialize(conditionJson) as JsonPropertyCondition;
 
         var target = condition.Target as JsonCollectionPropertyTarget;
 
@@ -216,9 +206,7 @@ public class JsonCondition_Validation
                 }
         }";
 
-        var condition = JsonConditionBase.Deserialize(
-            conditionJson,
-            FilterTorHelper.DefaultJsonSerializerOptions) as JsonPropertyCondition;
+        var condition = JsonConditionBase.Deserialize(conditionJson) as JsonPropertyCondition;
 
         Assert.NotNull(condition);
 
@@ -256,10 +244,8 @@ public class JsonCondition_Validation
                 }
         }";
 
-        var condition = JsonConditionBase.Deserialize(
-            conditionJson,
-            FilterTorHelper.DefaultJsonSerializerOptions) as JsonCollectionPropertyCondition;
-
+        var condition = JsonConditionBase.Deserialize(conditionJson) as JsonCollectionPropertyCondition;
+         
         Assert.NotNull(condition);
 
         Assert.Equal(CategoryType.CollectionProperty, condition.Category);
@@ -292,10 +278,8 @@ public class JsonCondition_Validation
                 }
         }";
 
-        var condition = JsonConditionBase.Deserialize(
-            conditionJson,
-            FilterTorHelper.DefaultJsonSerializerOptions) as JsonMeasureCondition;
-
+        var condition = JsonConditionBase.Deserialize(conditionJson) as JsonMeasureCondition;
+         
         Assert.NotNull(condition);
 
         Assert.Equal(CategoryType.Measure, condition.Category);

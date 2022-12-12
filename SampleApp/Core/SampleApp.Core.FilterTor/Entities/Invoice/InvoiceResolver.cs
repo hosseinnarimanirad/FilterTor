@@ -21,8 +21,6 @@ public class InvoiceResolver : EntityResolver<Invoice>
 
     static readonly FuncExp<Invoice, decimal> _byTotalAmountFilter = new FuncExp<Invoice, decimal>(i => i.TotalAmount);
 
-    static readonly FuncExp<Invoice, decimal> _byDiscountFilter = new FuncExp<Invoice, decimal>(i => i.Discount);
-
     static readonly FuncExp<Invoice, long> _byCustomerIdFilter = new FuncExp<Invoice, long>(i => i.CustomerId);
 
     static readonly FuncExp<Invoice, string> _byInvoiceTypeFilter = new FuncExp<Invoice, string>(i => i.InvoiceType.ToString());
@@ -56,10 +54,7 @@ public class InvoiceResolver : EntityResolver<Invoice>
 
             case InvoiceProperty.TotalAmount:
                 return ExpressionUtility.Compare<Invoice, decimal>(_byTotalAmountFilter.Expression, target, decimal.Parse, operation);
-
-            case InvoiceProperty.Discount:
-                return ExpressionUtility.Compare<Invoice, decimal>(_byDiscountFilter.Expression, target, decimal.Parse, operation);
-
+                 
             case InvoiceProperty.CustomerId:
                 return ExpressionUtility.Compare<Invoice, long>(_byCustomerIdFilter.Expression, target, long.Parse, operation);
 
@@ -86,10 +81,7 @@ public class InvoiceResolver : EntityResolver<Invoice>
 
             case InvoiceProperty.TotalAmount:
                 return i => _byTotalAmountFilter.Func(i);
-
-            case InvoiceProperty.Discount:
-                return i => _byDiscountFilter.Func(i);
-
+                 
             case InvoiceProperty.CustomerId:
                 return i => _byCustomerIdFilter.Func(i);
 

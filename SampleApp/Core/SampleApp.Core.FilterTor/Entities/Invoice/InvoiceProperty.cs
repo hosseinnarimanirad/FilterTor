@@ -17,14 +17,11 @@ public enum InvoiceProperty
 
     [Description("مبلغ")]
     TotalAmount = 4,
-
-    [Description("تخفیف")]
-    Discount = 5,
-
+     
     [Description("شناسه مشتری")]
-    CustomerId = 6,
+    CustomerId = 5,
 
     [Description("نوع فاکتور")]
-    InvoiceType = 7,
+    InvoiceType = 6,
 }
  

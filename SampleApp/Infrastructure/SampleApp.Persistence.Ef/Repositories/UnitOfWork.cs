@@ -17,7 +17,7 @@ public class UnitOfWork : IUnitOfWork
 
     private bool _disposed;
 
-    public IPolyFilterCommandRepository PolyFilters { get; private set; }
+    public IPrizeStoreCommandRepository PrizeStores { get; private set; }
 
     public IInvoiceCommandRepository Invoices { get; private set; }
 
@@ -28,7 +28,7 @@ public class UnitOfWork : IUnitOfWork
     {
         _context = context;
 
-        this.PolyFilters = new PolyFilterCommandRepository(context);
+        this.PrizeStores = new PrizeStoreCommandRepository(context);
 
         this.Invoices = new InvoiceCommandRepository(context);
 

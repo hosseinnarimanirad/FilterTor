@@ -9,9 +9,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class PolyFilterQueryRepository : EfQueryRepository<int, PolyFilter>, IPolyFilterQueryRepository
+public class PrizeStoreQueryRepository : EfQueryRepository<int, PrizeStore>, IPrizeStoreQueryRepository
 {
-    public PolyFilterQueryRepository(SampleAppContext dbContext) : base(dbContext)
+    public PrizeStoreQueryRepository(SampleAppContext dbContext) : base(dbContext)
     {
     }
      

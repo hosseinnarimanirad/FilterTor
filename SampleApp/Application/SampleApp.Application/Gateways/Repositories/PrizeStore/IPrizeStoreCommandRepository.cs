@@ -4,6 +4,6 @@ using SampleApp.Core.Entities;
 
 
 
-public interface IPolyFilterCommandRepository : IEfCommandRepository<int, PolyFilter>
+public interface IPrizeStoreCommandRepository : IEfCommandRepository<int, PrizeStore>
 {
 }

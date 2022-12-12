@@ -23,10 +23,7 @@ public class InvoiceSortResolver : ISortResolver<Invoice>
 
             case InvoiceProperty.TotalAmount:
                 return e => e.TotalAmount;
-
-            case InvoiceProperty.Discount:
-                return e => e.Discount;
-
+                 
             case InvoiceProperty.CustomerId:
                 return e => e.CustomerId;
 

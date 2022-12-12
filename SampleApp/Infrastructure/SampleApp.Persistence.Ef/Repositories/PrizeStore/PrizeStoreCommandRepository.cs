@@ -11,9 +11,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-public class PolyFilterCommandRepository : EfCommandRepository<int, PolyFilter>, IPolyFilterCommandRepository
+public class PrizeStoreCommandRepository : EfCommandRepository<int, PrizeStore>, IPrizeStoreCommandRepository
 {
-    public PolyFilterCommandRepository(SampleAppContext dbContext) : base(dbContext)
+    public PrizeStoreCommandRepository(SampleAppContext dbContext) : base(dbContext)
     {
     }
 }

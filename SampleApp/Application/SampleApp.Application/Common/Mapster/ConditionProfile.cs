@@ -8,17 +8,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FilterTor.Helpers;
+using SampleApp.Application.Dto;
 
 public class ConditionProfile : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
-        //config.NewConfig<PolyFilter, IHasCondition>()
-        //     .Map(destination => destination.Condition.Serialize(),
-        //            source => JsonConditionBase.Deserialize(source.ConditionJson, null));
+        config.NewConfig<PrizeStore, IHasCustomerCondition>()
+                .Map(destination => destination.CustomerCondition,
+                        source => JsonConditionBase.Deserialize(source.CustomerConditionJson));
 
-        config.NewConfig<PolyFilter, IHasCondition>()
-           .Map(destination => destination.Condition,
-                  source => JsonConditionBase.Deserialize(source.ConditionJson, null));
+        config.NewConfig<PrizeStore, IHasInvoiceCondition>()
+                .Map(destination => destination.InvoiceCondition,
+                        source => JsonConditionBase.Deserialize(source.InvoiceConditionJson));
     }
 }

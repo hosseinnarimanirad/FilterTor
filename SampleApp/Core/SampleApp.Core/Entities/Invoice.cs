@@ -10,7 +10,8 @@ using System.Threading.Tasks;
 
 public class Invoice : IHasKey<long>, IHasCreateTimeRequired
 {
-    public long Id { get; private set; }
+    // possibly encapsulation violation
+    public required long Id { get; init; }
 
     public required DateTime CreateTime { get; init; }
 
@@ -22,35 +23,25 @@ public class Invoice : IHasKey<long>, IHasCreateTimeRequired
 
     public decimal TotalAmount { get; private set; }
 
-    public decimal Discount { get; private set; }
-
     public long CustomerId { get; private set; }
 
     public InvoiceType InvoiceType { get; private set; }
 
-    public ICollection<InvoiceDetail> InvoiceDetails { get; set; }
+    private readonly List<InvoiceDetail> _invoiceDetails = new List<InvoiceDetail>();
+    public IEnumerable<InvoiceDetail> InvoiceDetails => _invoiceDetails.AsReadOnly();
 
-
-    //public Invoice(string invoiceNumber)
-    //{
-    //    this.InvoiceNumber = invoiceNumber;
-    //    this.CreateTime = DateTime.Now;
-    //}
 
     [SetsRequiredMembers]
-    public Invoice(long id, string invoiceNumber, DateTime invoiceDate, bool isSettled, decimal totalAmount, decimal discount, long customerId, InvoiceType invoiceType)
+    public Invoice(string invoiceNumber, DateTime invoiceDate, bool isSettled, decimal totalAmount, long customerId, InvoiceType invoiceType)
     {
         this.InvoiceNumber = invoiceNumber;
         this.CreateTime = DateTime.Now;
 
-        this.Id = id;
         this.InvoiceDate = invoiceDate;
         this.IsSettled = isSettled;
         this.TotalAmount = totalAmount;
-        this.Discount = discount;
         this.CustomerId = customerId;
         this.InvoiceType = invoiceType;
-        this.InvoiceDetails = new List<InvoiceDetail>();
     }
 }
 

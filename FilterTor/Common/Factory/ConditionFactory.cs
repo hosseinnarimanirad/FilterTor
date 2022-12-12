@@ -20,7 +20,7 @@ public static class ConditionFactory
             return null;
         }
 
-        return Create<T>(JsonConditionBase.Deserialize(conditionJsonString, FilterTorHelper.DefaultJsonSerializerOptions), resolver);
+        return Create<T>(JsonConditionBase.Deserialize(conditionJsonString), resolver);
     }
 
     public static ICondition? Create<T>(JsonConditionBase? jsonCondition, IEntityResolver<T> resolver) where T : class

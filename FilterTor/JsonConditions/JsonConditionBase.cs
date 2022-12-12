@@ -28,12 +28,17 @@ public class JsonConditionBase : IJsonEntity
     }
 
 
-    public static JsonConditionBase? Deserialize(string jsonCondition, JsonSerializerOptions options)
+    public static JsonConditionBase? Deserialize(string? jsonCondition)
+    {
+        return Deserialize(jsonCondition, FilterTorHelper.DefaultJsonSerializerOptions);
+    }
+
+    public static JsonConditionBase? Deserialize(string? jsonCondition, JsonSerializerOptions? options = null)
     {
         if (string.IsNullOrWhiteSpace(jsonCondition))
             return null;
 
-        return FilterTorHelper.ParseCondition(jsonCondition, options);
+        return FilterTorHelper.ParseCondition(jsonCondition, options ?? FilterTorHelper.DefaultJsonSerializerOptions);
     }
 
     protected JsonConditionBase GetConditionForResult(Func<JsonLeafCondition, bool> predicate)

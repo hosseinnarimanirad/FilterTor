@@ -12,7 +12,7 @@ public class SampleAppContext : DbContext
     // just used in migration
     string connection = "Server=.\\SQLEXPRESS;Database=FilterTorSample;Trusted_Connection=True;";
 
-    public DbSet<PolyFilter> PolyFilters { get; set; }
+    public DbSet<PrizeStore> FilterStore { get; set; }
 
     public DbSet<Invoice> Invoices { get; set; }
 

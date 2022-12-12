@@ -9,12 +9,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-public class DeleteByIdsPolyFilterCommand : IRequest<DeleteByIdsPolyFilterResponse>
+public class DeletePrizeStoreCommand : IRequest<DeletePrizeStoreResponse>
 {
-    public List<int> PolyFilterIds { get; set; }
+    public int PrizeStoreId { get; set; }
 }
 
-public class DeleteByIdsPolyFilterResponse  
+public class DeletePrizeStoreResponse  
 { 
     public bool IsSucceed { get; set; } = false;
 }

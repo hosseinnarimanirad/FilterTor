@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 
 public interface IUnitOfWork : IDisposable
 {
-    IPolyFilterCommandRepository PolyFilters { get; }
+    IPrizeStoreCommandRepository PrizeStores { get; }
 
     IInvoiceCommandRepository Invoices { get; }
 
