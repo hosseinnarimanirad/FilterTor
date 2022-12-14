@@ -2,7 +2,7 @@
 
 using FilterTor.Models;
 using System.Text.Json.Nodes;
-using System.Text.Json; 
+using System.Text.Json;
 using FilterTor.Conditions;
 using FilterTor.Targets;
 using FilterTor.Extensions;
@@ -187,7 +187,9 @@ public static class FilterTorHelper
         switch (category)
         {
             case CategoryType.Compound:
-                var compound = JsonCompoundCondition.JsonCompundConditionMock.DeserializeMock(node, options);
+                var isAndMode = bool.Parse(node[nameof(JsonCompoundCondition.IsAndMode)]!.ToString());
+                var conditions = node[nameof(JsonCompoundCondition.Conditions)]!.AsArray().Select(a => ParseCondition(a, options)).Where(a => a is not null).ToList();
+                var compound = JsonCompoundCondition.Create(isAndMode, conditions);
                 return compound?.Conditions.Count == 1 ? compound.Conditions.First() : compound;
 
             case CategoryType.Property:
@@ -247,7 +249,7 @@ public static class FilterTorHelper
 
         switch (target)
         {
-             
+
             case TargetType.CollectionProperty:
                 break;
             case TargetType.Measure:
@@ -282,7 +284,7 @@ public static class FilterTorHelper
     }
 
     private static T GetEnum<T>(this JsonNode node, string propertyName) where T : struct
-    { 
+    {
         return Enum.Parse<T>(node[propertyName]?.ToString()!, ignoreCase: true);
     }
 

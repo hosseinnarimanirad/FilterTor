@@ -19,9 +19,7 @@ using SampleApp.Core.Entities;
 using FilterTor.Common.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-
+ 
 builder.Host.UseCustomSerilog();
 
 builder.Services.ScanInjections();
@@ -40,9 +38,7 @@ builder.Services.AddControllers()
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 builder.Services.AddMediatR(Assembly.GetAssembly(typeof(StartupExtensions))!);
 
-
 builder.Services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
-
 
 builder.Services.ConfigureOptions<DatabaseOptionsSetup>();
 
@@ -73,25 +69,13 @@ builder.Services.AddSwaggerGen(s =>
 {
     s.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"SampleApp.Presentation.Swagger.xml"));
 });
-
-
-//builder.Services.ConfigKafka();
-
+ 
 builder.Services.ConfigureMapster();
 builder.Services.ConfigureFluentValidation();
-
-//typeof(EntityType).Assembly.GetTypes()
-//    .Where(t => t.GetInterfaces().Where(i => i.IsGenericType).Any(i => i.GetGenericTypeDefinition() == typeof(ISortResolver<>) && !i.IsAbstract && !i.IsInterface))
-//    .ToList()
-//    .ForEach(type => )
-
-
-//builder.Services.AddScoped<ISortResolver<Invoice>, InvoiceSortResolver>();
-//builder.Services.AddScoped<ISortResolver<Customer>, CustomerSortResolver>();
-  
+ 
 typeof(EntityType).Assembly.GetTypes()
     .Where(item => item.GetInterfaces()
-    .Where(i => i.IsGenericType).Any(i => i.GetGenericTypeDefinition() == typeof(ISortResolver<>)) && !item.IsAbstract && !item.IsInterface)
+                        .Where(i => i.IsGenericType).Any(i => i.GetGenericTypeDefinition() == typeof(ISortResolver<>)) && !item.IsAbstract && !item.IsInterface)
     .ToList()
     .ForEach(assignedTypes =>
     {
@@ -102,7 +86,7 @@ typeof(EntityType).Assembly.GetTypes()
 
 typeof(EntityType).Assembly.GetTypes()
     .Where(item => item.GetInterfaces()
-    .Where(i => i.IsGenericType).Any(i => i.GetGenericTypeDefinition() == typeof(IEntityResolver<>)) && !item.IsAbstract && !item.IsInterface)
+                        .Where(i => i.IsGenericType).Any(i => i.GetGenericTypeDefinition() == typeof(IEntityResolver<>)) && !item.IsAbstract && !item.IsInterface)
     .ToList()
     .ForEach(assignedTypes =>
     {

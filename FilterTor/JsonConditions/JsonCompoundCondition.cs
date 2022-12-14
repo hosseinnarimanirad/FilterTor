@@ -71,40 +71,40 @@ public class JsonCompoundCondition : JsonConditionBase
         }
     }
 
-    public class JsonCompundConditionMock : JsonConditionBase
-    {
-        public List<object> Conditions { get; set; }
+    //public class JsonCompundConditionMock : JsonConditionBase
+    //{
+    //    public List<object> Conditions { get; set; }
 
-        [JsonIgnore]
-        public List<JsonConditionBase> ConditionItems { get; set; }
+    //    [JsonIgnore]
+    //    public List<JsonConditionBase> ConditionItems { get; set; }
 
-        public bool IsAndMode { get; set; }
+    //    public bool IsAndMode { get; set; }
 
-        public override bool Validate()
-        {
-            return Category == CategoryType.Compound && base.Validate();
-        }
+    //    public override bool Validate()
+    //    {
+    //        return Category == CategoryType.Compound && base.Validate();
+    //    }
 
-        public static JsonCompoundCondition? DeserializeMock(System.Text.Json.Nodes.JsonNode jsonNode, JsonSerializerOptions options)
-        {
-            var result = jsonNode.Deserialize<JsonCompundConditionMock>()!;
+    //    public static JsonCompoundCondition? DeserializeMock(System.Text.Json.Nodes.JsonNode jsonNode, JsonSerializerOptions options)
+    //    {
+    //        var result = jsonNode.Deserialize<JsonCompundConditionMock>(options)!;
 
-            if (result == null)
-                return null;
+    //        if (result == null)
+    //            return null;
 
-            result.ConditionItems = new List<JsonConditionBase>();
+    //        result.ConditionItems = new List<JsonConditionBase>();
 
-            for (int i = 0; i < result.Conditions.Count; i++)
-            {
-                var item = Deserialize(result.Conditions[i].ToString()!, options);
+    //        for (int i = 0; i < result.Conditions.Count; i++)
+    //        {
+    //            var item = Deserialize(result.Conditions[i].ToString()!, options);
 
-                if (item != null)
-                    result.ConditionItems.Add(item);
-            }
+    //            if (item != null)
+    //                result.ConditionItems.Add(item);
+    //        }
 
-            return Create(result.IsAndMode, result.ConditionItems);
-        }
-    }
+    //        return Create(result.IsAndMode, result.ConditionItems);
+    //    }
+    //}
 
     public override string ToString()
     {
