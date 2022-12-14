@@ -85,10 +85,9 @@ builder.Services.ConfigureFluentValidation();
 //    .ToList()
 //    .ForEach(type => )
 
-//ISortResolver<Invoice>
-//InvoiceSortResolver
-builder.Services.AddScoped<ISortResolver<Invoice>, InvoiceSortResolver>();
-builder.Services.AddScoped<ISortResolver<Customer>, CustomerSortResolver>();
+
+//builder.Services.AddScoped<ISortResolver<Invoice>, InvoiceSortResolver>();
+//builder.Services.AddScoped<ISortResolver<Customer>, CustomerSortResolver>();
   
 typeof(EntityType).Assembly.GetTypes()
     .Where(item => item.GetInterfaces()

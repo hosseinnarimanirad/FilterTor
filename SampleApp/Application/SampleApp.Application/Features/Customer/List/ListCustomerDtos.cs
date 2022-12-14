@@ -1,16 +1,8 @@
 ﻿namespace SampleApp.Application.Features;
 
-using SampleApp.Application.Common; 
 using MediatR;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks; 
-using SampleApp.Application.Features;
-using FilterTor.Common.Converters;
 using FilterTor.Conditions;
 using FilterTor.Models;
 
@@ -33,6 +25,10 @@ public class ListCustomerResponseItem
 {
     public long Id { get; set; }
 
-    
+    public string Name { get; private set; }
+
+    public DateTime RegisteredDate { get; private set; }
+
+    public decimal Credit { get; private set; }
 }
 

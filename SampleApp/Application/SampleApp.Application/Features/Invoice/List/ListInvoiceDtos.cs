@@ -1,19 +1,11 @@
 ﻿namespace SampleApp.Application.Features;
 
-using SampleApp.Application.Common; 
 using MediatR;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks; 
-using SampleApp.Application.Features;
-using FilterTor.Common.Converters;
 using FilterTor.Conditions;
 using FilterTor.Models;
-using SampleApp.FilterTorEx;
+using SampleApp.Core;
 
 public class ListInvoiceQuery : IRequest<ListInvoiceResponse>
 {
@@ -25,7 +17,7 @@ public class ListInvoiceQuery : IRequest<ListInvoiceResponse>
 }
 
 
-public class ListInvoiceResponse 
+public class ListInvoiceResponse
 {
     public List<ListInvoiceResponseItem> Items { get; set; }
 }
@@ -34,6 +26,18 @@ public class ListInvoiceResponseItem
 {
     public long Id { get; set; }
 
-    
+    public DateTime CreateTime { get; set; }
+
+    public string InvoiceNumber { get; set; }
+
+    public DateTime InvoiceDate { get; set; }
+
+    public bool IsSettled { get; set; }
+
+    public decimal TotalAmount { get; set; }
+
+    public long CustomerId { get; set; }
+
+    public InvoiceType InvoiceType { get; set; }
 }
 
