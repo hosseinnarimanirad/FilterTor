@@ -12,6 +12,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
+using FilterTor.Decorators;
+using SampleApp.FilterTorEx;
+using SampleApp.FilterTorEx.Entities;
+using SampleApp.Core.Entities;
+using FilterTor.Common.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -64,7 +69,10 @@ builder.Services.AddDbContext<SampleAppContext>((serviceProvider, dbContextOptio
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(s =>
+{
+    s.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"SampleApp.Presentation.Swagger.xml"));
+});
 
 
 //builder.Services.ConfigKafka();
@@ -72,6 +80,36 @@ builder.Services.AddSwaggerGen();
 builder.Services.ConfigureMapster();
 builder.Services.ConfigureFluentValidation();
 
+//typeof(EntityType).Assembly.GetTypes()
+//    .Where(t => t.GetInterfaces().Where(i => i.IsGenericType).Any(i => i.GetGenericTypeDefinition() == typeof(ISortResolver<>) && !i.IsAbstract && !i.IsInterface))
+//    .ToList()
+//    .ForEach(type => )
+
+//ISortResolver<Invoice>
+//InvoiceSortResolver
+builder.Services.AddScoped<ISortResolver<Invoice>, InvoiceSortResolver>();
+builder.Services.AddScoped<ISortResolver<Customer>, CustomerSortResolver>();
+  
+typeof(EntityType).Assembly.GetTypes()
+    .Where(item => item.GetInterfaces()
+    .Where(i => i.IsGenericType).Any(i => i.GetGenericTypeDefinition() == typeof(ISortResolver<>)) && !item.IsAbstract && !item.IsInterface)
+    .ToList()
+    .ForEach(assignedTypes =>
+    {
+        var serviceType = assignedTypes.GetInterfaces().First(i => i.GetGenericTypeDefinition() == typeof(ISortResolver<>));
+        builder.Services.AddScoped(serviceType, assignedTypes);
+    });
+
+
+typeof(EntityType).Assembly.GetTypes()
+    .Where(item => item.GetInterfaces()
+    .Where(i => i.IsGenericType).Any(i => i.GetGenericTypeDefinition() == typeof(IEntityResolver<>)) && !item.IsAbstract && !item.IsInterface)
+    .ToList()
+    .ForEach(assignedTypes =>
+    {
+        var serviceType = assignedTypes.GetInterfaces().First(i => i.GetGenericTypeDefinition() == typeof(IEntityResolver<>));
+        builder.Services.AddScoped(serviceType, assignedTypes);
+    });
 
 
 // **********************************************************

@@ -8,15 +8,19 @@
 
   <!--custom swagger-->
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>../../SampleApp.Api/bin/Debug/net7.0/SabaTamin.Extensions.Swagger.xml</DocumentationFile>
+    <DocumentationFile>../../SampleApp.Api/bin/Debug/net7.0/SampleApp.Presentation.Swagger.xml</DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>../../SampleApp.Api/bin/Release/net7.0/SabaTamin.Extensions.Swagger.xml</DocumentationFile>
+    <DocumentationFile>../../SampleApp.Api/bin/Release/net7.0/SampleApp.Presentation.Swagger.xml</DocumentationFile>
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
-
+  
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+  
   <ItemGroup>
     <PackageReference Include="MediatR" Version="11.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />

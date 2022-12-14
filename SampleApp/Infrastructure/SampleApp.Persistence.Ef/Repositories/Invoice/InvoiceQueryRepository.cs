@@ -1,6 +1,7 @@
 ﻿namespace SampleApp.Persistence.Ef.Repositories;
 
-
+using FilterTor.Common.Entities;
+using FilterTor.Decorators;
 using Grid.Persistence;
 using SampleApp.Application.Gateways.Repositories;
 using SampleApp.Core.Entities;
@@ -13,7 +14,9 @@ using System.Threading.Tasks;
 
 public class InvoiceQueryRepository : EfGridQueryRepository<long, Invoice>, IInvoiceQueryRepository
 {
-    public InvoiceQueryRepository(SampleAppContext dbContext) : base(dbContext)
+    public InvoiceQueryRepository(SampleAppContext dbContext,
+                                    ISortResolver<Invoice> sortResolver,
+                                    IEntityResolver<Invoice> entityResolver) : base(dbContext, sortResolver, entityResolver)
     {
     }
 }

@@ -13,9 +13,8 @@ using SampleApp.Application.Features;
 using FilterTor.Common.Converters;
 using FilterTor.Conditions;
 using FilterTor.Models;
-using SampleApp.FilterTorEx;
 
-public class ListInvoiceQuery : IRequest<ListInvoiceResponse>
+public class ListCustomerQuery : IRequest<ListCustomerResponse>
 {
     public PagingModel? Paging { get; set; }
 
@@ -25,12 +24,12 @@ public class ListInvoiceQuery : IRequest<ListInvoiceResponse>
 }
 
 
-public class ListInvoiceResponse 
+public class ListCustomerResponse
 {
-    public List<ListInvoiceResponseItem> Items { get; set; }
+    public List<ListCustomerResponseItem> Items { get; set; }
 }
 
-public class ListInvoiceResponseItem
+public class ListCustomerResponseItem
 {
     public long Id { get; set; }
 

@@ -1,4 +1,4 @@
-﻿namespace SampleApp.Application.Features.Invoice.List;
+﻿namespace SampleApp.Application.Features;
 
 using System;
 using System.Collections.Generic;
@@ -14,6 +14,7 @@ using SampleApp.Application.Gateways.Repositories;
 using FilterTor.Models;
 using FilterTor.Helpers;
 using FilterTor.Conditions;
+using SampleApp.FilterTorEx;
 
 public sealed class ListInvoiceHandler : IRequestHandler<ListInvoiceQuery, ListInvoiceResponse>
 {
@@ -26,7 +27,7 @@ public sealed class ListInvoiceHandler : IRequestHandler<ListInvoiceQuery, ListI
 
     public async Task<ListInvoiceResponse> Handle(ListInvoiceQuery request, CancellationToken cancellationToken)
     {
-        var sorts = request.Sorts?.Select(s => s.Adapt<SortModel>(sm => { sm.Entity = request.GridKey.ToString(); })!)?.ToList();
+        var sorts = request.Sorts?.Select(s => s.Adapt<SortModel>(sm => { sm.Entity = EntityType.Invoice.ToString(); })!)?.ToList();
 
         var items = await _repo.Filter(request.Filter, sorts, request.Paging);
 
