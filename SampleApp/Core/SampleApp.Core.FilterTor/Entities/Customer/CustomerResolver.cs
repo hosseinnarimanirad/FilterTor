@@ -2,12 +2,14 @@
 
 using FilterTor;
 using FilterTor.Common.Entities;
+using FilterTor.Conditions;
 using FilterTor.Expressions;
 using FilterTor.Helpers;
 using FilterTor.Models;
 using FilterTor.Targets;
 using SampleApp.Core.Entities;
 using System.Linq.Expressions;
+using System.Net.NetworkInformation;
 
 public class CustomerResolver : EntityResolver<Customer>
 {
@@ -18,7 +20,7 @@ public class CustomerResolver : EntityResolver<Customer>
 
     public override Expression<Func<Customer, bool>> GetPropertyFilter(JsonTargetBase? target, string propType, Operation operation)
     {
-        switch (EnumHelper.ParseIgnoreCase<CustomerProperty>(propType))
+        switch (EnumHelper.TryParseIgnoreCase<CustomerProperty>(propType))
         {
             case CustomerProperty.Credit:
                 return ExpressionUtility.Compare<Customer, decimal>(_byCreditFilter.Expression, target, decimal.Parse, operation);
@@ -33,7 +35,7 @@ public class CustomerResolver : EntityResolver<Customer>
 
     public override Func<Customer, object> ExtractPropertyValue(string propType)
     {
-        switch (EnumHelper.ParseIgnoreCase<CustomerProperty>(propType))
+        switch (EnumHelper.TryParseIgnoreCase<CustomerProperty>(propType))
         {
             case CustomerProperty.Credit:
                 return i => _byCreditFilter.Func(i);
@@ -44,5 +46,15 @@ public class CustomerResolver : EntityResolver<Customer>
             default:
                 throw new NotImplementedException("CustomerResolver -> ExtractPropertyValue");
         }
+    }
+
+    public override bool Validate(JsonConditionBase jsonCondition)
+    {
+        return Validate<CustomerProperty, CustomerCollectionProperty, CustomerMeasure>(jsonCondition);
+    }
+
+    public override bool Validate(JsonTargetBase? jsonTarget)
+    {
+        return Validate<CustomerProperty, CustomerCollectionProperty, CustomerMeasure>(jsonTarget);
     }
 }

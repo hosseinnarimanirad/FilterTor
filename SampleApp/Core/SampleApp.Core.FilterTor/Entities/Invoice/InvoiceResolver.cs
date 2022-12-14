@@ -2,6 +2,7 @@
 
 using FilterTor;
 using FilterTor.Common.Entities;
+using FilterTor.Conditions;
 using FilterTor.Expressions;
 using FilterTor.Helpers;
 using FilterTor.Models;
@@ -34,13 +35,13 @@ public class InvoiceResolver : EntityResolver<Invoice>
     //SumDetailInvoicesPriceToInvoicePrice = 4,
     //[Description("وجود قلم فاکتور")]
     //DetailInvoiceExists = 5,
-    
+
     // measures
     //static readonly FuncExp<Invoice,decimal> _bySumDetailInvoicePrices=new FuncExp<Invoice,decimal>(i=>)
 
     public override Expression<Func<Invoice, bool>> GetPropertyFilter(JsonTargetBase? target, string propType, Operation operation)
     {
-        switch (EnumHelper.ParseIgnoreCase<InvoiceProperty>(propType))
+        switch (EnumHelper.TryParseIgnoreCase<InvoiceProperty>(propType))
         {
             case InvoiceProperty.InvoiceNumber:
                 return ExpressionUtility.Compare<Invoice, string>(_byInvoiceNumberFilter.Expression, target, s => s, operation);
@@ -53,7 +54,7 @@ public class InvoiceResolver : EntityResolver<Invoice>
 
             case InvoiceProperty.TotalAmount:
                 return ExpressionUtility.Compare<Invoice, decimal>(_byTotalAmountFilter.Expression, target, decimal.Parse, operation);
-                 
+
             case InvoiceProperty.CustomerId:
                 return ExpressionUtility.Compare<Invoice, long>(_byCustomerIdFilter.Expression, target, long.Parse, operation);
 
@@ -67,7 +68,7 @@ public class InvoiceResolver : EntityResolver<Invoice>
 
     public override Func<Invoice, object> ExtractPropertyValue(string propType)
     {
-        switch (EnumHelper.ParseIgnoreCase<InvoiceProperty>(propType))
+        switch (EnumHelper.TryParseIgnoreCase<InvoiceProperty>(propType))
         {
             case InvoiceProperty.InvoiceNumber:
                 return _byInvoiceNumberFilter.Func;
@@ -80,7 +81,7 @@ public class InvoiceResolver : EntityResolver<Invoice>
 
             case InvoiceProperty.TotalAmount:
                 return i => _byTotalAmountFilter.Func(i);
-                 
+
             case InvoiceProperty.CustomerId:
                 return i => _byCustomerIdFilter.Func(i);
 
@@ -90,5 +91,16 @@ public class InvoiceResolver : EntityResolver<Invoice>
             default:
                 throw new NotImplementedException("InvoiceResolver -> ExtractPropertyValue");
         }
+    }
+
+
+    public override bool Validate(JsonConditionBase jsonCondition)
+    {
+        return Validate<InvoiceProperty, InvoiceCollectionProperty, InvoiceMeasure>(jsonCondition);
+    }
+
+    public override bool Validate(JsonTargetBase? jsonTarget)
+    {
+        return Validate<InvoiceProperty, InvoiceCollectionProperty, InvoiceMeasure>(jsonTarget);
     }
 }

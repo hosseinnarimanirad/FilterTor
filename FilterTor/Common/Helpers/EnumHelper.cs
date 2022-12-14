@@ -69,9 +69,23 @@ public static class EnumHelper
         return (T)Enum.Parse(typeof(T), value);
     }
 
-    public static T ParseIgnoreCase<T>(string value) where T : struct
+    public static T TryParseIgnoreCase<T>(string value) where T : struct
     {
-        return (T)Enum.Parse<T>(value, ignoreCase: true);
+        if (Enum.TryParse<T>(value, ignoreCase: true, out var resultValue))
+            return resultValue;
+
+        else return default;
+
+        //return (T)Enum.TryParse<T>(value, ignoreCase: true);
+    }
+
+    public static bool IsDefined<T>(string value) where T : struct
+    {
+        if (Enum.TryParse<T>(value, ignoreCase: true, out var resultValue))
+            return true;
+
+        else
+            return false;
     }
 
     public static List<EnumInfo> Parse<T>() where T : struct, IConvertible
@@ -83,7 +97,7 @@ public static class EnumHelper
         return Parse<T>(nullPredicate);
     }
 
-    public static List<EnumInfo> Parse<T>(Predicate<T> predicate) where T : struct, IConvertible
+    public static List<EnumInfo> Parse<T>(Predicate<T>? predicate) where T : struct, IConvertible
     {
         var type = typeof(T);
 
@@ -100,7 +114,5 @@ public static class EnumHelper
               ?.GetCustomAttribute<DescriptionAttribute>()
               ?.Description ?? string.Empty;
     }
-
-
 }
 

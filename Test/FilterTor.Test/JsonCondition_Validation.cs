@@ -92,7 +92,7 @@ public class JsonCondition_Validation
             ""category"":""property"",
             ""entity"":""invoice"",
             ""property"":""invoiceNumber"",
-            ""operation"":""In"",
+            ""operation"":""in"",
             ""target"": {
                 ""targetType"":""array"",
                 ""values"" : [""100100"",""100101"", ""100104""]
@@ -128,7 +128,7 @@ public class JsonCondition_Validation
             ""target"": {
                 ""targetType"":""property"",
                 ""entity"":""invoice"",
-                ""Property"":""totalAmount""
+                ""property"":""totalAmount""
                 }
         }";
 
@@ -166,7 +166,7 @@ public class JsonCondition_Validation
             ""target"": {
                 ""targetType"":""collectionProperty"",
                 ""entity"":""invoice"",
-                ""Collection"":""productIds""
+                ""collection"":""productIds""
                 }
         }";
 
@@ -202,7 +202,7 @@ public class JsonCondition_Validation
             ""target"": {
                 ""targetType"":""measure"",
                 ""entity"":""invoice"",
-                ""measure"":""SumDetailInvoicesPrice""
+                ""measure"":""sumDetailInvoicesPrice""
                 }
         }";
 

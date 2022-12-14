@@ -2,6 +2,7 @@
 
 using FilterTor.Common;
 using FilterTor.Common.Converters;
+using FilterTor.Common.Entities;
 using FilterTor.Helpers;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -27,6 +28,10 @@ public class JsonConditionBase : IJsonEntity
         return Category != 0;
     }
 
+    public virtual bool Validate<T>(IEntityResolver<T> resolver)
+    {
+        return resolver.Validate(this);
+    }
 
     public static JsonConditionBase? Deserialize(string? jsonCondition)
     {

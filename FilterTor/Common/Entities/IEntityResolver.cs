@@ -16,4 +16,6 @@ public interface IEntityResolver<T>
     Expression<Func<T, bool>> GetPropertyFilter(JsonTargetBase? target, string propType, Operation operation);
 
     Func<T, object> ExtractPropertyValue(string propType);
+
+    bool Validate(JsonConditionBase jsonCondition);
 }

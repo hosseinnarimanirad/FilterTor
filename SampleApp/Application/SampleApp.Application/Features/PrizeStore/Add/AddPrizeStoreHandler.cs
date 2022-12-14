@@ -10,6 +10,7 @@ using MediatR;
 using SampleApp.Application.Gateways;
 using SampleApp.Core.Entities;
 using FilterTor.Factory;
+using SampleApp.FilterTorEx.Entities;
 
 public sealed class AddPrizeStoreHandler : IRequestHandler<AddPrizeStoreCommand, AddPrizeStoreResponse>
 {
@@ -22,6 +23,12 @@ public sealed class AddPrizeStoreHandler : IRequestHandler<AddPrizeStoreCommand,
 
     public async Task<AddPrizeStoreResponse> Handle(AddPrizeStoreCommand request, CancellationToken cancellationToken)
     {
+        if (request.CustomerCondition is not null && new CustomerResolver().Validate(request.CustomerCondition) == false)
+            throw new NotImplementedException("AddPrizeStoreHandler > invalid CustomerCondition");
+
+        if (request.InvoiceCondition is not null && new InvoiceResolver().Validate(request.InvoiceCondition) == false)
+            throw new NotImplementedException("AddPrizeStoreHandler > invalid InvoiceCondition");
+
         var prizeStore = PrizeStore.Create(
                 request.StartDate,
                 request.EndDate,
