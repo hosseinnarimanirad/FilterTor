@@ -2,14 +2,14 @@
 
 using FilterTor;
 using FilterTor.Conditions;
-using FilterTor.Helpers;  
+using FilterTor.Helpers;
 using FilterTor.Targets;
-using Newtonsoft.Json.Linq; 
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks; 
+using System.Threading.Tasks;
 using SampleApp.FilterTorEx;
 using SampleApp.FilterTorEx.Entities;
 
@@ -37,13 +37,15 @@ public class JsonCondition_Validation
 
         Assert.NotNull(condition);
 
+        Assert.True(condition.Validate(new InvoiceResolver()));
+
         Assert.Equal(CategoryType.Property, condition.Category);
         Assert.Equal(EntityType.Invoice, Enum.Parse<EntityType>(condition.Entity, ignoreCase: true));
         Assert.Equal(InvoiceProperty.IsSettled, Enum.Parse<InvoiceProperty>(condition.Property, ignoreCase: true));
         Assert.Equal(Operation.EqualsTo, condition!.Operation);
 
         Assert.Equal(TargetType.Constant, condition!.Target?.TargetType);
-        Assert.False(bool.Parse((condition!.Target as JsonConstantTarget)?.Value!));
+        Assert.True(bool.Parse((condition!.Target as JsonConstantTarget)?.Value!));
     }
 
 
@@ -70,6 +72,8 @@ public class JsonCondition_Validation
 
         Assert.NotNull(condition);
 
+        Assert.True(condition.Validate(new InvoiceResolver()));
+
         Assert.Equal(CategoryType.Property, condition.Category);
         Assert.Equal(EntityType.Invoice, Enum.Parse<EntityType>(condition.Entity, ignoreCase: true));
         Assert.Equal(InvoiceProperty.InvoiceDate, Enum.Parse<InvoiceProperty>(condition.Property, ignoreCase: true));
@@ -77,7 +81,7 @@ public class JsonCondition_Validation
 
         Assert.Equal(TargetType.Range, condition!.Target?.TargetType);
         Assert.Equal(new DateTime(2021, 1, 1), DateTime.Parse((condition.Target as JsonRangeTarget)!.MinValue));
-        Assert.Equal(new DateTime(2022, 5, 1), DateTime.Parse((condition.Target as JsonRangeTarget)!.MaxValue));
+        Assert.Equal(new DateTime(2022, 1, 5), DateTime.Parse((condition.Target as JsonRangeTarget)!.MaxValue));
     }
 
 
@@ -102,6 +106,8 @@ public class JsonCondition_Validation
         var condition = JsonConditionBase.Deserialize(conditionJson) as JsonPropertyCondition;
 
         Assert.NotNull(condition);
+
+        Assert.True(condition.Validate(new InvoiceResolver()));
 
         Assert.Equal(CategoryType.Property, condition.Category);
         Assert.Equal(EntityType.Invoice, Enum.Parse<EntityType>(condition.Entity, ignoreCase: true));
@@ -140,6 +146,8 @@ public class JsonCondition_Validation
 
         Assert.NotNull(target);
 
+        Assert.True(condition.Validate(new InvoiceResolver()));
+
         Assert.Equal(CategoryType.Property, condition.Category);
         Assert.Equal(EntityType.Invoice, Enum.Parse<EntityType>(condition.Entity, ignoreCase: true));
         Assert.Equal(InvoiceProperty.TotalAmount, Enum.Parse<InvoiceProperty>(condition.Property, ignoreCase: true));
@@ -172,9 +180,13 @@ public class JsonCondition_Validation
 
         var condition = JsonConditionBase.Deserialize(conditionJson) as JsonPropertyCondition;
 
+        Assert.NotNull(condition);
+
         var target = condition.Target as JsonCollectionPropertyTarget;
 
         Assert.NotNull(target);
+
+        Assert.True(condition.Validate(new InvoiceResolver()));
 
         Assert.Equal(CategoryType.Property, condition.Category);
         Assert.Equal(EntityType.Invoice, Enum.Parse<EntityType>(condition.Entity, ignoreCase: true));
@@ -214,6 +226,8 @@ public class JsonCondition_Validation
 
         Assert.NotNull(target);
 
+        Assert.True(condition.Validate(new InvoiceResolver()));
+
         Assert.Equal(CategoryType.Property, condition.Category);
         Assert.Equal(EntityType.Invoice, Enum.Parse<EntityType>(condition.Entity, ignoreCase: true));
         Assert.Equal(InvoiceProperty.TotalAmount, Enum.Parse<InvoiceProperty>(condition.Property, ignoreCase: true));
@@ -245,8 +259,10 @@ public class JsonCondition_Validation
         }";
 
         var condition = JsonConditionBase.Deserialize(conditionJson) as JsonCollectionPropertyCondition;
-         
+
         Assert.NotNull(condition);
+
+        Assert.True(condition.Validate(new InvoiceResolver()));
 
         Assert.Equal(CategoryType.CollectionProperty, condition.Category);
         Assert.Equal(EntityType.Invoice, Enum.Parse<EntityType>(condition.Entity, ignoreCase: true));
@@ -279,8 +295,10 @@ public class JsonCondition_Validation
         }";
 
         var condition = JsonConditionBase.Deserialize(conditionJson) as JsonMeasureCondition;
-         
+
         Assert.NotNull(condition);
+
+        Assert.True(condition.Validate(new InvoiceResolver()));
 
         Assert.Equal(CategoryType.Measure, condition.Category);
         Assert.Equal(EntityType.Invoice, Enum.Parse<EntityType>(condition.Entity, ignoreCase: true));

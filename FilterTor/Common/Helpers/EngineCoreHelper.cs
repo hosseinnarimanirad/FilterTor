@@ -179,9 +179,7 @@ public static class FilterTorHelper
     private static JsonConditionBase? ParseCondition(JsonNode? node, JsonSerializerOptions options)
     {
         if (node is null) return null;
-
-        //var entityType = GetEnum<EntityType>(node, nameof(JsonConditionBase.Entity));
-
+         
         var category = GetEnum<CategoryType>(node, nameof(JsonConditionBase.Category));
 
         switch (category)
