@@ -15,8 +15,10 @@ FilterTor library introduces different possible filters and stores them using JS
 
 ### Sample data model
 Consider the following data model:
-  
-![you_name_it (2)](https://user-images.githubusercontent.com/7770893/208347207-db087ac6-5c3b-4b59-b8e1-106043251ce8.png)
+   
+
+![image](https://user-images.githubusercontent.com/7770893/208354329-1f365f50-c394-4056-bd2f-01258b65c224.png)
+
 
 
 
