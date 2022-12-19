@@ -15,8 +15,9 @@ FilterTor library introduces different possible filters and stores them using JS
 
 ### Sample data model
 Consider the following data model:
- 
-![you_name_it (1)](https://user-images.githubusercontent.com/7770893/208346915-82946387-9082-4599-a122-4a98b10490fd.png)
+  
+![you_name_it (2)](https://user-images.githubusercontent.com/7770893/208347207-db087ac6-5c3b-4b59-b8e1-106043251ce8.png)
+
 
 
 ### Invoices with (IsSettled = true)
