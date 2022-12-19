@@ -13,12 +13,11 @@ FilterTor library introduces different possible filters and stores them using JS
 
 ## Examples
 
+### Sample data model
 Consider the following data model:
+ 
+![you_name_it (1)](https://user-images.githubusercontent.com/7770893/208346915-82946387-9082-4599-a122-4a98b10490fd.png)
 
-- Customer (Id, Name, RegisteredDate, Credit)
-- CustomerGroup (Id, CreateTime, Type, CustomerId )
-- Invoice (Id, CreateTime, InvoiceNumber, InvoiceDate, IsSettled, TotalAmount, CusotmerId, InvoiceType)
-- InvoiceDetail (Id, InvoiceId, ProductId, Count, UnitPrice, Discount, IsPrize) 
 
 ### Invoices with (IsSettled = true)
 ```json
