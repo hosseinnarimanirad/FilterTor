@@ -1,4 +1,4 @@
-Sample Application
+# Sample Application
 
 In this section, a sample application is provided based on the Clean architecture, which uses the FilterTor library to store and retrieve filters and use them to filter a sample list API. This sample application consists of the following projects.
 
