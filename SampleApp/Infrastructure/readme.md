@@ -1,4 +1,4 @@
-﻿# Infrastructure
+# Infrastructure
 The Infrastructure project typically includes data access implementations. 
 In a typical ASP.NET Core web application, these implementations include the 
 Entity Framework (EF) DbContext, any EF Core Migration objects that have 
