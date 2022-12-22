@@ -11,7 +11,7 @@ contain implementations of services that must interact with infrastructure
 concerns. These services should implement interfaces defined in the Application Core, 
 and so Infrastructure should have a reference to the Application Core project.
 
-# Infrastructure types
+## Infrastructure types
 	EF Core types (DbContext, Migration)
 	Data access implementation types (Repositories)
 	Infrastructure-specific services (for example, FileLogger or SmtpNotifier)
