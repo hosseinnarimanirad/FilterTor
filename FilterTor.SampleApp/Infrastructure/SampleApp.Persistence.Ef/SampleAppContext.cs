@@ -10,7 +10,7 @@ using System.Reflection;
 public class SampleAppContext : DbContext
 {
     // just used in migration
-    string connection = "Server=.\\SQLEXPRESS;Database=FilterTorSample;Trusted_Connection=True;";
+    string connection = "Server=.\\SQLEXPRESS;Database=FilterTorSample;Trusted_Connection=True";
 
     public DbSet<PrizeStore> FilterStore { get; set; }
 

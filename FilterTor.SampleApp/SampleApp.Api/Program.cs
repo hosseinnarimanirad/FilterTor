@@ -134,6 +134,9 @@ try
         }
         else
         {
+            // 1401.10.19
+            // cannot be used with MigrateAsync
+            //await appDbContext.Database.EnsureCreatedAsync();
             await appDbContext.Database.MigrateAsync();
             logger.Information("Migrated Successfully");
         }
