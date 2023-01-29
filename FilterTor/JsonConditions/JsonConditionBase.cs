@@ -2,7 +2,7 @@
 
 using FilterTor.Common;
 using FilterTor.Common.Converters;
-using FilterTor.Common.Entities;
+using FilterTor.Resolvers;
 using FilterTor.Helpers;
 using System.Text.Json;
 using System.Text.Json.Serialization;

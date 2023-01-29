@@ -1,6 +1,6 @@
 ﻿namespace SampleApp.FilterTorEx.Entities;
 
-using FilterTor.Decorators;
+using FilterTor.Resolvers;
 using FilterTor.Models;
 using SampleApp.Core.Entities;
 using System.Linq.Expressions;

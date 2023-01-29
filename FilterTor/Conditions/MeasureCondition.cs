@@ -2,8 +2,8 @@
 using System;
 using System.Collections.Generic;
 using FilterTor.Conditions;
-using FilterTor.Common.Entities;
 using FilterTor.Factory;
+using FilterTor.Resolvers;
 
 namespace FilterTor;
 

@@ -1,4 +1,4 @@
-﻿namespace FilterTor.Common.Entities;
+﻿namespace FilterTor.Resolvers;
 
 using FilterTor.Conditions;
 using FilterTor.Factory;
@@ -17,7 +17,7 @@ public abstract class EntityResolver<T> : IEntityResolver<T> where T : class
     {
         Validate(jsonCondition);
 
-        ICondition? condition = ConditionFactory.Create<T>(jsonCondition, this);
+        ICondition? condition = ConditionFactory.Create(jsonCondition, this);
 
         if (condition is null)
             return t => false;
@@ -88,4 +88,6 @@ public abstract class EntityResolver<T> : IEntityResolver<T> where T : class
                 return false;
         }
     }
+
+    //public abstract IQueryable<T> GetSource();
 }

@@ -13,7 +13,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-public abstract class EfCommandRepository<TKey, TEntity> : IEfCommandRepository<TKey, TEntity>
+public abstract class EfCommandRepository<TKey, TEntity> : ICommandRepository<TKey, TEntity>
     where TEntity : class, IHasKey<TKey>
     where TKey : struct
 {
@@ -77,49 +77,51 @@ public abstract class EfCommandRepository<TKey, TEntity> : IEfCommandRepository<
         await _dbSet.AddRangeAsync(entities);
     }
 
-    public void BulkInsert(List<TEntity> entities)
+    public void BulkAdd(List<TEntity> entities)
     {
         _context.BulkInsert(entities);
     }
 
-    public async Task BulkInsertAsync(List<TEntity> entities)
+    public async Task BulkAddAsync(List<TEntity> entities)
     {
         await _context.BulkInsertAsync(entities);
     }
 
-    public void Delete(TEntity entity)
+    public void Remove(TEntity entity)
     {
         _dbSet.Remove(entity);
     }
 
-    public async Task DeleteAsync(TKey id)
+    public async Task RemoveAsync(TKey id)
     {
         var entity = await GetAsync(id);
         _dbSet.Remove(entity);
     }
 
-    public void DeleteRange(IEnumerable<TEntity> entities)
+    // bulk update, delete now availabe in EF 7
+    //https://www.codemag.com/Article/2211072/EF-Core-7-It-Just-Keeps-Getting-Better
+    public void RemoveRange(IEnumerable<TEntity> entities)
     {
         _dbSet.RemoveRange(entities);
     }
 
-    public async Task DeleteRangeAsync(IEnumerable<TKey> ids)
+    public async Task RemoveRangeAsync(IEnumerable<TKey> ids)
     {
         var entities = await GetAllByIdsAsync(ids);
         _dbSet.RemoveRange(entities);
     }
 
-    public void BulkDelete(List<TEntity> entities)
+    public void BulkRemove(List<TEntity> entities)
     {
         _context.BulkDelete(entities);
     }
 
-    public async Task BulkDeleteAsync(List<TEntity> entities)
+    public async Task BulkRemoveAsync(List<TEntity> entities)
     {
         await _context.BulkDeleteAsync(entities);
     }
 
-    public bool Exist(TKey id)
+    public bool Exists(TKey id)
     {
         return _dbSet.Any(p => p.Id.Equals(id));
     }

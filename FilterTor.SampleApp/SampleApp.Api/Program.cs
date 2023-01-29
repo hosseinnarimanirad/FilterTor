@@ -12,11 +12,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
-using FilterTor.Decorators;
 using SampleApp.FilterTorEx;
 using SampleApp.FilterTorEx.Entities;
 using SampleApp.Core.Entities;
-using FilterTor.Common.Entities;
+using FilterTor.Resolvers;
 
 var builder = WebApplication.CreateBuilder(args);
  

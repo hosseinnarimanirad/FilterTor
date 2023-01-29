@@ -21,7 +21,7 @@ public sealed class DeletePrizeStoreHandler : IRequestHandler<DeletePrizeStoreCo
 
     public async Task<DeletePrizeStoreResponse> Handle(DeletePrizeStoreCommand request, CancellationToken cancellationToken)
     {
-        await _unitOfWork.PrizeStores.DeleteAsync(request.PrizeStoreId);
+        await _unitOfWork.PrizeStores.RemoveAsync(request.PrizeStoreId);
 
         await _unitOfWork.SaveChangesAsync();
 

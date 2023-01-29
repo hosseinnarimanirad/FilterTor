@@ -1,7 +1,7 @@
 ﻿namespace SampleApp.FilterTorEx.Entities;
 
 using FilterTor;
-using FilterTor.Common.Entities;
+using FilterTor.Resolvers;
 using FilterTor.Conditions;
 using FilterTor.Expressions;
 using FilterTor.Helpers;

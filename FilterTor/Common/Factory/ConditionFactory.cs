@@ -8,8 +8,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using FilterTor.Conditions;
-using FilterTor.Common.Entities;
-
+using FilterTor.Resolvers; 
 
 public static class ConditionFactory
 {

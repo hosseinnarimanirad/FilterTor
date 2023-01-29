@@ -1,4 +1,4 @@
-﻿namespace FilterTor.Decorators;
+﻿namespace FilterTor.Resolvers;
 
 using System;
 using FilterTor.Models;

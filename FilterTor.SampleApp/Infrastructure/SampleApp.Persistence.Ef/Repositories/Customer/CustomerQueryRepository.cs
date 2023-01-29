@@ -1,7 +1,6 @@
 ﻿namespace SampleApp.Persistence.Ef.Repositories;
 
-using FilterTor.Common.Entities;
-using FilterTor.Decorators;
+using FilterTor.Resolvers;
 using Grid.Persistence;
 using SampleApp.Application.Gateways.Repositories;
 using SampleApp.Core.Entities;

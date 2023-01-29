@@ -1,6 +1,6 @@
 ﻿namespace FilterTor.Decorators;
 
-using FilterTor.Common.Entities;
+using FilterTor.Resolvers;
 using FilterTor.Conditions;
 using FilterTor.Models;
 using System;

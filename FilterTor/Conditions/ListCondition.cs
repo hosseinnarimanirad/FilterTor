@@ -5,8 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using FilterTor.Conditions;
-using FilterTor.Common.Entities;
 using FilterTor.Factory;
+using FilterTor.Resolvers;
 
 public abstract class ListCondition<TEntity> : ILeafCondition where TEntity : class
 {

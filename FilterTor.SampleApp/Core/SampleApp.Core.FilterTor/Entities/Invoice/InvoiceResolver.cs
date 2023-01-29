@@ -1,7 +1,7 @@
 ﻿namespace SampleApp.FilterTorEx.Entities;
 
 using FilterTor;
-using FilterTor.Common.Entities;
+using FilterTor.Resolvers;
 using FilterTor.Conditions;
 using FilterTor.Expressions;
 using FilterTor.Helpers;
@@ -9,6 +9,7 @@ using FilterTor.Models;
 using FilterTor.Targets;
 using SampleApp.Core.Entities;
 using System.Linq.Expressions;
+using System.Linq;
 
 public class InvoiceResolver : EntityResolver<Invoice>
 {
@@ -103,4 +104,9 @@ public class InvoiceResolver : EntityResolver<Invoice>
     {
         return Validate<InvoiceProperty, InvoiceCollectionProperty, InvoiceMeasure>(jsonTarget);
     }
+
+    //public override IQueryable<Invoice> GetSource()
+    //{ 
+
+    //}
 }

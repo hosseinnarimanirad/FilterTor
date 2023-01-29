@@ -7,9 +7,9 @@ namespace FilterTor.Extensions
 {
     public static class IEnumerableExtensions
     {
-        public static bool IsNullOrEmpty<T>(this IEnumerable<T> enumerable)
+        public static bool IsNullOrEmpty<T>(this IEnumerable<T>? enumerable)
         {
-            return enumerable == null || !enumerable.Any();
+            return enumerable is null || !enumerable.Any();
         }
     }
 }

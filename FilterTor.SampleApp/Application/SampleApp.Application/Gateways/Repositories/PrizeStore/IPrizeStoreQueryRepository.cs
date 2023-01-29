@@ -1,8 +1,7 @@
 ﻿namespace SampleApp.Application.Gateways.Repositories;
 
 using SampleApp.Core.Entities;
- 
-
-public interface IPrizeStoreQueryRepository : IEfQueryRepository<int, PrizeStore>
+  
+public interface IPrizeStoreQueryRepository : IQueryRepository<int, PrizeStore>
 {
 }

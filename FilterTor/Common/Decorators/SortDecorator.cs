@@ -1,5 +1,6 @@
 ﻿namespace FilterTor.Decorators;
 
+using FilterTor.Resolvers;
 using FilterTor.Models;
 using System;
 using System.Collections.Generic;
