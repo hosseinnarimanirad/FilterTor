@@ -10,6 +10,8 @@ using FilterTor.Targets;
 using SampleApp.Core.Entities;
 using System.Linq.Expressions;
 using System.Linq;
+using FilterTor.Extensions;
+using System.Collections.Generic;
 
 public class InvoiceResolver : EntityResolver<Invoice>
 {
@@ -105,8 +107,16 @@ public class InvoiceResolver : EntityResolver<Invoice>
         return Validate<InvoiceProperty, InvoiceCollectionProperty, InvoiceMeasure>(jsonTarget);
     }
 
-    //public override IQueryable<Invoice> GetSource()
-    //{ 
 
-    //}
+    public override bool HasAuxilaryCondition(JsonConditionBase jsonCondition)
+    {
+        throw new NotImplementedException();
+    }
+
+  
+
+    public override List<string> GetPrimaryConditions()
+    {
+        return new List<string>() { InvoiceProperty.CustomerId.ToString() };
+    }
 }

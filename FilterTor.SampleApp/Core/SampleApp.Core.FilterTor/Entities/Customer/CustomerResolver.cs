@@ -10,6 +10,7 @@ using FilterTor.Targets;
 using SampleApp.Core.Entities;
 using System.Linq.Expressions;
 using System.Net.NetworkInformation;
+using System.Collections.Generic;
 
 public class CustomerResolver : EntityResolver<Customer>
 {
@@ -57,4 +58,16 @@ public class CustomerResolver : EntityResolver<Customer>
     {
         return Validate<CustomerProperty, CustomerCollectionProperty, CustomerMeasure>(jsonTarget);
     }
+
+    public override bool HasAuxilaryCondition(JsonConditionBase jsonCondition)
+    {
+        var list = jsonCondition.GetCollectionMeasureProperties();
+
+        return false;
+    }
+
+    public override List<string> GetPrimaryConditions()
+    {
+        throw new NotImplementedException();
+    } 
 }

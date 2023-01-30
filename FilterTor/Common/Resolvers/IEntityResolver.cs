@@ -19,5 +19,11 @@ public interface IEntityResolver<T>
 
     bool Validate(JsonConditionBase jsonCondition);
 
+    public List<string> GetPrimaryConditions();
+
+    bool HasAuxilaryCondition(JsonConditionBase jsonCondition);
+
+    JsonConditionBase? GetPrimaryCondition(JsonConditionBase jsonCondition);
+
     //IQueryable<T> GetSource();
 }

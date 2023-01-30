@@ -1,6 +1,7 @@
 ﻿namespace FilterTor.Resolvers;
 
 using FilterTor.Conditions;
+using FilterTor.Extensions;
 using FilterTor.Factory;
 using FilterTor.Helpers;
 using FilterTor.Targets;
@@ -87,6 +88,48 @@ public abstract class EntityResolver<T> : IEntityResolver<T> where T : class
             default:
                 return false;
         }
+    }
+
+    public abstract List<string> GetPrimaryConditions();
+
+    public abstract bool HasAuxilaryCondition(JsonConditionBase jsonCondition);
+
+    public JsonConditionBase? GetPrimaryCondition(JsonConditionBase jsonCondition)
+    {
+        var primaryConditions = GetPrimaryConditions();
+
+        if (primaryConditions.IsNullOrEmpty())
+            return null;
+
+        string valueSubConditionn = string.Empty;
+
+        switch (jsonCondition)
+        {
+            case JsonCompoundCondition jcc:
+                var filteredConditions = jcc.Conditions.Select(GetPrimaryCondition).Where(c => c is not null).ToList();
+
+                if (filteredConditions.IsNullOrEmpty())
+                    return null;
+                else
+                    return JsonCompoundCondition.Create(jcc.IsAndMode, filteredConditions!);
+
+            case JsonPropertyCondition jpc:
+                return primaryConditions.Contains(jpc.Property) ? jpc : null;
+
+            case JsonCollectionPropertyCondition jcp:
+                return primaryConditions.Contains(jcp.Collection) ? jcp : null;
+
+            case JsonMeasureCondition jmc:
+                return primaryConditions.Contains(jmc.Measure) ? jmc : null;
+
+            case JsonListCondition jlc:
+                return primaryConditions.Contains(jlc.Measure) ? jlc : null;
+
+            default:
+                throw new NotImplementedException();
+        }
+
+
     }
 
     //public abstract IQueryable<T> GetSource();

@@ -6,7 +6,7 @@ using FilterTor.Resolvers;
 using FilterTor.Helpers;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-
+using FilterTor.Extensions;
 
 [JsonConverter(typeof(ConditionJsonConverter))]
 public class JsonConditionBase : IJsonEntity
@@ -16,9 +16,7 @@ public class JsonConditionBase : IJsonEntity
     public virtual string Serialize(JsonSerializerOptions? options)
     {
         if (!Validate())
-        {
             throw new NotImplementedException("JsonConditionBase > Serialize");
-        }
 
         return JsonSerializer.Serialize(this, GetType(), options ?? FilterTorHelper.DefaultJsonSerializerOptions);
     }
@@ -46,62 +44,30 @@ public class JsonConditionBase : IJsonEntity
         return FilterTorHelper.ParseCondition(jsonCondition, options ?? FilterTorHelper.DefaultJsonSerializerOptions);
     }
 
-    protected JsonConditionBase GetConditionForResult(Func<JsonLeafCondition, bool> predicate)
-    {
-        if (Category == CategoryType.Compound)
-        {
-            for (int i = 0; i < ((JsonCompoundCondition)this).Conditions.Count; i++)
-            {
-                var temp = ((JsonCompoundCondition)this).Conditions[i].GetConditionForResult(predicate);
-
-                if (temp != null)
-                {
-                    return temp;
-                }
-            }
-        }
-        else
-        {
-            if (predicate((JsonLeafCondition)this))
-            {
-                return this;
-            }
-        }
-
-        return null;
-    }
-
-    private JsonConditionBase FilterCondition(JsonConditionBase condition, Predicate<JsonConditionBase> predicate)
+    private JsonConditionBase? FilterCondition(JsonConditionBase condition, Predicate<JsonConditionBase> predicate)
     {
         if (condition.Category == CategoryType.Compound)
         {
             var compoundCondition = condition as JsonCompoundCondition;
 
-            var conditions = compoundCondition.Conditions.Select(c => FilterCondition(c, predicate))?.Where(c => c != null)?.ToList();
+            var conditions = compoundCondition?.Conditions.Select(c => FilterCondition(c, predicate))?.Where(c => c is not null)?.ToList();
 
-            if (conditions?.Any() != true)
-            {
+            if (conditions.IsNullOrEmpty())
                 return null;
-            }
 
-            return JsonCompoundCondition.Create(compoundCondition.IsAndMode, conditions);
+            return JsonCompoundCondition.Create(compoundCondition!.IsAndMode, conditions!);
         }
-
-        if (predicate(condition))
+        else if (predicate(condition))
         {
             return condition;
         }
-        else
-        {
-            return null;
-        }
+
+        return null;
     }
 
-    public JsonConditionBase ExtractCondition(Predicate<JsonConditionBase> predicate)
+    public JsonConditionBase? ExtractCondition(Predicate<JsonConditionBase> predicate)
     {
-        var result = FilterCondition(this, predicate);
-
-        return result;
+        return FilterCondition(this, predicate);
     }
 
     public bool HasCondition(Predicate<JsonConditionBase> predicate)
@@ -110,9 +76,57 @@ public class JsonConditionBase : IJsonEntity
         {
             var compoundCondition = this as JsonCompoundCondition;
 
-            return compoundCondition.Conditions.Any(c => c.HasCondition(predicate));
+            return compoundCondition!.Conditions.Any(c => c.HasCondition(predicate));
         }
 
         return predicate(this);
+    }
+
+    public List<string> GetCollectionMeasureProperties()
+    {
+        switch (this.Category)
+        {
+            case CategoryType.Compound:
+                return (this as JsonCompoundCondition)!.Conditions.SelectMany(c => c.GetCollectionMeasureProperties()).Distinct().ToList();
+
+            case CategoryType.Property:
+                return new List<string>() { (this as JsonPropertyCondition)!.Property };
+
+            case CategoryType.CollectionProperty:
+                return new List<string>() { (this as JsonCollectionPropertyCondition)!.Collection };
+
+            case CategoryType.Measure:
+                return new List<string>() { (this as JsonMeasureCondition)!.Measure };
+
+            case CategoryType.List:
+                return new List<string>() { (this as JsonListCondition)!.Measure };
+
+            default:
+                throw new NotImplementedException();
+        }
+    }
+
+    public string GetSubCondition()
+    {
+        switch (this.Category)
+        {
+            case CategoryType.Compound:
+                return string.Empty;
+
+            case CategoryType.CollectionProperty:
+                return (this as JsonCollectionPropertyCondition)!.Collection;
+
+            case CategoryType.List:
+                return (this as JsonListCondition)!.Measure;
+
+            case CategoryType.Measure:
+                return (this as JsonMeasureCondition)!.Measure;
+
+            case CategoryType.Property:
+                return (this as JsonPropertyCondition)!.Property;
+
+            default:
+                throw new NotImplementedException();
+        }
     }
 }
