@@ -11,8 +11,8 @@ using System.Threading.Tasks;
 
 public class PrizeStoreQueryRepository : EfQueryRepository<int, PrizeStore>, IPrizeStoreQueryRepository
 {
-    public PrizeStoreQueryRepository(SampleAppContext dbContext) : base(dbContext)
+    public PrizeStoreQueryRepository(SampleAppContext dbContext) : base(dbContext, null, null)
     {
     }
-     
+
 }

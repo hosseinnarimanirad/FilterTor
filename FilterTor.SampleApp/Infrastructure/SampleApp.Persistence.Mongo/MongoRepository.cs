@@ -1,4 +1,5 @@
 ﻿
+using FilterTor.Extensions;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
@@ -12,8 +13,9 @@ using System.Threading.Tasks;
 
 namespace Finance.Api.Infrastructure.MongoRepositories
 {
-    public class MongoRepository<TKey, TEntity> : IRepository<TKey, TEntity>
+    public class MongoRepository<TKey, TEntity> //: IRepository<TKey, TEntity>
         where TEntity : class, IHasKey<TKey>
+        where TKey : struct
     {
         protected readonly MongoContext _context;
 
@@ -61,18 +63,16 @@ namespace Finance.Api.Infrastructure.MongoRepositories
 
 
         public IHasKey<TKey> Add(TEntity entity)
-        {           
+        {
             _context.AddCommand(() => DbSet.InsertOne(entity));
 
             return entity;
         }
 
-        public Task<IHasKey<TKey>> AddAsync(TDomain domain)
+        public Task<IHasKey<TKey>> AddAsync(TEntity entity)
         {
             return Task.Run<IHasKey<TKey>>(() =>
             {
-                var entity = _inverseMap(domain);
-
                 _context.AddAsyncCommand(async () => await DbSet.InsertOneAsync(entity));
 
                 return entity;
@@ -80,30 +80,26 @@ namespace Finance.Api.Infrastructure.MongoRepositories
 
         }
 
-        public IEnumerable<IHasKey<TKey>> AddRange(IEnumerable<TDomain> domains)
+        public IEnumerable<IHasKey<TKey>> AddRange(IEnumerable<TEntity> entities)
         {
-            if (domains == null || domains.Count() == 0)
+            if (entities.IsNullOrEmpty())
             {
                 return new List<TEntity>(); ;
             }
-
-            var entities = domains.Select(d => _inverseMap(d));
 
             _context.AddCommand(() => DbSet.InsertMany(entities));
 
             return entities;
         }
 
-        public Task<IEnumerable<IHasKey<TKey>>> AddRangeAsync(IEnumerable<TDomain> domains)
+        public Task<IEnumerable<IHasKey<TKey>>> AddRangeAsync(IEnumerable<TEntity> entities)
         {
             return Task.Run<IEnumerable<IHasKey<TKey>>>(() =>
             {
-                if (domains == null || domains.Count() == 0)
+                if (entities.IsNullOrEmpty())
                 {
                     return new List<TEntity>(); ;
                 }
-
-                var entities = domains.Select(d => _inverseMap(d));
 
                 _context.AddAsyncCommand(async () => await DbSet.InsertManyAsync(entities));
 
@@ -121,7 +117,7 @@ namespace Finance.Api.Infrastructure.MongoRepositories
             throw new NotImplementedException();
         }
 
-        public TDomain Get(TKey id, bool withNoTrack = true)
+        public TEntity Get(TKey id, bool withNoTrack = true)
         {
             ////Guid guidKey = Guid.Parse("38366e1a-fc06-4cd0-8ceb-a5038bd2d1b8");
 
@@ -156,39 +152,39 @@ namespace Finance.Api.Infrastructure.MongoRepositories
             var data = DbSet.Find(FilterById(id));
             //var data4 = DbSet.Database.GetCollection<Model.SettlementMongoModel>("SettlementMongoModel").Find(_ => true).ToList();
             //var data5 = DbSet.Database.GetCollection<Model.SettlementMongoModel>("SettlementMongoModel").Find(Builders<Model.SettlementMongoModel>.Filter.Empty).ToList();
-            return _map(data.FirstOrDefault());
+            return data.FirstOrDefault();
         }
 
-        public async Task<TDomain> GetAsync(TKey id, bool withNoTrack = true)
+        public async Task<TEntity> GetAsync(TKey id, bool withNoTrack = true)
         {
             //var data = await DbSet.FindAsync(Builders<TEntity>.Filter.Eq(_keyField, id.ToString()));
             //var data = await DbSet.FindAsync(Builders<TEntity>.Filter.Eq(new StringFieldDefinition<TEntity, TKey>(_keyField), id));
             var data = await DbSet.FindAsync(FilterById(id));
 
-            return _map(data.FirstOrDefault());
+            return data.FirstOrDefault();
         }
 
-        public async Task<TDomain> GetRootAsync(TKey id, bool withNoTrack = true)
+        public async Task<TEntity> GetRootAsync(TKey id, bool withNoTrack = true)
         {
             var data = await DbSet.FindAsync(FilterById(id));
 
-            return _map(data.FirstOrDefault());
+            return data.FirstOrDefault();
         }
 
-        public IEnumerable<TDomain> GetAll(bool withNoTrack = true)
+        public IEnumerable<TEntity> GetAll(bool withNoTrack = true)
         {
             //var all = DbSet.Find(Builders<TEntity>.Filter.Empty);
             var all = DbSet.Find(NoFilter());
 
-            return all.ToList().Select(a => _map(a)).ToList();
+            return all.ToList();
         }
 
-        public async Task<IEnumerable<TDomain>> GetAllAsync(bool withNoTrack = true)
+        public async Task<IEnumerable<TEntity>> GetAllAsync(bool withNoTrack = true)
         {
             //var all = await DbSet.FindAsync(Builders<TEntity>.Filter.Empty);
             var all = await DbSet.FindAsync(NoFilter());
 
-            return all.ToList().Select(a => _map(a)).ToList();
+            return all.ToList();
         }
 
         public void Remove(TKey id)
@@ -209,7 +205,7 @@ namespace Finance.Api.Infrastructure.MongoRepositories
         }
 
 
-        public void Remove(TDomain domain)
+        public void Remove(TEntity domain)
         {
             if (domain == null)
             {
@@ -219,7 +215,7 @@ namespace Finance.Api.Infrastructure.MongoRepositories
             Remove(domain.Id);
         }
 
-        public async Task RemoveAsync(TDomain domain)
+        public async Task RemoveAsync(TEntity domain)
         {
             if (domain == null)
             {
@@ -230,7 +226,7 @@ namespace Finance.Api.Infrastructure.MongoRepositories
         }
 
 
-        public void RemoveRange(IEnumerable<TDomain> domains)
+        public void RemoveRange(IEnumerable<TEntity> domains)
         {
             if (domains == null)
             {
@@ -243,7 +239,7 @@ namespace Finance.Api.Infrastructure.MongoRepositories
             }
         }
 
-        public async Task RemoveRangeAsync(IEnumerable<TDomain> domains)
+        public async Task RemoveRangeAsync(IEnumerable<TEntity> domains)
         {
             if (domains == null)
             {
@@ -259,10 +255,8 @@ namespace Finance.Api.Infrastructure.MongoRepositories
 
         public void RemoveRange(IEnumerable<TKey> domainIds)
         {
-            if (domainIds == null || domainIds.Any() != true)
-            {
+            if (domainIds.IsNullOrEmpty())
                 return;
-            }
 
             foreach (var domainId in domainIds)
             {
@@ -285,15 +279,13 @@ namespace Finance.Api.Infrastructure.MongoRepositories
 
 
         //todo: consider not updating the whole document
-        public IHasKey<TKey> Update(TDomain domain)
+        public IHasKey<TKey> Update(TEntity entity)
         {
-            var entity = _inverseMap(domain);
-
             _context.AddCommand(() =>
             {
                 //DbSet.ReplaceOne(Builders<TEntity>.Filter.Eq(_keyField, domain.Id.ToString()), entity);
                 //DbSet.ReplaceOne(Builders<TEntity>.Filter.Eq(new StringFieldDefinition<TEntity, TKey>(_keyField), domain.Id), entity);
-                DbSet.ReplaceOne(FilterById(domain.Id), entity);
+                DbSet.ReplaceOne(FilterById(entity.Id), entity);
 
                 //Filter.Eq(new StringFieldDefinition<TEntity, TKey>(_keyField), id)));
             });
@@ -302,17 +294,15 @@ namespace Finance.Api.Infrastructure.MongoRepositories
         }
 
         //todo: consider not updating the whole document
-        public Task<IHasKey<TKey>> UpdateAsync(TDomain domain)
+        public Task<IHasKey<TKey>> UpdateAsync(TEntity entity)
         {
             return Task.Run<IHasKey<TKey>>(() =>
             {
-                var entity = _inverseMap(domain);
-
                 _context.AddCommand(async () =>
                 {
                     //await DbSet.ReplaceOneAsync(Builders<TEntity>.Filter.Eq(_keyField, domain.Id), entity);
                     //await DbSet.ReplaceOneAsync(Builders<TEntity>.Filter.Eq(new StringFieldDefinition<TEntity, TKey>(_keyField), domain.Id), entity);
-                    await DbSet.ReplaceOneAsync(FilterById(domain.Id), entity);
+                    await DbSet.ReplaceOneAsync(FilterById(entity.Id), entity);
                 });
 
                 return entity;
@@ -325,7 +315,5 @@ namespace Finance.Api.Infrastructure.MongoRepositories
 
             GC.SuppressFinalize(this);
         }
-
-
     }
 }

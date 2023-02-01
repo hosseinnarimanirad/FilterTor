@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-public class CustomerQueryRepository : EfGridQueryRepository<long, Customer>, ICustomerQueryRepository
+public class CustomerQueryRepository : EfQueryRepository<long, Customer>, ICustomerQueryRepository
 {
     public CustomerQueryRepository(SampleAppContext dbContext,
                                     ISortResolver<Customer> sortResolver,

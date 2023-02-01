@@ -1,6 +1,7 @@
 ﻿namespace FilterTor.Conditions;
 
 using FilterTor.Helpers;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 
@@ -45,4 +46,10 @@ public class JsonCollectionPropertyCondition : JsonLeafCondition
 
         return $" {filter} {operation} ";
     }
+
+    public override List<string> GetSubConditions()
+    {
+        return new List<string>() { Collection.ToString() };
+    }
 }
+

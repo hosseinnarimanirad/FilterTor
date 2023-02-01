@@ -18,12 +18,7 @@ public interface IEntityResolver<T>
     Func<T, object> ExtractPropertyValue(string propType);
 
     bool Validate(JsonConditionBase jsonCondition);
-
-    public List<string> GetPrimaryConditions();
-
-    bool HasAuxilaryCondition(JsonConditionBase jsonCondition);
-
+      
     JsonConditionBase? GetPrimaryCondition(JsonConditionBase jsonCondition);
-
-    //IQueryable<T> GetSource();
+     
 }

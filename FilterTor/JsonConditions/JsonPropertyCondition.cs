@@ -2,12 +2,13 @@
 
 using FilterTor.Helpers;
 using System.Text.Json.Serialization;
+using System.Text.RegularExpressions;
 
 
 public class JsonPropertyCondition : JsonLeafCondition
-{
+{ 
     public required string Property { get; set; }
-
+    
     public JsonPropertyCondition()
     {
         Category = CategoryType.Property;
@@ -43,5 +44,15 @@ public class JsonPropertyCondition : JsonLeafCondition
     public override string ToString()
     {
         return $"{Operation.GetDescription()} {Target}";
+    }
+
+    public override List<string> GetSubConditions()
+    {
+        var conditions = new List<string>
+        {
+            Property 
+        }; 
+
+        return conditions.ToList();
     }
 }

@@ -9,7 +9,7 @@ public class JsonMeasureCondition : JsonLeafCondition
     public required DurationType DurationType { get; set; }
 
     public JsonConditionBase? Filter { get; set; }
-
+     
     public required string Measure { get; set; }
 
     public JsonMeasureCondition()
@@ -61,5 +61,20 @@ public class JsonMeasureCondition : JsonLeafCondition
         var operation = Operation == 0 ? string.Empty : $"{Operation.GetDescription()} {Target}";
 
         return $" بازه زمانی {DurationType.GetDescription()} {filter} {operation} ";
+    }
+
+    public override List<string> GetSubConditions()
+    {
+        var conditions = new List<string>
+        {
+            Measure
+        };
+
+        if (Filter is not null)
+        {
+            conditions.AddRange(Filter.GetSubConditions());
+        }
+
+        return conditions.Distinct().ToList();
     }
 }

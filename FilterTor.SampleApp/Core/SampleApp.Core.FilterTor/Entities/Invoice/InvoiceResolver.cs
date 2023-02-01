@@ -28,6 +28,13 @@ public class InvoiceResolver : EntityResolver<Invoice>
 
     static readonly FuncExp<Invoice, string> _byInvoiceTypeFilter = new FuncExp<Invoice, string>(i => i.InvoiceType.ToString());
 
+    public override List<string> PrimaryConditions { get; protected set; }
+
+    public InvoiceResolver()
+    {
+        PrimaryConditions = new List<string>() { InvoiceProperty.CustomerId.ToString() };
+    }
+
     //[Description("مجموع قیمت قلم فاکتور")]
     //SumDetailInvoicesPrice = 1,
     //[Description("تعداد کالا در فاکتور")]
@@ -71,6 +78,7 @@ public class InvoiceResolver : EntityResolver<Invoice>
 
     public override Func<Invoice, object> ExtractPropertyValue(string propType)
     {
+        
         switch (EnumHelper.TryParseIgnoreCase<InvoiceProperty>(propType))
         {
             case InvoiceProperty.InvoiceNumber:
@@ -108,15 +116,4 @@ public class InvoiceResolver : EntityResolver<Invoice>
     }
 
 
-    public override bool HasAuxilaryCondition(JsonConditionBase jsonCondition)
-    {
-        throw new NotImplementedException();
-    }
-
-  
-
-    public override List<string> GetPrimaryConditions()
-    {
-        return new List<string>() { InvoiceProperty.CustomerId.ToString() };
-    }
 }

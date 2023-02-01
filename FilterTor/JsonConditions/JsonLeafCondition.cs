@@ -1,6 +1,6 @@
 ﻿namespace FilterTor.Conditions;
-  
-using FilterTor.Targets; 
+
+using FilterTor.Targets;
 using System.Text.Json.Serialization;
 
 
@@ -12,6 +12,6 @@ public class JsonLeafCondition : JsonConditionBase
 
     public Operation? Operation { get; set; }
 
-    public override bool Validate() => base.Validate() && !string.IsNullOrWhiteSpace(Entity);
+    public override bool Validate() => base.Validate() && !Entity.Equals(0) /*!string.IsNullOrWhiteSpace(Entity)*/;
 
 }

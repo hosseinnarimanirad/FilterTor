@@ -106,35 +106,35 @@ public class CompoundCondition : ICondition
     #endregion
 
 
-    #region GetSubTypes
+    //#region GetSubTypes
 
-    public List<string> GetPropertyAndMeasureNames<TEntity>() where TEntity : class //where TCondition : PropertyCondition<TEntity>
-    {
-        List<string> result = new List<string>();
+    //public List<string> GetSubTypes<TEntity>() where TEntity : class //where TCondition : PropertyCondition<TEntity>
+    //{
+    //    var result = new List<string>();
 
-        foreach (var condition in Conditions)
-        {
-            if (condition is CompoundCondition cCondition)
-            {
-                var subTypeNames = cCondition.GetPropertyAndMeasureNames<TEntity>();
+    //    foreach (var condition in Conditions)
+    //    {
+    //        if (condition is CompoundCondition cCondition)
+    //        {
+    //            var subTypeNames = cCondition.GetSubTypes<TEntity>();
 
-                if (subTypeNames.IsNullOrEmpty())
-                    continue;
+    //            if (subTypeNames.IsNullOrEmpty())
+    //                continue;
 
-                result.AddRange(subTypeNames);
-            }
+    //            result.AddRange(subTypeNames);
+    //        }
 
-            // todo: add code to support other condition types
-            else if (condition is PropertyCondition<TEntity> pCondition)
-            {
-                result.Add(pCondition.Property);
-            }
-        }
+    //        // todo: add code to support other condition types
+    //        else if (condition is PropertyCondition<TEntity> pCondition)
+    //        {
+    //            result.Add(pCondition.Property);
+    //        }
+    //    }
 
-        return result;
-    }
+    //    return result;
+    //}
 
-    #endregion
+    //#endregion
 
 
 }

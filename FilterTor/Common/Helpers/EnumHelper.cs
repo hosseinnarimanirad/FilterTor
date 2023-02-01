@@ -79,6 +79,11 @@ public static class EnumHelper
         //return (T)Enum.TryParse<T>(value, ignoreCase: true);
     }
 
+    public static T Parse<T>(Enum @enum)
+    {
+        return (T)Enum.ToObject(typeof(T), @enum);
+    }
+
     public static bool IsDefined<T>(string value) where T : struct
     {
         if (Enum.TryParse<T>(value, ignoreCase: true, out var resultValue))
@@ -86,6 +91,11 @@ public static class EnumHelper
 
         else
             return false;
+    }
+
+    public static bool IsDefined<T>(Enum @enum) where T : struct
+    {
+        return Enum.IsDefined(typeof(T), @enum);
     }
 
     public static List<EnumInfo> Parse<T>() where T : struct, IConvertible

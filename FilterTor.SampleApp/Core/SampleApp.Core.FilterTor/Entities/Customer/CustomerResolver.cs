@@ -19,6 +19,14 @@ public class CustomerResolver : EntityResolver<Customer>
 
     static readonly FuncExp<Customer, DateTime> _byRegisteredDateFilter = new FuncExp<Customer, DateTime>(i => i.RegisteredDate);
 
+    // conditions that are available in the first source
+    public override List<string> PrimaryConditions { get; protected set; }
+
+    public CustomerResolver()
+    {
+        PrimaryConditions = new List<string>() { CustomerProperty.Credit.ToString(), CustomerProperty.RegisteredDate.ToString() };
+    }
+
     public override Expression<Func<Customer, bool>> GetPropertyFilter(JsonTargetBase? target, string propType, Operation operation)
     {
         switch (EnumHelper.TryParseIgnoreCase<CustomerProperty>(propType))
@@ -59,15 +67,4 @@ public class CustomerResolver : EntityResolver<Customer>
         return Validate<CustomerProperty, CustomerCollectionProperty, CustomerMeasure>(jsonTarget);
     }
 
-    public override bool HasAuxilaryCondition(JsonConditionBase jsonCondition)
-    {
-        var list = jsonCondition.GetCollectionMeasureProperties();
-
-        return false;
-    }
-
-    public override List<string> GetPrimaryConditions()
-    {
-        throw new NotImplementedException();
-    } 
 }

@@ -70,12 +70,17 @@ public class JsonCompoundCondition : JsonConditionBase
             return Create(true, new List<JsonConditionBase>() { jsonConditionBase });
         }
     }
-     
+
 
     public override string ToString()
     {
         var AndOr = IsAndMode ? " و " : " یا ";
 
         return $" {AndOr} ({string.Join(" ; ", Conditions.Select(c => c.ToString()))})";
+    }
+
+    public override List<string> GetSubConditions()
+    {
+        return this.Conditions.SelectMany(c => c.GetSubConditions()).Distinct().ToList();
     }
 }

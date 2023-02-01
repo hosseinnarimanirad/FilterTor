@@ -36,7 +36,6 @@ public abstract class EfQueryRepository<TKey, TEntity> : IQueryRepository<TKey, 
         this._entityResolver = entityResolver;
     }
 
-
     public virtual ValueTask<TEntity> GetAsync(TKey id)
     {
         return _context.Set<TEntity>().FindAsync(id)!;
@@ -52,14 +51,12 @@ public abstract class EfQueryRepository<TKey, TEntity> : IQueryRepository<TKey, 
         return _context.Set<TEntity>().ToListAsync();
     }
 
-
     public virtual IQueryable<TEntity> Query(IQueryable<TEntity> list)
     {
         // simple decorator that does noting just to help
         // building the chain of decorator classes
         return list;
     }
-
 
     public virtual async Task<List<TEntity>> Filter(JsonConditionBase? jsonCondition, List<SortModel>? sorts, PagingModel? paging)
     {

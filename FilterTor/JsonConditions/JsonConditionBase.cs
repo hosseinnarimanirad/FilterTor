@@ -82,51 +82,9 @@ public class JsonConditionBase : IJsonEntity
         return predicate(this);
     }
 
-    public List<string> GetCollectionMeasureProperties()
+    public virtual List<string> GetSubConditions()
     {
-        switch (this.Category)
-        {
-            case CategoryType.Compound:
-                return (this as JsonCompoundCondition)!.Conditions.SelectMany(c => c.GetCollectionMeasureProperties()).Distinct().ToList();
-
-            case CategoryType.Property:
-                return new List<string>() { (this as JsonPropertyCondition)!.Property };
-
-            case CategoryType.CollectionProperty:
-                return new List<string>() { (this as JsonCollectionPropertyCondition)!.Collection };
-
-            case CategoryType.Measure:
-                return new List<string>() { (this as JsonMeasureCondition)!.Measure };
-
-            case CategoryType.List:
-                return new List<string>() { (this as JsonListCondition)!.Measure };
-
-            default:
-                throw new NotImplementedException();
-        }
+        throw new NotImplementedException();
     }
-
-    public string GetSubCondition()
-    {
-        switch (this.Category)
-        {
-            case CategoryType.Compound:
-                return string.Empty;
-
-            case CategoryType.CollectionProperty:
-                return (this as JsonCollectionPropertyCondition)!.Collection;
-
-            case CategoryType.List:
-                return (this as JsonListCondition)!.Measure;
-
-            case CategoryType.Measure:
-                return (this as JsonMeasureCondition)!.Measure;
-
-            case CategoryType.Property:
-                return (this as JsonPropertyCondition)!.Property;
-
-            default:
-                throw new NotImplementedException();
-        }
-    }
+      
 }
