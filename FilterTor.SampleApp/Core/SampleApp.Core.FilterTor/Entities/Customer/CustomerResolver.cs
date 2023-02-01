@@ -20,11 +20,11 @@ public class CustomerResolver : EntityResolver<Customer>
     static readonly FuncExp<Customer, DateTime> _byRegisteredDateFilter = new FuncExp<Customer, DateTime>(i => i.RegisteredDate);
 
     // conditions that are available in the first source
-    public override List<string> PrimaryConditions { get; protected set; }
+    public override List<string> SecondaryConditions { get; }
 
     public CustomerResolver()
     {
-        PrimaryConditions = new List<string>() { CustomerProperty.Credit.ToString(), CustomerProperty.RegisteredDate.ToString() };
+        SecondaryConditions = new List<string>() { CustomerProperty.Credit.ToString(), CustomerProperty.RegisteredDate.ToString() };
     }
 
     public override Expression<Func<Customer, bool>> GetPropertyFilter(JsonTargetBase? target, string propType, Operation operation)

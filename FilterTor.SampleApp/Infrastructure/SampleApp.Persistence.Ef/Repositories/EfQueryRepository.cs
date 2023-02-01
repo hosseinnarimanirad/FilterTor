@@ -50,33 +50,5 @@ public abstract class EfQueryRepository<TKey, TEntity> : IQueryRepository<TKey, 
     {
         return _context.Set<TEntity>().ToListAsync();
     }
-
-    public virtual IQueryable<TEntity> Query(IQueryable<TEntity> list)
-    {
-        // simple decorator that does noting just to help
-        // building the chain of decorator classes
-        return list;
-    }
-
-    public virtual async Task<List<TEntity>> Filter(JsonConditionBase? jsonCondition, List<SortModel>? sorts, PagingModel? paging)
-    {
-        IQueryGenerator<TEntity> result = this;
-
-        if (jsonCondition is not null)
-        {
-            result = new FilterDecorator<TEntity>(result, jsonCondition, _entityResolver);
-        }
-
-        if (!sorts.IsNullOrEmpty())
-        {
-            result = new SortDecorator<TEntity>(result, sorts!, _sortResolver);
-        }
-
-        if (paging is not null)
-        {
-            result = new PagingDecorator<TEntity>(result, paging);
-        }
-
-        return await result.Query(this._context.Set<TEntity>().AsQueryable()).ToListAsync();
-    }
+   
 }

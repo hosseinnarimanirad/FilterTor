@@ -90,7 +90,7 @@ public abstract class EntityResolver<T> : IEntityResolver<T> where T : class
         }
     }
 
-    public abstract List<string> PrimaryConditions { get; protected set; }
+    public abstract List<string> SecondaryConditions { get;  }
 
     /// <summary>
     /// traverse all conditins
@@ -101,7 +101,7 @@ public abstract class EntityResolver<T> : IEntityResolver<T> where T : class
     {
         var list = jsonCondition.GetSubConditions();
 
-        return list.All(PrimaryConditions.Contains) == false;
+        return list.Any(SecondaryConditions.Contains);
     }
 
     /// <summary>
@@ -114,7 +114,7 @@ public abstract class EntityResolver<T> : IEntityResolver<T> where T : class
         if (jsonCondition.Category == CategoryType.Compound)
             return false;
 
-        return jsonCondition.GetSubConditions().All(PrimaryConditions.Contains);
+        return jsonCondition.GetSubConditions().Any(SecondaryConditions.Contains);
     }
 
     /// <summary>
@@ -125,8 +125,8 @@ public abstract class EntityResolver<T> : IEntityResolver<T> where T : class
     /// <exception cref="NotImplementedException"></exception>
     public JsonConditionBase? GetPrimaryCondition(JsonConditionBase jsonCondition)
     {
-        if (PrimaryConditions.IsNullOrEmpty())
-            return null;
+        if (SecondaryConditions.IsNullOrEmpty())
+            return jsonCondition;
 
         if (!HasSecondaryCondition(jsonCondition))
             return jsonCondition;
@@ -148,20 +148,20 @@ public abstract class EntityResolver<T> : IEntityResolver<T> where T : class
                     return JsonCompoundCondition.Create(jcc.IsAndMode, filteredConditions!);
 
             case JsonPropertyCondition jpc:
-                return PrimaryConditions.Contains(jpc.Property) ? jpc : null;
+                return SecondaryConditions.Contains(jpc.Property) ? null : jpc;
 
             case JsonCollectionPropertyCondition jcp:
-                return PrimaryConditions.Contains(jcp.Collection) ? jcp : null;
+                return SecondaryConditions.Contains(jcp.Collection) ? null : jcp;
 
             case JsonMeasureCondition jmc:
-                return PrimaryConditions.Contains(jmc.Measure) ? jmc : null;
+                return SecondaryConditions.Contains(jmc.Measure) ? null : jmc;
 
             case JsonListCondition jlc:
-                return PrimaryConditions.Contains(jlc.Measure) ? jlc : null;
+                return SecondaryConditions.Contains(jlc.Measure) ? null : jlc;
 
             default:
                 throw new NotImplementedException();
         }
     }
-     
+
 }

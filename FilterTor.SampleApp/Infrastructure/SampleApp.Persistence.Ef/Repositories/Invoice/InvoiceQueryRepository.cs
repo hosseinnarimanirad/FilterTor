@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-public class InvoiceQueryRepository : EfQueryRepository<long, Invoice>, IInvoiceQueryRepository
+public class InvoiceQueryRepository : EfFilterTorRepository<long, Invoice>, IInvoiceQueryRepository
 {
     public InvoiceQueryRepository(SampleAppContext dbContext,
                                     ISortResolver<Invoice> sortResolver,

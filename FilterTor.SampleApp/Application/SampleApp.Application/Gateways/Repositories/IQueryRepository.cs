@@ -7,7 +7,7 @@ using SampleApp.Core;
 using SampleApp.Core.Entities;
 using System.Linq.Expressions;
 
-public interface IQueryRepository<TKey, TEntity> : IScoped, IQueryGenerator<TEntity>
+public interface IQueryRepository<TKey, TEntity> : IScoped
     where TEntity : IHasKey<TKey>
     where TKey : struct
 {
@@ -17,6 +17,5 @@ public interface IQueryRepository<TKey, TEntity> : IScoped, IQueryGenerator<TEnt
     Task<List<TEntity>> GetAllByIdsAsync(IEnumerable<TKey> ids);
 
     Task<List<TEntity>> GetAllAsync();
- 
-    Task<List<TEntity>> Filter(JsonConditionBase? jsonCondition, List<SortModel>? sort, PagingModel? paging);
+  
 }

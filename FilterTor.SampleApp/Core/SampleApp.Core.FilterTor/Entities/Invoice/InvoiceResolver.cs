@@ -28,11 +28,11 @@ public class InvoiceResolver : EntityResolver<Invoice>
 
     static readonly FuncExp<Invoice, string> _byInvoiceTypeFilter = new FuncExp<Invoice, string>(i => i.InvoiceType.ToString());
 
-    public override List<string> PrimaryConditions { get; protected set; }
+    public override List<string> SecondaryConditions { get; }
 
     public InvoiceResolver()
     {
-        PrimaryConditions = new List<string>() { InvoiceProperty.CustomerId.ToString() };
+        SecondaryConditions = new List<string>() { InvoiceProperty.CustomerId.ToString() };
     }
 
     //[Description("مجموع قیمت قلم فاکتور")]
@@ -78,7 +78,7 @@ public class InvoiceResolver : EntityResolver<Invoice>
 
     public override Func<Invoice, object> ExtractPropertyValue(string propType)
     {
-        
+
         switch (EnumHelper.TryParseIgnoreCase<InvoiceProperty>(propType))
         {
             case InvoiceProperty.InvoiceNumber:
