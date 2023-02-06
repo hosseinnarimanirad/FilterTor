@@ -20,20 +20,12 @@ public abstract class EfQueryRepository<TKey, TEntity> : IQueryRepository<TKey, 
     where TKey : struct
 {
     protected readonly SampleAppContext _context;
-
-    protected readonly ISortResolver<TEntity> _sortResolver;
-
-    protected readonly IEntityResolver<TEntity> _entityResolver;
-
+     
     protected IQueryable<TEntity> Entities => _context.Set<TEntity>().AsNoTracking();
 
-    protected EfQueryRepository(SampleAppContext dbContext,
-                                    ISortResolver<TEntity> sortResolver,
-                                    IEntityResolver<TEntity> entityResolver)
+    protected EfQueryRepository(SampleAppContext dbContext)
     {
-        this._context = dbContext;
-        this._sortResolver = sortResolver;
-        this._entityResolver = entityResolver;
+        this._context = dbContext; 
     }
 
     public virtual ValueTask<TEntity> GetAsync(TKey id)

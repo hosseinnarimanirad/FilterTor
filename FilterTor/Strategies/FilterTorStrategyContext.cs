@@ -1,5 +1,6 @@
 ﻿using FilterTor.Conditions;
 using FilterTor.Models;
+using FilterTor.Resolvers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +14,9 @@ public class FilterTorStrategyContext<TEntity>
 {
     private FilterTorStrategy<TEntity> _strategy;
 
-    public FilterTorStrategyContext()
+    public FilterTorStrategyContext(ISortResolver<TEntity> sortResolver, IEntityResolver<TEntity> entityResolver)
     {
-        this._strategy = new SingleSourceStrategy<TEntity>();
+        this._strategy = new SingleSourceStrategy<TEntity>(sortResolver, entityResolver);
     }
 
     public void SetStrategy(FilterTorStrategy<TEntity> strategy)

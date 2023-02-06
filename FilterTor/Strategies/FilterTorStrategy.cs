@@ -1,4 +1,5 @@
 ﻿using FilterTor.Conditions;
+using FilterTor.Decorators;
 using FilterTor.Models;
 using FilterTor.Resolvers;
 using System;
@@ -21,5 +22,6 @@ public abstract class FilterTorStrategy<TEntity>
         this._entityResolver = entityResolver;
     }
 
-    public abstract Task<List<TEntity>> Filter(JsonConditionBase? jsonCondition, List<SortModel>? sorts, PagingModel? paging);
+    public abstract Task<List<TEntity>> Filter(IQueryable<TEntity> queryable, JsonConditionBase? jsonCondition, List<SortModel>? sorts, PagingModel? paging);
+
 }
