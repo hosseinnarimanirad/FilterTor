@@ -2,6 +2,6 @@
 
 using SampleApp.Core.Entities;
  
-public interface ICustomerQueryRepository : IQueryRepository<long, Customer>
+public interface ICustomerQueryRepository : IQueryRepository<long, Customer>, IFilterTorRepository<Customer>
 {
 }

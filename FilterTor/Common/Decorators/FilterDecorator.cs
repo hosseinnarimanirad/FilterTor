@@ -27,9 +27,9 @@ public class FilterDecorator<T> : IQueryGenerator<T>
         this._queryGenerator = queryGenerator;
     }
 
-    public IQueryable<T> Query(IQueryable<T> list)
+    public IQueryable<T> Query()
     {
-        IQueryable<T> iqueryable = _queryGenerator.Query(list);
+        IQueryable<T> iqueryable = _queryGenerator.Query();
 
         var predicate = _entityResolver.GetPredicate(_condition);
 

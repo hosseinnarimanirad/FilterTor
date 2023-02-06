@@ -18,10 +18,10 @@ public abstract class FilterTorStrategy<TEntity>
 
     protected FilterTorStrategy(ISortResolver<TEntity> sortResolver, IEntityResolver<TEntity> entityResolver)
     {
-        this._sortResolver = sortResolver;
-        this._entityResolver = entityResolver;
+        _sortResolver = sortResolver;
+        _entityResolver = entityResolver;
     }
 
-    public abstract Task<List<TEntity>> Filter(IQueryable<TEntity> queryable, JsonConditionBase? jsonCondition, List<SortModel>? sorts, PagingModel? paging);
+    public abstract IQueryable<TEntity> Filter(IQueryable<TEntity> queryable, JsonConditionBase? jsonCondition, List<SortModel>? sorts, PagingModel? paging);
 
 }

@@ -20,8 +20,8 @@ public class PagingDecorator<T> : IQueryGenerator<T>
         _queryGenerator = queryGenerator;
     }
 
-    public IQueryable<T> Query(IQueryable<T> list)
+    public IQueryable<T> Query()
     {
-        return _queryGenerator.Query(list).Skip(_paging.PageSize * _paging.Page).Take(_paging.PageSize);
+        return _queryGenerator.Query().Skip(_paging.PageSize * _paging.Page).Take(_paging.PageSize);
     }
 }

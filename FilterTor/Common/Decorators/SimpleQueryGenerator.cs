@@ -9,14 +9,14 @@ namespace FilterTor.Decorators;
 public class SimpleQueryGenerator<T> : IQueryGenerator<T>
 {
     private readonly IQueryable<T> _query;
-
+     
     public SimpleQueryGenerator(IQueryable<T> query)
     {
-        _query = query;
+        _query = query; 
     }
 
-    public IQueryable<T> Query(IQueryable<T> list)
+    public IQueryable<T> Query()
     {
         return _query;
-    }
+    } 
 }

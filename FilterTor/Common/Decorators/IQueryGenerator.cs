@@ -8,5 +8,5 @@ using System.Threading.Tasks;
 
 public interface IQueryGenerator<T> 
 {
-    IQueryable<T> Query(IQueryable<T> list);
+    IQueryable<T> Query(); 
 }

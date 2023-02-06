@@ -5,11 +5,13 @@ using FilterTor.Decorators;
 using FilterTor.Models;
 using FilterTor.Strategies;
 using Grid.Persistence;
+using Microsoft.EntityFrameworkCore;
 using SampleApp.Core;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+// Context class for strategy design pattern
 public abstract class EfFilterTorRepository<TKey, TEntity> : EfQueryRepository<TKey, TEntity>
                                                                 where TEntity : class, IHasKey<TKey>
                                                                 where TKey : struct
@@ -20,11 +22,10 @@ public abstract class EfFilterTorRepository<TKey, TEntity> : EfQueryRepository<T
     {
         Strategy = strategy;
     }
-
-
+     
     public virtual async Task<List<TEntity>> Filter(JsonConditionBase? jsonCondition, List<SortModel>? sorts, PagingModel? paging)
     {
-        return await Strategy.Filter(this._context.Set<TEntity>().AsQueryable(), jsonCondition, sorts, paging);
+        return await Strategy.Filter(this._context.Set<TEntity>().AsQueryable(), jsonCondition, sorts, paging).ToListAsync();
 
         //IQueryGenerator<TEntity> result = this;
 

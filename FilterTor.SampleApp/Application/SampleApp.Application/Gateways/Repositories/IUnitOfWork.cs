@@ -11,7 +11,7 @@ public interface IUnitOfWork : IDisposable
 
     IInvoiceCommandRepository Invoices { get; }
 
-    IInvoiceDetailCommandRepository InvoiceDetails { get; }
+    //IInvoiceDetailCommandRepository InvoiceDetails { get; }
 
 
     void SaveChanges();

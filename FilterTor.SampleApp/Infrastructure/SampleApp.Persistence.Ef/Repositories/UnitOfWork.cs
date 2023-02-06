@@ -20,9 +20,7 @@ public class UnitOfWork : IUnitOfWork
     public IPrizeStoreCommandRepository PrizeStores { get; private set; }
 
     public IInvoiceCommandRepository Invoices { get; private set; }
-
-    public IInvoiceDetailCommandRepository InvoiceDetails { get; private set; }
-
+     
 
     public UnitOfWork(SampleAppContext context)
     {
@@ -30,9 +28,7 @@ public class UnitOfWork : IUnitOfWork
 
         this.PrizeStores = new PrizeStoreCommandRepository(context);
 
-        this.Invoices = new InvoiceCommandRepository(context);
-
-        this.InvoiceDetails = new InvoiceDetailCommandRepository(context);
+        this.Invoices = new InvoiceCommandRepository(context); 
     }
 
     public void SaveChanges()

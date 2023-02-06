@@ -11,11 +11,9 @@ public interface IQueryRepository<TKey, TEntity> : IScoped
     where TEntity : IHasKey<TKey>
     where TKey : struct
 {
-
     ValueTask<TEntity> GetAsync(TKey id);
 
     Task<List<TEntity>> GetAllByIdsAsync(IEnumerable<TKey> ids);
 
-    Task<List<TEntity>> GetAllAsync();
-  
+    Task<List<TEntity>> GetAllAsync();  
 }

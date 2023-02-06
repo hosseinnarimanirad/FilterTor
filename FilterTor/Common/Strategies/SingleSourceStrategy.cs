@@ -18,7 +18,7 @@ public class SingleSourceStrategy<TEntity> : FilterTorStrategy<TEntity>
 
     }
 
-    public override async Task<List<TEntity>> Filter(IQueryable<TEntity> queryable, JsonConditionBase? jsonCondition, List<SortModel>? sorts, PagingModel? paging)
+    public override IQueryable<TEntity> Filter(IQueryable<TEntity> queryable, JsonConditionBase? jsonCondition, List<SortModel>? sorts, PagingModel? paging)
     {
         IQueryGenerator<TEntity> result = new SimpleQueryGenerator<TEntity>(queryable);
 
@@ -38,6 +38,6 @@ public class SingleSourceStrategy<TEntity> : FilterTorStrategy<TEntity>
         }
 
         //return await result.Query(this._context.Set<TEntity>().AsQueryable()).ToListAsync();
-        return await result.Query(queryable.AsQueryable()).ToListAsync();
+        return result.Query();
     }
 }

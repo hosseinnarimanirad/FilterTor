@@ -28,9 +28,9 @@ public class SortDecorator<T> : IQueryGenerator<T>
         this._queryGenerator = queryGenerator;
     }
 
-    public IQueryable<T> Query(IQueryable<T> list)
+    public IQueryable<T> Query()
     {
-        IQueryable<T> iqueryable = _queryGenerator.Query(list);
+        IQueryable<T> iqueryable = _queryGenerator.Query();
 
         for (int i = 0; i < _sorts.Count; i++)
         {
