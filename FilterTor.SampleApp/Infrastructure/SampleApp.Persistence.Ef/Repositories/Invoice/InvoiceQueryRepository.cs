@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 public class InvoiceQueryRepository : EfFilterTorRepository<long, Invoice>, IInvoiceQueryRepository
 {
-    public InvoiceQueryRepository(SampleAppContext dbContext, FilterTorStrategy<Invoice> strategy) : base(dbContext, strategy)
+    public InvoiceQueryRepository(SampleAppContext dbContext, FilterTorStrategyContext<Invoice> strategy) : base(dbContext, strategy)
     {
     }
 }

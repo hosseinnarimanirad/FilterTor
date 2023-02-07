@@ -15,17 +15,18 @@ using System.Threading.Tasks;
 public abstract class EfFilterTorRepository<TKey, TEntity> : EfQueryRepository<TKey, TEntity>
                                                                 where TEntity : class, IHasKey<TKey>
                                                                 where TKey : struct
-{
-    protected FilterTorStrategy<TEntity> Strategy { get; private set; }
+{ 
+    protected FilterTorStrategyContext<TEntity> StrategyContext { get; private set; }
+    
 
-    protected EfFilterTorRepository(SampleAppContext dbContext, FilterTorStrategy<TEntity> strategy) : base(dbContext)
+    protected EfFilterTorRepository(SampleAppContext dbContext, FilterTorStrategyContext<TEntity> strategyContext) : base(dbContext)
     {
-        Strategy = strategy;
+        StrategyContext = strategyContext;
     }
      
     public virtual async Task<List<TEntity>> Filter(JsonConditionBase? jsonCondition, List<SortModel>? sorts, PagingModel? paging)
     {
-        return await Strategy.Filter(this._context.Set<TEntity>().AsQueryable(), jsonCondition, sorts, paging).ToListAsync();
+        return await StrategyContext.Filter(this._context.Set<TEntity>().AsQueryable(), jsonCondition, sorts, paging).ToListAsync();
 
         //IQueryGenerator<TEntity> result = this;
 
