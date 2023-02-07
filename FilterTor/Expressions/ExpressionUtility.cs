@@ -1,10 +1,12 @@
 ﻿using FilterTor.Helpers;
-using FilterTor.Targets; 
+using FilterTor.Targets;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 
 namespace FilterTor.Expressions
@@ -49,7 +51,7 @@ namespace FilterTor.Expressions
 
         public static Expression<Func<T, bool>> And<T>(this Expression<Func<T, bool>> first, Expression<Func<T, bool>> second)
         {
-            return first.Compose(second, Expression.And);
+            return first.Compose(second, Expression.AndAlso);
         }
 
         public static Expression<Func<T, bool>> Or<T>(this Expression<Func<T, bool>> first, Expression<Func<T, bool>> second)
@@ -60,6 +62,48 @@ namespace FilterTor.Expressions
         public static Expression<Func<T, bool>> Not<T>(this Expression<Func<T, bool>> predicate)
         {
             return Expression.Lambda<Func<T, bool>>(Expression.Not(predicate.Body), predicate.Parameters);
+        }
+
+        //public static Expression<Func<T, bool>> In<T, TProp>(this Expression<Func<T, bool>> predicate, IEnumerable<TProp> values)
+        //{
+        //    //return values.Select(i =>
+        //    //           Expression.Lambda<Func<T, bool>>(
+        //    //               Expression.Equal(fieldExtractor.Body, Expression.Constant(converter(i), typeof(TProp))),
+        //    //               param))?.ToList();
+
+
+        //    return Expression.Call(typeof(Enumerable), "Contains", null, targetExpression);
+        //}
+
+        public static Expression In<T, TProp>(this Expression<Func<T, TProp>> predicate, IEnumerable<TProp> values)
+        {
+            // try #1
+            //var right = Expression.Constant(values, typeof(IEnumerable));
+
+            //var p = (PropertyInfo)((MemberExpression)predicate.Body).Member;
+            //var pe = Expression.Parameter(typeof(T), "p");
+            //var left = Expression.Property(pe, p);
+            //var call = Expression.Call(typeof(Enumerable), "Contains", new[] { p.PropertyType }, right, left);
+            //return Expression.Lambda<Func<T, bool>>(call, pe);
+
+            var right = Expression.Constant(values, typeof(IEnumerable<TProp>));
+
+            var p = (PropertyInfo)((MemberExpression)predicate.Body).Member;
+            var param = predicate.Parameters.First();
+            var left = Expression.Property(param, p);
+            return Expression.Call(typeof(Enumerable), "Contains", new Type[] { typeof(TProp) }, right, left);
+
+            // try #2
+            //var predicates3 = values.Select(i => Expression.Lambda<Func<T, bool>>(
+            //                             Expression.Call(
+            //                                predicate.Body,
+            //                                "Contains",
+            //                                null,
+            //                                Expression.Constant(i)), 
+            //                                predicate.Parameters)).ToList();
+
+            // try #3
+            //return Expression.Call(Expression.Constant(values, typeof(IEnumerable)), "Contains", null, predicate.Body);
         }
 
         public static Expression<Func<TX, TY>> ComposeExp<TX, TY, TZ>(this Expression<Func<TZ, TY>> outer, Expression<Func<TX, TZ>> inner)
@@ -117,8 +161,7 @@ namespace FilterTor.Expressions
 
                     var e2 = Expression.LessThanOrEqual(fieldExtractor.Body, Expression.Constant(converter(minMax[1]), typeof(TProp)));
 
-                    expression = Expression.And(e1, e2);
-
+                    expression = Expression.AndAlso(e1, e2);
                     break;
 
                 case Operation.In:
@@ -231,24 +274,26 @@ namespace FilterTor.Expressions
                     break;
 
                 case Operation.Between:
-                    var minValue = (target as JsonRangeTarget).MinValue;
-                    var maxValue = (target as JsonRangeTarget).MaxValue;
+                    var minValue = (target as JsonRangeTarget)!.MinValue;
+                    var maxValue = (target as JsonRangeTarget)!.MaxValue;
 
                     var e1 = Expression.GreaterThanOrEqual(fieldExtractor.Body, Expression.Constant(converter(minValue), typeof(TProp)));
 
                     var e2 = Expression.LessThanOrEqual(fieldExtractor.Body, Expression.Constant(converter(maxValue), typeof(TProp)));
 
-                    expression = Expression.And(e1, e2);
+                    expression = Expression.AndAlso(e1, e2);
 
                     break;
 
                 case Operation.In:
-                    var predicates1 = (target as JsonArrayTarget)?.Values.Select(i =>
-                        Expression.Lambda<Func<T, bool>>(
-                            Expression.Equal(fieldExtractor.Body, Expression.Constant(converter(i), typeof(TProp))),
-                            param))?.ToList();
+                    //var predicates1 = (target as JsonArrayTarget)?.Values.Select(i =>
+                    //    Expression.Lambda<Func<T, bool>>(
+                    //        Expression.Equal(fieldExtractor.Body, Expression.Constant(converter(i), typeof(TProp))),
+                    //        param))?.ToList();
 
-                    return Or(predicates1);
+                    //return Or(predicates1);
+                    expression = In(fieldExtractor, (target as JsonArrayTarget)!.Values.Select(i => converter(i)));
+                    break;
 
                 case Operation.NotIn:
                     var predicates2 = (target as JsonArrayTarget)?.Values.Select(i =>

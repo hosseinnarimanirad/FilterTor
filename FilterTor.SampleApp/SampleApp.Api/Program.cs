@@ -16,9 +16,10 @@ using SampleApp.FilterTorEx;
 using SampleApp.FilterTorEx.Entities;
 using SampleApp.Core.Entities;
 using FilterTor.Resolvers;
+using FilterTor.Strategies;
 
 var builder = WebApplication.CreateBuilder(args);
- 
+
 builder.Host.UseCustomSerilog();
 
 builder.Services.ScanInjections();
@@ -68,10 +69,10 @@ builder.Services.AddSwaggerGen(s =>
 {
     s.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"SampleApp.Presentation.Swagger.xml"));
 });
- 
+
 builder.Services.ConfigureMapster();
 builder.Services.ConfigureFluentValidation();
- 
+
 typeof(EntityType).Assembly.GetTypes()
     .Where(item => item.GetInterfaces()
                         .Where(i => i.IsGenericType).Any(i => i.GetGenericTypeDefinition() == typeof(ISortResolver<>)) && !item.IsAbstract && !item.IsInterface)
@@ -92,6 +93,9 @@ typeof(EntityType).Assembly.GetTypes()
         var serviceType = assignedTypes.GetInterfaces().First(i => i.GetGenericTypeDefinition() == typeof(IEntityResolver<>));
         builder.Services.AddScoped(serviceType, assignedTypes);
     });
+
+builder.Services.AddScoped(typeof(SingleSourceStrategy<>));
+builder.Services.AddScoped(typeof(FilterTorStrategyContext<>));
 
 
 // **********************************************************

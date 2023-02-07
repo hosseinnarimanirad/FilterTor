@@ -24,7 +24,7 @@ public class CustomerResolver : EntityResolver<Customer>
 
     public CustomerResolver()
     {
-        SecondaryConditions = new List<string>() { CustomerProperty.Credit.ToString(), CustomerProperty.RegisteredDate.ToString() };
+        SecondaryConditions = new List<string>() { CustomerProperty.RegisteredDate.ToString() };
     }
 
     public override Expression<Func<Customer, bool>> GetPropertyFilter(JsonTargetBase? target, string propType, Operation operation)
@@ -32,10 +32,10 @@ public class CustomerResolver : EntityResolver<Customer>
         switch (EnumHelper.TryParseIgnoreCase<CustomerProperty>(propType))
         {
             case CustomerProperty.Credit:
-                return ExpressionUtility.Compare<Customer, decimal>(_byCreditFilter.Expression, target, decimal.Parse, operation);
+                return ExpressionUtility.Compare(_byCreditFilter.Expression, target, decimal.Parse, operation);
 
             case CustomerProperty.RegisteredDate:
-                return ExpressionUtility.Compare<Customer, DateTime>(_byRegisteredDateFilter.Expression, target, DateTime.Parse, operation);
+                return ExpressionUtility.Compare(_byRegisteredDateFilter.Expression, target, DateTime.Parse, operation);
 
             default:
                 throw new NotImplementedException("CustomerResolver -> GetPropertyFilter");
