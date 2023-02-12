@@ -32,10 +32,12 @@ public static class IServiceCollectionExtensions
     {
         services.Scan(delegate (ITypeSourceSelector scan)
         {
-            scan.FromApplicationDependencies().AddClasses(delegate (IImplementationTypeFilter classes)
-            {
-                classes.AssignableTo<ISingleton>();
-            }).AsImplementedInterfaces()
+            scan.FromApplicationDependencies()
+                .AddClasses(delegate (IImplementationTypeFilter classes)
+                {
+                    classes.AssignableTo<ISingleton>();
+                })
+                .AsImplementedInterfaces()
                 .WithSingletonLifetime()
                 .AddClasses(delegate (IImplementationTypeFilter classes)
                 {

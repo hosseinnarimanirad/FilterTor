@@ -7,8 +7,9 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SampleApp.Presentation; 
+namespace SampleApp.Presentation;
 
+// ref: https://codewithmukesh.com/blog/modular-architecture-in-aspnet-core/
 internal class InternalControllerFeatureProvider : ControllerFeatureProvider
 {
     protected override bool IsController(TypeInfo typeInfo)
