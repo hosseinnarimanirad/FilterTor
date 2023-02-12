@@ -17,86 +17,29 @@ using SampleApp.FilterTorEx.Entities;
 using SampleApp.Core.Entities;
 using FilterTor.Resolvers;
 using FilterTor.Strategies;
+using SampleApp.Persistence.Ef;
+using SampleApp.Presentation.Extensions;
+using SampleApp.Persistence.Ef.Extensions;
+using SampleApp.FilterTorEx.Extensions;
+using SampleApp.Api.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseCustomSerilog();
 
-builder.Services.ScanInjections();
+builder.Services.ConfigureServiceLifetimes()
+    .ConfigureControllers()
+    .ConfigureMediatR()
+    .ConfigureOptions<DatabaseOptionsSetup>()
+    .ConfigureEfContext()
+    .ConfigureMapster()
+    .ConfigureFluentValidation()
+    .ConfigureFilterTorServices()
+    // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+    .AddEndpointsApiExplorer()
+    .ConfigureSwagger();
 
-builder.Services.AddControllers()
-                .AddApplicationPart(typeof(TableController).Assembly)
-                .AddJsonOptions(options =>
-                {
-                    options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
-                    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-                    //options.JsonSerializerOptions.Converters.Add(new ConditionJsonConverter());
-                    //options.JsonSerializerOptions.Converters.Add(new TargetJsonConverter());
-                });
-
-
-builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
-builder.Services.AddMediatR(Assembly.GetAssembly(typeof(StartupExtensions))!);
-
-builder.Services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
-
-builder.Services.ConfigureOptions<DatabaseOptionsSetup>();
-
-builder.Services.AddDbContext<SampleAppContext>((serviceProvider, dbContextOptionsBuilder) =>
-{
-    var databaseOptions = serviceProvider.GetService<IOptions<DatabaseOptions>>()!.Value;
-
-    dbContextOptionsBuilder.UseSqlServer(databaseOptions.ConnectionString, sqlServerAction =>
-    {
-        sqlServerAction.EnableRetryOnFailure(databaseOptions.MaxRetryCount);
-        sqlServerAction.CommandTimeout(databaseOptions.CommandTimeout);
-    });
-
-    dbContextOptionsBuilder.EnableDetailedErrors(databaseOptions.EnableDetailedErrors);
-    dbContextOptionsBuilder.EnableSensitiveDataLogging(databaseOptions.EnableSensitiveDataLogging);
-
-#if DEBUG
-    LoggerFactory _loggerFactory = new LoggerFactory(new[] { new Microsoft.Extensions.Logging.Debug.DebugLoggerProvider() });
-    dbContextOptionsBuilder.UseLoggerFactory(_loggerFactory);
-#endif
-
-});
-
-
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(s =>
-{
-    s.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"SampleApp.Presentation.Swagger.xml"));
-});
-
-builder.Services.ConfigureMapster();
-builder.Services.ConfigureFluentValidation();
-
-typeof(EntityType).Assembly.GetTypes()
-    .Where(item => item.GetInterfaces()
-                        .Where(i => i.IsGenericType).Any(i => i.GetGenericTypeDefinition() == typeof(ISortResolver<>)) && !item.IsAbstract && !item.IsInterface)
-    .ToList()
-    .ForEach(assignedTypes =>
-    {
-        var serviceType = assignedTypes.GetInterfaces().First(i => i.GetGenericTypeDefinition() == typeof(ISortResolver<>));
-        builder.Services.AddScoped(serviceType, assignedTypes);
-    });
-
-
-typeof(EntityType).Assembly.GetTypes()
-    .Where(item => item.GetInterfaces()
-                        .Where(i => i.IsGenericType).Any(i => i.GetGenericTypeDefinition() == typeof(IEntityResolver<>)) && !item.IsAbstract && !item.IsInterface)
-    .ToList()
-    .ForEach(assignedTypes =>
-    {
-        var serviceType = assignedTypes.GetInterfaces().First(i => i.GetGenericTypeDefinition() == typeof(IEntityResolver<>));
-        builder.Services.AddScoped(serviceType, assignedTypes);
-    });
-
-builder.Services.AddScoped(typeof(SingleSourceStrategy<>));
-builder.Services.AddScoped(typeof(FilterTorStrategyContext<>));
-
+ 
 
 // **********************************************************
 // **********************************************************

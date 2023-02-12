@@ -1,4 +1,4 @@
-﻿namespace SampleApp.Api;
+﻿namespace SampleApp.Persistence.Ef;
 
 public class DatabaseOptions
 {

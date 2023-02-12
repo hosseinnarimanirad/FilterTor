@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
+using SampleApp.Persistence.Ef;
 
 namespace SampleApp.Api;
 
