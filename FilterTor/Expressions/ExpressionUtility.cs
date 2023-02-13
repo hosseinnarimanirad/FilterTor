@@ -231,13 +231,18 @@ namespace FilterTor.Expressions
             Expression expression = null;
 
             Expression? targetExpression = null;
-
+             
             switch (target)
             {
                 case JsonConstantTarget jsonConstantTarget:
                     targetExpression = Expression.Constant(converter(jsonConstantTarget.Value), typeof(TProp));
                     break;
 
+                case JsonArrayTarget jsonArrayTarget:
+                case JsonCollectionPropertyTarget jsonCollectionPropertyTarget:
+                case JsonMeasureTarget jsonMeasureTarget:
+                case JsonPropertyTarget jsonPropertyTarget:
+                case JsonRangeTarget jsonRangeTarget:
                 default:
                     break;
             }
@@ -245,32 +250,32 @@ namespace FilterTor.Expressions
             switch (operation)
             {
                 case Operation.EqualsTo:
-                    expression = Expression.Equal(fieldExtractor.Body, targetExpression);
+                    expression = Expression.Equal(fieldExtractor.Body, targetExpression!);
                     break;
 
                 case Operation.StartsWith:
                 case Operation.EndsWith:
-                    expression = Expression.Call(fieldExtractor.Body, operation.GetName(), null, targetExpression);
+                    expression = Expression.Call(fieldExtractor.Body, operation.GetName(), null, targetExpression!);
                     break;
 
                 case Operation.NotEqualTo:
-                    expression = Expression.NotEqual(fieldExtractor.Body, targetExpression);
+                    expression = Expression.NotEqual(fieldExtractor.Body, targetExpression!);
                     break;
 
                 case Operation.GreaterThan:
-                    expression = Expression.GreaterThan(fieldExtractor.Body, targetExpression);
+                    expression = Expression.GreaterThan(fieldExtractor.Body, targetExpression!);
                     break;
 
                 case Operation.GreaterThanOrEqualTo:
-                    expression = Expression.GreaterThanOrEqual(fieldExtractor.Body, targetExpression);
+                    expression = Expression.GreaterThanOrEqual(fieldExtractor.Body, targetExpression!);
                     break;
 
                 case Operation.LessThan:
-                    expression = Expression.LessThan(fieldExtractor.Body, targetExpression);
+                    expression = Expression.LessThan(fieldExtractor.Body, targetExpression!);
                     break;
 
                 case Operation.LessThanOrEqualTo:
-                    expression = Expression.LessThanOrEqual(fieldExtractor.Body, targetExpression);
+                    expression = Expression.LessThanOrEqual(fieldExtractor.Body, targetExpression!);
                     break;
 
                 case Operation.Between:
