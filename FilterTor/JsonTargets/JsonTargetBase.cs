@@ -24,4 +24,13 @@ public class JsonTargetBase : IJsonEntity
     {
         return TargetType != 0;
     }
+
+    public IEnumerable<T> GetValues<T>(Func<string, T> converter)
+    {
+        if (TargetType != TargetType.Array)
+            throw new NotImplementedException("JsonTargetBase > GetValues");
+        
+        else
+            return (this as JsonArrayTarget)!.Values.Select(i => converter(i));
+    }
 }

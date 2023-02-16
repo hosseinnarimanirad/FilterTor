@@ -10,9 +10,7 @@ public interface IUnitOfWork : IDisposable
     IPrizeStoreCommandRepository PrizeStores { get; }
 
     IInvoiceCommandRepository Invoices { get; }
-
-    //IInvoiceDetailCommandRepository InvoiceDetails { get; }
-
+     
 
     void SaveChanges();
 

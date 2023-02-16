@@ -113,117 +113,6 @@ namespace FilterTor.Expressions
                 inner.Parameters[0]);
         }
 
-        public static Expression<Func<T, bool>> Compare<T, TProp>(Expression<Func<T, TProp>> fieldExtractor, string value, Func<string, TProp> converter, Operation operation)
-        {
-            if (fieldExtractor == null || converter == null)
-                return t => false;
-
-            var param = fieldExtractor.Parameters.First();
-
-            Expression expression = null;
-
-            //Expression constantExpression = Expression.Constant(converter(value), typeof(TProp));
-
-            switch (operation)
-            {
-                case Operation.EqualsTo:
-                    expression = Expression.Equal(fieldExtractor.Body, Expression.Constant(converter(value), typeof(TProp)));
-                    break;
-
-                case Operation.StartsWith:
-                case Operation.EndsWith:
-                    return FilterStringProperty(fieldExtractor, converter(value), operation.GetName());
-
-                case Operation.NotEqualTo:
-                    expression = Expression.NotEqual(fieldExtractor.Body, Expression.Constant(converter(value), typeof(TProp)));
-                    break;
-
-                case Operation.GreaterThan:
-                    expression = Expression.GreaterThan(fieldExtractor.Body, Expression.Constant(converter(value), typeof(TProp)));
-                    break;
-
-                case Operation.GreaterThanOrEqualTo:
-                    expression = Expression.GreaterThanOrEqual(fieldExtractor.Body, Expression.Constant(converter(value), typeof(TProp)));
-                    break;
-
-                case Operation.LessThan:
-                    expression = Expression.LessThan(fieldExtractor.Body, Expression.Constant(converter(value), typeof(TProp)));
-                    break;
-
-                case Operation.LessThanOrEqualTo:
-                    expression = Expression.LessThanOrEqual(fieldExtractor.Body, Expression.Constant(converter(value), typeof(TProp)));
-                    break;
-
-                case Operation.Between:
-                    var minMax = value.ToString().Split(",").ToList();
-
-                    var e1 = Expression.GreaterThanOrEqual(fieldExtractor.Body, Expression.Constant(converter(minMax[0]), typeof(TProp)));
-
-                    var e2 = Expression.LessThanOrEqual(fieldExtractor.Body, Expression.Constant(converter(minMax[1]), typeof(TProp)));
-
-                    expression = Expression.AndAlso(e1, e2);
-                    break;
-
-                case Operation.In:
-
-                    var values1 = value.Split(',').ToList();
-
-                    var predicates1 = values1.Select(i =>
-                        Expression.Lambda<Func<T, bool>>(
-                            Expression.Equal(fieldExtractor.Body, Expression.Constant(converter(i), typeof(TProp))),
-                            param))?.ToList(); //BatchProductFilters.GetFilter(i, condition.PropName, condition.OperationName))?.ToList();
-
-                    return Or(predicates1);
-
-                case Operation.NotIn:
-
-                    var values2 = value.Split(',').ToList();
-
-                    var predicates2 = values2.Select(i =>
-                        Expression.Lambda<Func<T, bool>>(
-                            Expression.NotEqual(fieldExtractor.Body, Expression.Constant(converter(i), typeof(TProp))),
-                            param))?.ToList(); //BatchProductFilters.GetFilter(i, condition.PropName, condition.OperationName))?.ToList();
-
-                    return And(predicates2);
-
-                case Operation.Contains:
-                    var array = converter(value) as List<object>;
-
-                    var predicates3 = array.Select(i => Expression.Lambda<Func<T, bool>>(
-                                          Expression.Call(fieldExtractor.Body,
-                                          "Contains",
-                                          null,
-                                          Expression.Constant(i)), fieldExtractor.Parameters)).ToList();
-
-                    return And(predicates3);
-
-                // 1400.05.27
-                // این کد کار کرد اما تبدیل به کوئری روی اس‌کیو‌ال نمی شد
-                //case Operation.NotContains:
-                //    var array2 = converter(value);
-
-                //    var array3 = array2 as IEnumerable;
-
-                //    List<Expression<Func<T, bool>>> predicates5 = new List<Expression<Func<T, bool>>>();
-
-                //    foreach (var item in array3)
-                //    {
-                //        predicates5.Add(Expression.Lambda<Func<T, bool>>(
-                //                          Expression.Call(fieldExtractor.Body,
-                //                          "Contains",
-                //                          null,
-                //                          Expression.Constant(item)), fieldExtractor.Parameters));
-                //    }
-
-                //    return ExpressionUtility.Not(ExpressionUtility.And(predicates5));
-
-                default:
-                    throw new NotImplementedException("ExpressionUtility -> Compare");
-            }
-
-            return Expression.Lambda<Func<T, bool>>(expression, param);
-        }
-
         public static Expression<Func<T, bool>> Compare<T, TProp>(Expression<Func<T, TProp>> fieldExtractor, JsonTargetBase target, Func<string, TProp> converter, Operation operation)
         {
             var param = fieldExtractor.Parameters.First();
@@ -231,7 +120,7 @@ namespace FilterTor.Expressions
             Expression expression = null;
 
             Expression? targetExpression = null;
-             
+
             switch (target)
             {
                 case JsonConstantTarget jsonConstantTarget:
@@ -324,6 +213,72 @@ namespace FilterTor.Expressions
             return Expression.Lambda<Func<T, bool>>(expression, param);
         }
 
+
+        public static Expression<Func<T, bool>> Compare<T, TProp>(Expression<Func<T, IEnumerable<TProp>>> fieldExtractor, JsonTargetBase target, Func<string, TProp> converter, Operation operation)
+        {
+            var param = fieldExtractor.Parameters.First();
+
+            Expression? expression = null;
+
+            Expression? targetExpression = null;
+
+            switch (target)
+            {
+                case JsonConstantTarget jsonConstantTarget:
+                    targetExpression = Expression.Constant(converter(jsonConstantTarget.Value), typeof(TProp));
+                    break;
+
+                case JsonArrayTarget jsonArrayTarget:
+
+                case JsonCollectionPropertyTarget jsonCollectionPropertyTarget:
+
+                default:
+                    throw new NotImplementedException("ExpressionUtility > Compare");
+            }
+
+            switch (operation)
+            {
+                //case Operation.Between:
+                //case Operation.In:
+                //case Operation.NotIn:
+                //case Operation.Contains:
+
+                case Operation.IncludeAll:
+
+                    break;
+                case Operation.IncludeAny:
+                case Operation.ExcludeAll:
+                case Operation.ExcludeAny:
+                    break;
+
+                default:
+                    throw new NotImplementedException("ExpressionUtility -> Compare");
+            }
+
+            return Expression.Lambda<Func<T, bool>>(expression, param);
+
+
+
+            //var customerParam = Expression.Parameter(typeof(Customer), "c");
+            //var groupsParam = Expression.Parameter(typeof(List<CustomerGroup>), "groups");
+            //var groupParam = Expression.Parameter(typeof(CustomerGroup), "g");
+            //var anyCall = Expression.Call(
+            //    Expression.Property(customerParam, "CustomerGroups"),
+            //    typeof(Enumerable).GetMethod("Any"),
+            //    Expression.Lambda<Func<CustomerGroup, bool>>(
+            //        Expression.Call(
+            //            Expression.Property(groupsParam, "Contains"),
+            //            groupParam
+            //        ),
+            //        groupParam
+            //    )
+            //);
+            //var expression = Expression.Lambda<Func<List<CustomerGroup>, Customer, bool>>(
+            //    anyCall,
+            //    groupsParam,
+            //    customerParam
+            //);
+        }
 
 
         public static Expression<Func<T, bool>> FilterStringProperty<T, TProp>(Expression<Func<T, TProp>> expression, TProp filter, string method)

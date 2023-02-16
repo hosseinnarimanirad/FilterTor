@@ -41,7 +41,7 @@ public class SampleAppContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         // 1401.08.18
-        modelBuilder.ConfigureInterfaces();
+        //modelBuilder.ConfigureInterfaces();
 
         // 1401.08.08
         //modelBuilder.ApplyConfigurationsFromAssembly(
@@ -49,7 +49,15 @@ public class SampleAppContext : DbContext
         //    t => t.GetInterfaces().Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IEntityTypeConfiguration<>)));
 
         // 1401.08.08
+        modelBuilder.ConfigureInterfaces();
+
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+        // 1401.11.25
+        // SUGGESTED BY Milan Jovanovic
+        var assembly = typeof(SampleAppContext).Assembly;
+
+        modelBuilder.ApplyConfigurationsFromAssembly(assembly);
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
