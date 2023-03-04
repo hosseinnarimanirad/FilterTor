@@ -21,7 +21,8 @@ Consider creating a discount module for the following data model.
 Clients should be able to define and store the conditions under which discounts are granted for a period of time. 
 
 1. All golden customers (customers having the "Golden" type in CustomerGroup table)
-1. All golden customers 
+1. All customers except those who belong to "Limited" group
+1. All golden and private customers 
 1. All private customers with credit greater than 300,000
 1. All customers except "Suspended" and "Limited" ones
 1. All new customers (RegisteredDate within one month) 

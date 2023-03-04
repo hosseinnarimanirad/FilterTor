@@ -39,11 +39,27 @@ builder.Services.ConfigureServiceLifetimes()
     .AddEndpointsApiExplorer()
     .ConfigureSwagger();
 
- 
+
 
 // **********************************************************
 // **********************************************************
+// we are creating the app variable of the
+// type WebApplication. This class (WebApplication)
+// is very important since it implements multiple
+// interfaces like
+//     * IHost
+//          that we can use to start and stop the host,
+//     * IApplicationBuilder
+//          that we use to build the middleware pipeline
+//          (as you could’ve seen from our previous
+//          custom code), and
+//     * IEndpointRouteBuilder
+//          used to add endpoints in our app.
+
 var app = builder.Build();
+
+// To chain multiple request delegates
+// in our code, we can use the Use method.
 
 bool debug = false;
 
@@ -54,12 +70,39 @@ debug = true;
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+else
+{
+    app.UseHsts();
+}
+
+// is used to add the middleware for the
+// redirection from HTTP to HTTPS
+app.UseHttpsRedirection();
+
+// enables using static files for the
+// request. If we don’t set a path to
+// the static files directory, it will
+// use a wwwroot folder in our project
+// by default.
+//app.UseStaticFiles();
+
+// will forward proxy headers to the current request.
+// This will help us during application deployment.
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.All
+});
+
+app.UseCors("CorsPolicy");
 
 app.UseAuthorization();
 
+// adds the endpoints from controller
+// actions to the IEndpointRouteBuilder
 app.MapControllers();
 
 var logger = app.Services.GetService<Serilog.ILogger>();
@@ -90,6 +133,8 @@ try
 
     logger?.Information("Starting web host, env: {env}", Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"));
 
+    // runs the application and block the
+    // calling thread until the host shutdown.
     app.Run();
 }
 catch (Exception ex)

@@ -29,7 +29,11 @@ public static class IServiceCollectionExtensions
     // # scenario 2
     public static IServiceCollection ConfigureControllers(this IServiceCollection services/*, IConfiguration config*/)
     {
-        services.AddControllers()
+        services.AddControllers(
+            config => config.RespectBrowserAcceptHeader = true
+            )
+            // to enable "Content Negotiation"
+            //.AddXmlDataContractSerializerFormatters()
             .ConfigureApplicationPartManager(manager =>
             {
                 manager.FeatureProviders.Add(new InternalControllerFeatureProvider());
