@@ -17,6 +17,8 @@ public sealed class CustomerConfig : IEntityTypeConfiguration<Customer>
 
         builder.Property(e => e.RegisteredDate).HasColumnType("DATE");
 
+        builder.Property(e => e.Credit).HasPrecision(18, 2);
+
         var navigation = builder.Metadata.FindNavigation(nameof(Customer.CustomerGroups));
 
         if (navigation is null)
@@ -28,7 +30,8 @@ public sealed class CustomerConfig : IEntityTypeConfiguration<Customer>
             new Customer("Customer A", new DateTime(2021, 1, 1), 100000m) { Id = 100000 },
             new Customer("Customer B", new DateTime(2020, 6, 1), 200000m) { Id = 100001 },
             new Customer("Customer C", new DateTime(2020, 1, 1), 300000m) { Id = 100002 },
-            new Customer("Customer D", new DateTime(2019, 1, 1), 400000m) { Id = 100003 });
+            new Customer("Customer D", new DateTime(2019, 1, 1), 400000m) { Id = 100003 }
+            );
     }
 }
 

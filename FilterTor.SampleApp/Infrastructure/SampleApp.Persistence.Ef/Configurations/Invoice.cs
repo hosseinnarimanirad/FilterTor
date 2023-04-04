@@ -26,6 +26,8 @@ public sealed class InvoiceConfig : IEntityTypeConfiguration<Invoice>
         builder.Property(e => e.InvoiceType)
             .HasConversion(new EnumToStringConverter<InvoiceType>());
 
+        builder.Property(e => e.TotalAmount).HasPrecision(18, 2);
+
         builder.HasOne(e => e.Customer)
             .WithMany()
             .HasForeignKey(e => e.CustomerId)

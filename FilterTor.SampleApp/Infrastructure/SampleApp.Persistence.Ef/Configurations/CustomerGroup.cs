@@ -35,7 +35,8 @@ public sealed class CustomerGroupConfig : IEntityTypeConfiguration<CustomerGroup
             new CustomerGroup() { Id = 5, CreateTime = new DateTime(2021, 1, 1), CustomerId = 100002, Type = CustomerGroupType.PrivateSector },
             new CustomerGroup() { Id = 6, CreateTime = new DateTime(2022, 5, 1), CustomerId = 100002, Type = CustomerGroupType.Suspended },
             new CustomerGroup() { Id = 7, CreateTime = new DateTime(2022, 5, 1), CustomerId = 100002, Type = CustomerGroupType.Limited },
-            new CustomerGroup() { Id = 8, CreateTime = new DateTime(2022, 4, 1), CustomerId = 100003, Type = CustomerGroupType.Government });
+            new CustomerGroup() { Id = 8, CreateTime = new DateTime(2022, 4, 1), CustomerId = 100003, Type = CustomerGroupType.Government }
+            );
     }
 }
 

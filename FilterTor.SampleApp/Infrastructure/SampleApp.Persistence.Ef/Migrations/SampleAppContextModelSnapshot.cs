@@ -31,6 +31,7 @@ namespace SampleApp.Persistence.Ef.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<decimal>("Credit")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Name")
@@ -194,6 +195,7 @@ namespace SampleApp.Persistence.Ef.Migrations
                         .HasColumnType("bit");
 
                     b.Property<decimal>("TotalAmount")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
@@ -206,7 +208,7 @@ namespace SampleApp.Persistence.Ef.Migrations
                         new
                         {
                             Id = 100L,
-                            CreateTime = new DateTime(2022, 12, 12, 13, 50, 14, 117, DateTimeKind.Local).AddTicks(8178),
+                            CreateTime = new DateTime(2023, 4, 4, 13, 8, 36, 4, DateTimeKind.Local).AddTicks(2391),
                             CustomerId = 100000L,
                             InvoiceDate = new DateTime(2022, 12, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             InvoiceNumber = "100100",
@@ -217,7 +219,7 @@ namespace SampleApp.Persistence.Ef.Migrations
                         new
                         {
                             Id = 101L,
-                            CreateTime = new DateTime(2022, 12, 12, 13, 50, 14, 117, DateTimeKind.Local).AddTicks(8220),
+                            CreateTime = new DateTime(2023, 4, 4, 13, 8, 36, 4, DateTimeKind.Local).AddTicks(2403),
                             CustomerId = 100001L,
                             InvoiceDate = new DateTime(2022, 11, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             InvoiceNumber = "100101",
@@ -228,7 +230,7 @@ namespace SampleApp.Persistence.Ef.Migrations
                         new
                         {
                             Id = 102L,
-                            CreateTime = new DateTime(2022, 12, 12, 13, 50, 14, 117, DateTimeKind.Local).AddTicks(8223),
+                            CreateTime = new DateTime(2023, 4, 4, 13, 8, 36, 4, DateTimeKind.Local).AddTicks(2405),
                             CustomerId = 100001L,
                             InvoiceDate = new DateTime(2022, 1, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             InvoiceNumber = "100102",
@@ -239,7 +241,7 @@ namespace SampleApp.Persistence.Ef.Migrations
                         new
                         {
                             Id = 103L,
-                            CreateTime = new DateTime(2022, 12, 12, 13, 50, 14, 117, DateTimeKind.Local).AddTicks(8225),
+                            CreateTime = new DateTime(2023, 4, 4, 13, 8, 36, 4, DateTimeKind.Local).AddTicks(2406),
                             CustomerId = 100002L,
                             InvoiceDate = new DateTime(2022, 10, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             InvoiceNumber = "100103",
@@ -250,7 +252,7 @@ namespace SampleApp.Persistence.Ef.Migrations
                         new
                         {
                             Id = 104L,
-                            CreateTime = new DateTime(2022, 12, 12, 13, 50, 14, 117, DateTimeKind.Local).AddTicks(8228),
+                            CreateTime = new DateTime(2023, 4, 4, 13, 8, 36, 4, DateTimeKind.Local).AddTicks(2407),
                             CustomerId = 100003L,
                             InvoiceDate = new DateTime(2021, 7, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             InvoiceNumber = "100104",
@@ -261,7 +263,7 @@ namespace SampleApp.Persistence.Ef.Migrations
                         new
                         {
                             Id = 105L,
-                            CreateTime = new DateTime(2022, 12, 12, 13, 50, 14, 117, DateTimeKind.Local).AddTicks(8230),
+                            CreateTime = new DateTime(2023, 4, 4, 13, 8, 36, 4, DateTimeKind.Local).AddTicks(2408),
                             CustomerId = 100002L,
                             InvoiceDate = new DateTime(2021, 4, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             InvoiceNumber = "100105",
@@ -283,6 +285,7 @@ namespace SampleApp.Persistence.Ef.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("Discount")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<long>("InvoiceId")
@@ -295,6 +298,7 @@ namespace SampleApp.Persistence.Ef.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<decimal>("UnitPrice")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");

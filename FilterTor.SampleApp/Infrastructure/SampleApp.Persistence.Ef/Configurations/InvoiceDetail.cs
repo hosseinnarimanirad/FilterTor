@@ -16,6 +16,10 @@ public sealed class InvoiceDetailConfig : IEntityTypeConfiguration<InvoiceDetail
 
         builder.HasKey(e => e.Id);
 
+        builder.Property(e => e.Discount).HasPrecision(18, 2);
+
+        builder.Property(e => e.UnitPrice).HasPrecision(18, 2);
+
         builder.HasOne(e => e.Invoice)
             .WithMany(e => e.InvoiceDetails)
             .HasForeignKey(e => e.InvoiceId)
