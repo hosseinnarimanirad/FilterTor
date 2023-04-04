@@ -21,6 +21,7 @@ public class JsonCondition_Validation
     [Fact]
     public void Condition_PropertyCondition_ConstantTarget_Deserialize_Method()
     {
+        // ARRANGE
         string conditionJson = @"
         {
             ""category"":""property"",
@@ -33,8 +34,10 @@ public class JsonCondition_Validation
                 }
         }";
 
+        // ACT
         var condition = JsonConditionBase.Deserialize(conditionJson) as JsonPropertyCondition;
 
+        // ASSERT
         Assert.NotNull(condition);
 
         Assert.True(condition.Validate(new InvoiceResolver()));
@@ -56,6 +59,7 @@ public class JsonCondition_Validation
     [Fact]
     public void Condition_PropertyCondition_RangeTarget_Deserialize_Method()
     {
+        // ARRANGE
         string conditionJson = @"
         {
             ""category"":""property"",
@@ -69,8 +73,10 @@ public class JsonCondition_Validation
                 }
         }";
 
+        // ACT
         var condition = JsonConditionBase.Deserialize(conditionJson) as JsonPropertyCondition;
 
+        // ASSERT
         Assert.NotNull(condition);
 
         Assert.True(condition.Validate(new InvoiceResolver()));
@@ -93,6 +99,7 @@ public class JsonCondition_Validation
     [Fact]
     public void Condition_PropertyCondition_ArrayTarget_Deserialize_Method()
     {
+        // ARRANGE
         string conditionJson = @"
         {
             ""category"":""property"",
@@ -105,8 +112,10 @@ public class JsonCondition_Validation
                 }
         }";
 
+        // ACT
         var condition = JsonConditionBase.Deserialize(conditionJson) as JsonPropertyCondition;
 
+        // ASSERT
         Assert.NotNull(condition);
 
         Assert.True(condition.Validate(new InvoiceResolver()));
@@ -128,6 +137,7 @@ public class JsonCondition_Validation
     [Fact]
     public void Condition_PropertyCondition_PropertyTarget_Deserialize_Method()
     {
+        // ARRANGE
         string conditionJson = @"
         {
             ""category"":""property"",
@@ -141,8 +151,10 @@ public class JsonCondition_Validation
                 }
         }";
 
+        // ACT
         var condition = JsonConditionBase.Deserialize(conditionJson) as JsonPropertyCondition;
 
+        // ASSERT
         Assert.NotNull(condition);
 
         var target = condition.Target as JsonPropertyTarget;
@@ -169,6 +181,7 @@ public class JsonCondition_Validation
     [Fact]
     public void Condition_PropertyCondition_CollectionPropertyTarget_Deserialize_Method()
     {
+        // ARRANGE
         string conditionJson = @"
         {
             ""category"":""property"",
@@ -182,8 +195,10 @@ public class JsonCondition_Validation
                 }
         }";
 
+        // ACT
         var condition = JsonConditionBase.Deserialize(conditionJson) as JsonPropertyCondition;
 
+        // ASSERT
         Assert.NotNull(condition);
 
         var target = condition.Target as JsonCollectionPropertyTarget;
@@ -210,6 +225,7 @@ public class JsonCondition_Validation
     [Fact]
     public void Condition_PropertyCondition_MeasureTarget_Deserialize_Method()
     {
+        // ARRANGE
         string conditionJson = @"
         {
             ""category"":""property"",
@@ -223,8 +239,10 @@ public class JsonCondition_Validation
                 }
         }";
 
+        // ACT
         var condition = JsonConditionBase.Deserialize(conditionJson) as JsonPropertyCondition;
 
+        // ASSERT
         Assert.NotNull(condition);
 
         var target = condition.Target as JsonMeasureTarget;
@@ -251,6 +269,7 @@ public class JsonCondition_Validation
     [Fact]
     public void Condition_CollectionPropertyCondition_ConstantTarget_Method()
     {
+        // ARRANGE
         string conditionJson = @"
         {
             ""category"":""collectionProperty"",
@@ -264,8 +283,10 @@ public class JsonCondition_Validation
                 }
         }";
 
+        // ACT
         var condition = JsonConditionBase.Deserialize(conditionJson) as JsonCollectionPropertyCondition;
 
+        // ASSERT
         Assert.NotNull(condition);
 
         Assert.True(condition.Validate(new InvoiceResolver()));
@@ -288,6 +309,7 @@ public class JsonCondition_Validation
     [Fact]
     public void Condition_MeasureCondition_ConstantTarget_Method()
     {
+        // ARRANGE
         string conditionJson = @"
         {
             ""category"":""measure"",
@@ -301,8 +323,10 @@ public class JsonCondition_Validation
                 }
         }";
 
+        // ACT
         var condition = JsonConditionBase.Deserialize(conditionJson) as JsonMeasureCondition;
 
+        // ASSERT
         Assert.NotNull(condition);
 
         Assert.True(condition.Validate(new InvoiceResolver()));

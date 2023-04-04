@@ -24,7 +24,7 @@ public class SampleAppContext : DbContext
 
     }
 
-    public SampleAppContext(DbContextOptions<SampleAppContext> options) : base(options)
+    public SampleAppContext(DbContextOptions<SampleAppContext> options) 
     {
     }
 
@@ -78,7 +78,5 @@ public class SampleAppContext : DbContext
 
             _ = optionsBuilder.UseSqlServer(connection, options => options.CommandTimeout((int)TimeSpan.FromMinutes(2).TotalSeconds));
         }
-
     }
-
 }
