@@ -12,7 +12,7 @@ namespace SampleApp.Presentation.Extensions;
 public static class IServiceCollectionExtensions
 {
 
-    // # scenario 1
+    // APPROACH #1
     //public static IServiceCollection ConfigureControllers(this IServiceCollection services)
     //{
     //    services.AddControllers()
@@ -26,7 +26,7 @@ public static class IServiceCollectionExtensions
     //    return services;
     //}
 
-    // # scenario 2
+    // APPROACH #2
     public static IServiceCollection ConfigureControllers(this IServiceCollection services/*, IConfiguration config*/)
     {
         services.AddControllers(

@@ -1,4 +1,4 @@
-﻿namespace Grid.Application;
+﻿namespace SampleApp.Application;
 
 using global::Mapster;
 using MediatR;

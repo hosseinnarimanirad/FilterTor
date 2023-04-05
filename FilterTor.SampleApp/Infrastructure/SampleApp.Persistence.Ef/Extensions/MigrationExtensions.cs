@@ -1,4 +1,4 @@
-﻿namespace Grid.Persistence.Ef.Extensions;
+﻿namespace SampleApp.Persistence.Ef.Extensions;
  
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;

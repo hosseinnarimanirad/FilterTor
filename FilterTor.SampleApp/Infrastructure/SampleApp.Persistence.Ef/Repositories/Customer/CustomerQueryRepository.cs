@@ -4,7 +4,7 @@ using FilterTor.Conditions;
 using FilterTor.Models;
 using FilterTor.Resolvers;
 using FilterTor.Strategies;
-using Grid.Persistence;
+using SampleApp.Persistence;
 using SampleApp.Application.Gateways.Repositories;
 using SampleApp.Core.Entities;
 using System;

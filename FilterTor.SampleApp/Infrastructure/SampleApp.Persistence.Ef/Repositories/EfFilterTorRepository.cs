@@ -3,8 +3,7 @@
 using FilterTor.Conditions;
 using FilterTor.Decorators;
 using FilterTor.Models;
-using FilterTor.Strategies;
-using Grid.Persistence;
+using FilterTor.Strategies; 
 using Microsoft.EntityFrameworkCore;
 using SampleApp.Core;
 using System.Collections.Generic;

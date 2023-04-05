@@ -1,8 +1,8 @@
-﻿namespace Grid.Persistence;
+﻿namespace SampleApp.Persistence;
 
 using FilterTor;
 using SampleApp.Core.Entities;
-using Grid.Persistence.Ef.Extensions;
+using SampleApp.Persistence.Ef.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using Microsoft.Extensions.Logging;

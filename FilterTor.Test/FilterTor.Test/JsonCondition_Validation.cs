@@ -1,4 +1,4 @@
-﻿namespace Grid.UnitTest;
+﻿namespace FilterTor.UnitTest;
 
 using FilterTor;
 using FilterTor.Conditions;

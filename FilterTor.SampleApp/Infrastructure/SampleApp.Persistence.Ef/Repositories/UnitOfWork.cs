@@ -1,6 +1,6 @@
 namespace SampleApp.Persistence.Ef.Repositories;
 
-using Grid.Persistence;
+using SampleApp.Persistence;
 using Microsoft.EntityFrameworkCore;
 using SampleApp.Application.Gateways;
 using SampleApp.Application.Gateways.Repositories;

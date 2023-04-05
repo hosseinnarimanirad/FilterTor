@@ -1,5 +1,5 @@
-using Grid.Application;
-using Grid.Persistence;
+using SampleApp.Application;
+using SampleApp.Persistence;
 using MediatR;
 using Microsoft.Extensions.Options;
 using SampleApp.Api;

@@ -5,7 +5,7 @@ using FilterTor.Decorators;
 using FilterTor.Extensions;
 using FilterTor.Models;
 using FilterTor.Resolvers;
-using Grid.Persistence;
+using SampleApp.Persistence;
 using Microsoft.EntityFrameworkCore;
 using SampleApp.Application.Gateways;
 using SampleApp.Core;
